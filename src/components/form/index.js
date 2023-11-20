@@ -1,12 +1,10 @@
-import { FormProvider } from "react-hook-form"
-import { Form } from "react-router-dom"
-
-function FormProvide(){
+import React from "react";
+export default function FormProvider({children, onSubmit, methods}){
     return(
-        <FormProvider methods={() => {}}>
-            <Form onSubmit={() => {}}>
-            </Form>
-        </FormProvider>
+        <form{...methods}>
+        <form onSubmit={onSubmit}>
+            {children}
+        </form>
+    </form>
     )
 }
-export default FormProvide
