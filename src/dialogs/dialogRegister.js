@@ -7,7 +7,7 @@ import { useEffect } from "react"
 
 function DialogRegisterForm(){
     const dispatch = useDispatch()
-    const open = useSelector((state) => state.dialogRegister.open)
+    const open = useSelector((state) => state.dialogRegister)
 
     const handleClose = () => {
         dispatch(closedDialog)

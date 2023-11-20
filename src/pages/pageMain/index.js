@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RHFTextField from '../../hookForms/RHFTextField';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import logo from "../../assets/logo.png";
 import PageInitial from '../pageInital';
@@ -46,8 +46,6 @@ function PageMain(){
 const classes = useStyles()
 
   const [isLoggedIn, setLoggedIn] = useState(false)
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("")
 
     const handleClick = () => {
       setLoggedIn(true)
@@ -59,12 +57,18 @@ const classes = useStyles()
         register,
         getValues,
         setValue,
-        trigger
+        trigger,
+        control
     } = methods
+
+    const testes = useWatch({
+      control,
+      name: "user",
+    });
 
     React.useEffect(() => {
       console.log("texto ", getValues())
-    },[user])
+    },[testes])
 
 
     return(
@@ -79,7 +83,6 @@ const classes = useStyles()
                   <Box className={classes.boxField}>
                     <RHFTextField
                       name={"user"}
-                      value={user}
                       label="Usuário"
                       className={classes.textField}
                     />
@@ -87,7 +90,6 @@ const classes = useStyles()
                   <Box className={classes.boxField}>
                       <RHFTextField
                         name={"password"}
-                        value={password}
                         label="Senha"
                         className={classes.textField}
                       />
