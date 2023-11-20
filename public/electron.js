@@ -1,15 +1,20 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
+
 const isDev = require("electron-is-dev")
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preloader.js"),
+      nodeIntegration: true
     },
+  
   });
-  //win.loadURL("http://localhost:3000");
+  //win.loadURL(isDev ? "http://localhost:3000" : `file://$${ path.join(__dirname, "") }`);
+   //win.loadURL("http://localhost:3000");
    // Verifique se está em modo de desenvolvimento (local)
    if (isDev) {
     // Carregue a URL do React no modo de desenvolvimento
@@ -18,6 +23,8 @@ function createWindow() {
     // Carregue o arquivo HTML da build do React
     win.loadFile("build/index.html");
   }
+
+  //mainWindow.loadFile(path.join(__dirname, ''))
 }
 
 app.whenReady().then(() => {
