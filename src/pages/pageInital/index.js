@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Header from '../../components/header';
 import { Box, Container, makeStyles } from '@material-ui/core';
 import FormProvider from '../../components/form';
+import RHFTextField from '../../hookForms/RHFTextField';
 
 const useStyles = makeStyles({
     container: {
@@ -31,16 +32,14 @@ function PageInitial(){
     } = methods
 
     return(
-        <FormProvider methods={methods} onSubmit={() => {}}>
-            <Container className={classes.container}>
-                <Box>
-                    <Header/>
-                </Box>
-                <Box>
-                <h1>container</h1>
-                </Box>
-            </Container>
-        </FormProvider>
+        <Container className={classes.container}>
+            <Box>
+                <Header/>
+            </Box>
+            <Box>
+
+            </Box>
+        </Container>
     )
 }
 export default PageInitial

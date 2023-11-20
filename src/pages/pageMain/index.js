@@ -4,6 +4,10 @@ import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import logo from "../../assets/logo.png";
 import PageInitial from '../pageInital';
+import { checkLogin } from '../../slices/sliceDialogRegister';
+import { useDispatch } from 'react-redux';
+import * as yup from 'yup';
+//import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles({
   container: {
@@ -43,11 +47,23 @@ const useStyles = makeStyles({
 });
 
 function PageMain(){
-const classes = useStyles()
+  const dispatch = useDispatch()
+  const classes = useStyles()
 
-  const [isLoggedIn, setLoggedIn] = useState(false)
+    const [isLoggedIn, setLoggedIn] = useState(false)
 
+    const schema = yup.object().shape({
+      user: yup.string().required("Dados inválidos"),
+      password: yup.string().required("Dados inválidos"),
+    });
+
+    /*const {handleSubmit, formState } = useForm({
+      mode: 'onBlur',
+      resolver: yupResolver(schema),
+    });
+*/
     const handleClick = () => {
+      dispatch(checkLogin(getValues()))
       setLoggedIn(true)
     }
     
@@ -58,6 +74,7 @@ const classes = useStyles()
         getValues,
         setValue,
         trigger,
+        reset,
         control
     } = methods
 
@@ -70,6 +87,7 @@ const classes = useStyles()
       console.log("texto ", getValues())
     },[testes])
 
+   
 
     return(
       <div>
