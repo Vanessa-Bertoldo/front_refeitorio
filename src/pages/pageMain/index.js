@@ -4,7 +4,7 @@ import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
 import logo from "../../assets/logo.png";
 import background from "../../assets/background.jpg";
-
+import backfood from "../../assets/backfood.jpg";
 import PageInitial from '../pageInital';
 import { checkLogin } from '../../slices/sliceDialogRegister';
 import { useDispatch } from 'react-redux';
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     divLogin: {
       width: "50%",
       backgroundColor: "#62905B",
-      textAlign: "center"
+      textAlign: "center",
     },
     divImage: {
       width: "50%",
@@ -29,7 +29,8 @@ const useStyles = makeStyles({
     },
     containerMain:{
       height: "100%",
-      width: "100%"
+      width: "100%",
+      verticalAlign: "center"
     },
     image:{
       width: "100%",
@@ -39,16 +40,14 @@ const useStyles = makeStyles({
     textField: {
       backgroundColor: "white",
       borderRadius: "10px",
-      width: "100%" //esta sem responsidade
+      width: "100%" 
     },
     boxMain: {
       width:"100%",
+      display: "grid",
+      gridTemplateColumns: "auto",
+      gap: "30px",
       textAlign: "--webkit-center"
-    },
-    box: {
-      padding: "20px",
-      width: "100%",
-      width:"100%"
     },
     boxButton: {
       width: "100%",
@@ -116,39 +115,32 @@ function PageMain(){
       <div>
       {
         !isLoggedIn ? (
-          <FormProvider methods={methods} onSubmit={() => {}}>
-            <Container className={classes.containerMain}>
+          <Container className={classes.containerMain}>
               <div className={classes.container}>
                 <div className={classes.divImage}>
-                  <img src={background} className={classes.image}/>
+                  <img src={backfood} className={classes.image}/>
                 </div>
                 <div className={classes.divLogin}>
                   <img src={logo} className={classes.logo}/>
                   <Box className={classes.boxMain}>
-                    <Box className={classes.box}>
-                      <RHFTextField
+                  <FormProvider methods={methods} onSubmit={() => {}}>
+                    <RHFTextField
                         name="user"
                         label="Usuário"
                         className={classes.textField}
-                      />
-                    </Box>
-                    <Box className={classes.box}>
+                        />
                       <RHFTextField
                         name="password"
                         label="Senha"
                         type="password"
                         className={classes.textField}
                       />
-                    </Box>
-                    <Box className={classes.boxButton}>
-                      <Button className={classes.button} onClick={handleClick}>ENTRAR</Button>
-                    </Box>
+                  </FormProvider>
+                    <Button className={classes.button} onClick={handleClick}>ENTRAR</Button>
                   </Box>
                 </div>
               </div>
             </Container>
-            
-          </FormProvider>
       ) : (
         <PageInitial/>
       )}

@@ -26,7 +26,8 @@ const useStyles = makeStyles({
    gridContainer: {
         display: "grid",
         gridTemplateColumns: "auto auto",
-        padding: "10px"
+        padding: "10px",
+        columnGap: "20px"
    },
    gridItem: {
 
