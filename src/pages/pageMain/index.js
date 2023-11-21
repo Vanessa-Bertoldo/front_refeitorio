@@ -52,6 +52,7 @@ const useStyles = makeStyles({
     },
     boxButton: {
       width: "100%",
+      gridArea: "footer",
       
     }, 
     button: {

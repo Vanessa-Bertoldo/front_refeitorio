@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",
-  "homepage": "./",
+  "homepage": "http://./",
   "author": "Vanessa Bertoldo <vanessa.bert311@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.12.4",
@@ -52,6 +52,13 @@
   "devDependencies": {
     "electron": "^18.1.0"
   },
-  "repository": "https://github.com/Vanessa-Bertoldo/front_refeitorio.git",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vanessa-Bertoldo/front_refeitorio.git"
+  },
+  "license": "MIT",
+  "description": "",
+  "bugs": {
+    "url": "https://github.com/Vanessa-Bertoldo/front_refeitorio/issues"
+  }
 }

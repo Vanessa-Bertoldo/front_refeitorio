@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
     button: {
         color: "#003C23",
-        fontSize: "1.15rem",
+        fontSize: "1.05rem",
         padding: "0px 15px",
         fontStyle: "bold",
         fontWeight: "900",
@@ -62,10 +62,10 @@ function Header(){
                     <div className={`${classes.width50} ${classes.imgDiv}`}>
                         <img src={logo} className={classes.img}/>
                     </div>
-                    <Container>
+                </div>
+                <Container>
                         <DialogRegisterForm open={open}/>
                     </Container>
-                </div>
             </Box>
         </header>
     )
