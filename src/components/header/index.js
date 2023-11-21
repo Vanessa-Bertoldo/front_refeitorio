@@ -3,6 +3,8 @@ import logo from "../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { openDialog } from "../../slices/sliceDialogRegister";
 import DialogRegisterForm from "../../dialogs/dialogRegister";
+import DialogNutrition from "../../dialogs/dialogNutrition";
+import { openDialogNutrition } from "../../slices/sliceDialogNutrition";
 
 const useStyles = makeStyles({
     header: {
@@ -45,9 +47,14 @@ const useStyles = makeStyles({
 function Header(){
     const dispatch = useDispatch()
     const open = useSelector((state) => state.dialogRegister.open)
+    const openDialogNutri = useSelector((state) => state.dialogNutrition.open)
 
     const openDialogRegister = () => {
         dispatch(openDialog())
+    }
+
+    const openDialogNutrit = () => {
+        dispatch(openDialogNutrition())
     }
 
     const classes = useStyles()
@@ -57,15 +64,16 @@ function Header(){
                 <div className={classes.width100}>
                     <div className={classes.width50}>
                         <Button className={classes.button} onClick={openDialogRegister}>Cadastrar ficha</Button>
-                        <Button className={classes.button}>Nutrição</Button>
+                        <Button className={classes.button} onClick={openDialogNutrit}>Nutrição</Button>
                     </div>
                     <div className={`${classes.width50} ${classes.imgDiv}`}>
                         <img src={logo} className={classes.img}/>
                     </div>
                 </div>
                 <Container>
-                        <DialogRegisterForm open={open}/>
-                    </Container>
+                    <DialogRegisterForm open={open}/>
+                    <DialogNutrition open={openDialogNutri}/>
+                </Container>
             </Box>
         </header>
     )

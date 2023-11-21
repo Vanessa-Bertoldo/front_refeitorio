@@ -78,7 +78,7 @@ function DialogRegisterForm({open}){
             <DialogTitle className={classes.title}>Cadastrar ficha</DialogTitle>
             <DialogContent>
                 <FormProvider methods={methods} onSubmit={() => {}}>
-                <Box className={classes.gridContainerCol1}>
+                    <Box className={classes.gridContainerCol1}>
                         <RHFTextField
                             name="name"
                             label="Nome"
@@ -117,8 +117,8 @@ function DialogRegisterForm({open}){
                 </FormProvider>
             </DialogContent>
             <DialogActions>
-                <Button className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
-                <Button onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
+                <Button variant="contained"className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
+                <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
             </DialogActions>
         </Dialog>
        
