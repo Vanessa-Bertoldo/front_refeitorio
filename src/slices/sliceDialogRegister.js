@@ -6,7 +6,7 @@ const initialState = {
     checkLogin: ""
 };
 
-const slice = createSlice({
+const dialogRegister = createSlice({
     name: "dialogRegister",
     initialState,
     reducers: {
@@ -21,9 +21,10 @@ const slice = createSlice({
         }
     }
 });
-export default slice.reducer;
+export const { openDialog, closedDialog } = dialogRegister.actions;
+export default dialogRegister.reducer;
 
-export function openDialog(){
+/*export function openDialog(){
     return async (dispatch) => {
         dispatch(slice.actions.openDialog())
     };
@@ -33,11 +34,11 @@ export function closedDialog(){
     return async (dispatch) => {
         dispatch(slice.actions.closedDialog())
     };
-}
+}*/
 
 export function checkLogin(odt){
     return async (dispatch) => {
         console.log("odt receive ", odt)
-        dispatch(slice.actions.checkLogin)
+        dispatch(dialogRegister.actions.checkLogin)
     }
 }

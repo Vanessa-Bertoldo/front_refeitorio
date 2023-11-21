@@ -1,7 +1,8 @@
-import { Box, Button, makeStyles } from "@material-ui/core";
+import { Box, Button, Container, makeStyles } from "@material-ui/core";
 import logo from "../../assets/logo.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openDialog } from "../../slices/sliceDialogRegister";
+import DialogRegisterForm from "../../dialogs/dialogRegister";
 
 const useStyles = makeStyles({
     header: {
@@ -43,9 +44,9 @@ const useStyles = makeStyles({
 
 function Header(){
     const dispatch = useDispatch()
-    
+    const open = useSelector((state) => state.dialogRegister.open)
+
     const openDialogRegister = () => {
-        console.log("click executado")
         dispatch(openDialog())
     }
 
@@ -61,6 +62,9 @@ function Header(){
                     <div className={`${classes.width50} ${classes.imgDiv}`}>
                         <img src={logo} className={classes.img}/>
                     </div>
+                    <Container>
+                        <DialogRegisterForm open={open}/>
+                    </Container>
                 </div>
             </Box>
         </header>
