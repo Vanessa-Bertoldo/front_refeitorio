@@ -7,7 +7,7 @@ function RHFDatePicket({name, label, format, ...other}){
         <Controller
             name={name}
             control={control}
-            render={({field: { onChange, value, onBlur, ref }}) => {
+            render={({field: { onChange, value, onBlur, ref }}) => {   
                 <KeyboardDatePicker
                     disableToolbar
                     id="date-picker-inline"

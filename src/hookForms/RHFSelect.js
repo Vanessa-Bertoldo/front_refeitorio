@@ -10,6 +10,7 @@ function RHFSelect({ name, label, onChange,onGetValue, onGetDescription, options
             control={control}
             render={({field: {ref, ...fieldOther}, fieldState: {error}}) => (
                 <Select
+                    label={label}
                     variant="outlined"
                     inputRef={ref}
                     {...fieldOther}

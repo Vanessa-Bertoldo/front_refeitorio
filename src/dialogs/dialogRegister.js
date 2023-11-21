@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form"
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
 
-
-
 const useStyles = makeStyles({
    textField: {
    },
@@ -29,11 +27,9 @@ const useStyles = makeStyles({
         padding: "10px",
         columnGap: "20px"
    },
-   gridItem: {
-
-   },
    title: {
-        textAlign: "center"
+        textAlign: "center",
+        backgroundColor: "#62905B",
    },
    buttonRed: {
         backgroundColor: "#ED2222",
@@ -51,7 +47,8 @@ const useStyles = makeStyles({
   });
 
 function DialogRegisterForm({open}){
-    const listClass = [{value: 0, text: "zer"}, {value: 1, text:"um"}]
+    const listClass = [{value: 0, text: "Selecione"}, {value: 1, text:"Empregado"}, {value: 2, text:"Diretor"}, {value: 3, text:"Voluntário"}, {value: 4, text:"Residente"}, {value: 5, text:"Visitante"}, {value: 6, text:"Professor"}, {value: 7, text:"Outros"}]
+    const listOptions = [{value: 0, text: "Selecione"}, {value: 1, text: "Grande"}, {value: 2, text: "Pequena"}]
 
     const dispatch = useDispatch()
 
@@ -90,12 +87,10 @@ function DialogRegisterForm({open}){
                         <RHFTextField
                             name="mat"
                             label="Matricula"
-                            className={classes.gridItem}
                         />
                         <RHFTextField
                             name="setor"
                             label="Setor"
-                            className={classes.gridItem}
                         />
                     </Box>
                     <Box>
@@ -105,11 +100,10 @@ function DialogRegisterForm({open}){
                                     options={listClass}
                                     onGetValue={(item) => item.value}
                                     onGetDescription={(item) => item.text}
-                                    className={classes.gridItem}
                              />
                              <RHFSelect
                                     name="options"
-                                    options={listClass}
+                                    options={listOptions}
                                     onGetValue={(item) => item.value}
                                     onGetDescription={(item) => item.text}
                              />
