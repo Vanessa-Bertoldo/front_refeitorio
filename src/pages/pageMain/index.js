@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RHFTextField from '../../hookForms/RHFTextField';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
-import { Box, Button, Container, Typography, makeStyles } from '@material-ui/core';
+import { Box, Button, Container, Grid, Typography, makeStyles } from '@material-ui/core';
 import logo from "../../assets/logo.png";
 import background from "../../assets/background.jpg";
 import backfood from "../../assets/backfood.jpg";
@@ -14,23 +14,29 @@ import * as yup from 'yup';
 const useStyles = makeStyles({
     container: {
       display: "flex",
-      height: "100%",
+      height: "97%",
+      width: "100%",
       margin:"0",
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center',
+      backgroundImage: `url(${backfood})`,
+      
     },
     divLogin: {
       width: "50%",
       backgroundColor: "#62905B",
+      opacity: "0.92",
       textAlign: "center",
     },
     divImage: {
       width: "50%",
       height: "100%",
-      //backgroundImage: `url(${background})`
     },
     containerMain:{
-      height: "100%",
+      height: "100vh",
       width: "100%",
-      verticalAlign: "center"
+      verticalAlign: "center",
+      backgroundImage: `url${backfood}`
     },
     image:{
       width: "100%",
@@ -63,7 +69,15 @@ const useStyles = makeStyles({
       
     },
     logo: {
-      padding:"20px"
+      padding:"50px"
+    },
+    boxFiels: {
+      textField: {
+        backgroundColor: "white",
+        borderRadius: "10px",
+        width: "70%", // Adjust the width as needed
+        margin: "10px 0", // Add margin for spacing
+      },
     }
   
 });
@@ -116,31 +130,23 @@ function PageMain(){
       {
         !isLoggedIn ? (
           <Container className={classes.containerMain}>
-              <div className={classes.container}>
-                <div className={classes.divImage}>
-                  <img src={backfood} className={classes.image}/>
-                </div>
-                <div className={classes.divLogin}>
-                  <img src={logo} className={classes.logo}/>
-                  <Box className={classes.boxMain}>
+          <div className={classes.container}>
+            <Grid container alignItems="center" justify="center" className={classes.divLogin}>
+              <Grid item xs={12} sm={6} md={6} lg={8}> 
+                <img src={logo} className={classes.logo} />
+                <Box className={classes.boxMain}>
                   <FormProvider methods={methods} onSubmit={() => {}}>
-                    <RHFTextField
-                        name="user"
-                        label="Usuário"
-                        className={classes.textField}
-                        />
-                      <RHFTextField
-                        name="password"
-                        label="Senha"
-                        type="password"
-                        className={classes.textField}
-                      />
+                    <RHFTextField name="user" label="Usuário" className={classes.textField} fullWidth />
+                    <RHFTextField name="password" label="Senha" type="password" className={classes.textField} fullWidth />
                   </FormProvider>
-                    <Button className={classes.button} onClick={handleClick}>ENTRAR</Button>
-                  </Box>
-                </div>
-              </div>
-            </Container>
+                  <Button className={classes.button} onClick={handleClick} fullWidth>
+                    ENTRAR
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
+          </div>
+        </Container>
       ) : (
         <PageInitial/>
       )}

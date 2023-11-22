@@ -7,6 +7,7 @@ import RHFDatePicket from "../hookForms/RHFDatePicker"
 import RHFTextFieldDate from "../hookForms/RHFTextFieldDate"
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
+import React, { useMemo } from "react"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -44,7 +45,11 @@ function DialogNutrition({open}){
     const options = [{value: 0, text: "So to testando"}, {value: 1, text: "Só to testando"}]
     const classes = useStyles()
     const dispatch = useDispatch()
-    const methods = useForm()
+    const methods = useForm() 
+
+    /*const defaultValues = React.useMemo({
+        "model": ""  
+    },[])*/
 
     const {
         register,
@@ -52,6 +57,7 @@ function DialogNutrition({open}){
         setValue,
         trigger
     } = methods
+    
 
     const handleClose = () => {
         dispatch(closedDialogNutrition())
