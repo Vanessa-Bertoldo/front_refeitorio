@@ -38,6 +38,7 @@ const useStyles = makeStyles({
    title: {
     textAlign: "center",
     backgroundColor: "#62905B",
+    color: "white"
 },
 })
 
@@ -50,14 +51,13 @@ function DialogNutrition({open}){
     /*const defaultValues = React.useMemo({
         "model": ""  
     },[])*/
-
+   
     const {
         register,
         getValues,
         setValue,
         trigger
     } = methods
-    
 
     const handleClose = () => {
         dispatch(closedDialogNutrition())
@@ -70,7 +70,7 @@ function DialogNutrition({open}){
         maxWidth={"sm"}
         fullWidth={true}
         >
-            <DialogTitle className={classes.title}>Nutrição</DialogTitle>
+            <DialogTitle className={classes.title}>NUTRIÇÃO</DialogTitle>
             <DialogContent>
                 <FormProvider methods={methods} onSubmit={() => {}}>
                     <Box className={classes.gridContainer}>

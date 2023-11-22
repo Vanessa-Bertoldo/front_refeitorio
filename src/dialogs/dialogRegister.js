@@ -30,6 +30,7 @@ const useStyles = makeStyles({
    title: {
         textAlign: "center",
         backgroundColor: "#62905B",
+        color: "white"
    },
    buttonRed: {
         backgroundColor: "#ED2222",
@@ -73,7 +74,7 @@ function DialogRegisterForm({open}){
             maxWidth={"sm"}
             fullWidth={true}
         >
-            <DialogTitle className={classes.title}>Cadastrar ficha</DialogTitle>
+            <DialogTitle className={classes.title}>CADASTRAR FICHA</DialogTitle>
             <DialogContent>
                 <FormProvider methods={methods} onSubmit={() => {}}>
                     <Box className={classes.gridContainerCol1}>
