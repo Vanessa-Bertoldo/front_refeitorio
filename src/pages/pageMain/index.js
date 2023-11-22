@@ -94,10 +94,9 @@ function PageMain(){
     });
 
     /*const {handleSubmit, formState } = useForm({
-      mode: 'onBlur',
       resolver: yupResolver(schema),
-    });
-*/
+    });*/
+
     const handleClick = () => {
       dispatch(checkLogin(getValues()))
       setLoggedIn(true)
@@ -136,10 +135,24 @@ function PageMain(){
                 <img src={logo} className={classes.logo} />
                 <Box className={classes.boxMain}>
                   <FormProvider methods={methods} onSubmit={() => {}}>
-                    <RHFTextField name="user" label="Usuário" className={classes.textField} fullWidth />
-                    <RHFTextField name="password" label="Senha" type="password" className={classes.textField} fullWidth />
+                    <RHFTextField 
+                      name="user" 
+                      label="Usuário" 
+                      className={classes.textField} 
+                      fullWidth 
+                      />
+                    <RHFTextField 
+                      name="password" 
+                      label="Senha" 
+                      type="password" 
+                      className={classes.textField} 
+                      fullWidth 
+                    />
                   </FormProvider>
-                  <Button className={classes.button} onClick={handleClick} fullWidth>
+                  <Button 
+                    className={classes.button} 
+                    onClick={handleClick} 
+                    fullWidth>
                     ENTRAR
                   </Button>
                 </Box>

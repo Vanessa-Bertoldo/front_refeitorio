@@ -1,12 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Header from '../../components/header';
-import { Box, Container, makeStyles } from '@material-ui/core';
+import { Box, Container, Grid, makeStyles } from '@material-ui/core';
+import RHFTextField from '../../hookForms/RHFTextField';
+import FormProvider from '../../components/form';
 
 const useStyles = makeStyles({
     container: {
         height: "100%",
-        background: "red"
+        width: "100vh"
     },
     header: {
         width: "100%",
@@ -17,6 +19,11 @@ const useStyles = makeStyles({
         top: 0,
         left: 0,
     },
+    positionBox: {
+        paddingTop: "10%",
+        position: "fixed",
+       
+    }
 })
 function PageInitial(){
     const classes = useStyles()
@@ -31,12 +38,15 @@ function PageInitial(){
 
     return(
         <Container className={classes.container}>
-            <Box>
-                <Header className={classes.header}/>
+             <Header />
+            <FormProvider methods={methods} onSubmit={() => {}}>
+            <Box >
+                <RHFTextField
+                    name={"search"}
+                    label={"Pesquisar"}
+                />
             </Box>
-            <Box>
-                <h1>So testando</h1>
-            </Box>
+            </FormProvider>
         </Container>
     )
 }
