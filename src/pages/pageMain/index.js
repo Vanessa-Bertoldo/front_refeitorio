@@ -92,12 +92,10 @@ function PageMain(){
       password: yup.string().required("Dados inválidos"),
     });
   
-    const getDefaultValues = React.useMemo(() => {
-      return {
+    const getDefaultValues = React.useMemo(() => ({
         user: '',
         password: '',
-      };
-    }, []); 
+    })); 
 
     const methods = useForm({
       resolver: yupResolver(schema),
@@ -114,7 +112,7 @@ function PageMain(){
     } = methods;
   
     async function handleClick () {
-      setLoggedIn(true);
+      //setLoggedIn(true);
         const result = await trigger();
         console.log("result ", result)
         console.log(getValues())
@@ -145,7 +143,7 @@ function PageMain(){
                 <Box className={classes.boxMain}>
                   <FormProvider methods={methods} onSubmit={() => {}} >
                     <RHFTextField 
-                      name="user" 
+                      name={"user" }
                       label="Usuário" 
                       className={classes.textField}
                     />
@@ -157,11 +155,11 @@ function PageMain(){
                     />
                   </FormProvider>
                   <Button 
-                      className={classes.button} 
-                      onClick={handleClick}
-                      fullWidth>
-                      ENTRAR
-                    </Button>
+                    className={classes.button} 
+                    onClick={handleClick}
+                    fullWidth>
+                    ENTRAR
+                  </Button>
                 </Box>
               </Grid>
             </Grid>
