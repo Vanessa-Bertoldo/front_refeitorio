@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import RHFTextField from '../../hookForms/RHFTextField';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
-import { Box, Button, Container, Grid, Typography, makeStyles } from '@material-ui/core';
+import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core';
 import logo from "../../assets/logo.png";
-import background from "../../assets/background.jpg";
 import backfood from "../../assets/backfood.jpg";
 import PageInitial from '../pageInital';
 import { checkLogin } from '../../slices/sliceDialogRegister';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
-//import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles({
     container: {
@@ -92,37 +91,48 @@ function PageMain(){
       user: yup.string().required("Dados inválidos"),
       password: yup.string().required("Dados inválidos"),
     });
+  
+    const getDefaultValues = React.useMemo(() => {
+      return {
+        user: 'socorro',
+        password: '',
+      };
+    }, []); 
 
-    /*const {handleSubmit, formState } = useForm({
+    const methods = useForm({
+      defaultValues: getDefaultValues,
       resolver: yupResolver(schema),
-    });*/
-
-    const handleClick = () => {
-      dispatch(checkLogin(getValues()))
-      setLoggedIn(true)
-    }
-    
-    const methods = useForm()
-
+    });
+  
     const {
-        register,
-        getValues,
-        setValue,
-        trigger,
-        reset,
-        control
-    } = methods
-
+      register,
+      getValues,
+      setValue,
+      trigger,
+      reset,
+      control,
+    } = methods;
+  
+    const handleClick = () => {
+      /*const trig = await trigger()
+      if(trigger()){
+        dispatch(checkLogin(getValues()));
+        setLoggedIn(true);
+      }else{
+        alert("Fudeu")
+      }*/
+      setLoggedIn(true);
+     
+    };
+  
     const testes = useWatch({
       control,
       name: "user",
     });
-
+  
     React.useEffect(() => {
-      console.log("texto ", getValues())
-    },[testes])
-
-   
+      console.log("texto ", getValues());
+    }, [testes]);
 
     return(
       <div>
@@ -134,19 +144,19 @@ function PageMain(){
               <Grid item xs={12} sm={6} md={6} lg={8}> 
                 <img src={logo} className={classes.logo} />
                 <Box className={classes.boxMain}>
-                  <FormProvider methods={methods} onSubmit={() => {}}>
+                  <FormProvider methods={methods} onSubmit={() => {}} defaultValues={getDefaultValues}>
                     <RHFTextField 
                       name="user" 
                       label="Usuário" 
                       className={classes.textField} 
-                      fullWidth 
+                       
                       />
                     <RHFTextField 
                       name="password" 
                       label="Senha" 
                       type="password" 
                       className={classes.textField} 
-                      fullWidth 
+                       
                     />
                   </FormProvider>
                   <Button 

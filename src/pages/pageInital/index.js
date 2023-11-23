@@ -7,47 +7,53 @@ import FormProvider from '../../components/form';
 
 const useStyles = makeStyles({
     container: {
-        height: "100%",
-        width: "100vh"
+        height: "100vh",
+        width: "100vw",
+        overflow: "hidden",
     },
     header: {
         width: "100%",
         background: "#62905B",
         padding: "15px",
-        margin: "none",
         position: "fixed",
         top: 0,
         left: 0,
+        zIndex: 1000,
     },
     positionBox: {
         paddingTop: "10%",
-        position: "fixed",
+        zIndex: 999,
+    },
+    textField: {
        
     }
-})
-function PageInitial(){
-    const classes = useStyles()
-    const methods = useForm()
+});
+
+function PageInitial() {
+    const classes = useStyles();
+    const methods = useForm();
 
     const {
         register,
         getValues,
         setValue,
         onSubmit
-    } = methods
+    } = methods;
 
-    return(
+    return (
         <Container className={classes.container}>
-             <Header />
+            <Header className={classes.header} />
             <FormProvider methods={methods} onSubmit={() => {}}>
-            <Box >
-                <RHFTextField
-                    name={"search"}
-                    label={"Pesquisar"}
-                />
-            </Box>
+                <Box className={classes.positionBox}>
+                    <RHFTextField
+                        name={"search"}
+                        label={"Pesquisar"}
+                        className={classes.textField}
+                    />
+                </Box>
             </FormProvider>
         </Container>
-    )
+    );
 }
-export default PageInitial
+
+export default PageInitial;
