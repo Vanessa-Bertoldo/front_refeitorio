@@ -112,7 +112,7 @@ function PageMain(){
     } = methods;
   
     async function handleClick () {
-      //setLoggedIn(true);
+      setLoggedIn(true);
         const result = await trigger();
         console.log("result ", result)
         console.log(getValues())
