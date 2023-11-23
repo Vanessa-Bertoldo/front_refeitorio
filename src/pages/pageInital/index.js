@@ -1,15 +1,18 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import Header from '../../components/header';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import RHFTextField from '../../hookForms/RHFTextField';
 import FormProvider from '../../components/form';
+import DialogCalendar from '../../dialogs/dialogCalendar';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
     container: {
         height: "100vh",
         width: "100vw",
         overflow: "hidden",
+       
     },
     header: {
         width: "100%",
@@ -23,13 +26,17 @@ const useStyles = makeStyles({
     positionBox: {
         paddingTop: "10%",
         zIndex: 999,
+        width: "100%",
+        height: "100%",
+        textAlignLast: "center"
     },
     textField: {
-       
+        width: "100vh"
     }
 });
 
 function PageInitial() {
+    const open = useSelector((state) => state.dialogCalendar.open)
     const classes = useStyles();
     const methods = useForm();
 
@@ -37,8 +44,18 @@ function PageInitial() {
         register,
         getValues,
         setValue,
-        onSubmit
+        onSubmit,
+        control
     } = methods;
+
+    const teste = useWatch({
+        control,
+        name:"search"
+    })
+
+    React.useEffect(() => {
+        console.log("useWatch ", teste)
+    }, [teste])
 
     return (
         <Container className={classes.container}>
@@ -52,6 +69,9 @@ function PageInitial() {
                     />
                 </Box>
             </FormProvider>
+            <Container>
+                <DialogCalendar open={open}/>
+            </Container>
         </Container>
     );
 }

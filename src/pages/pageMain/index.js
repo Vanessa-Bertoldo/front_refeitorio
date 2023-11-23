@@ -74,8 +74,8 @@ const useStyles = makeStyles({
       textField: {
         backgroundColor: "white",
         borderRadius: "10px",
-        width: "70%", // Adjust the width as needed
-        margin: "10px 0", // Add margin for spacing
+        width: "70%",
+        margin: "10px 0", 
       },
     }
   
@@ -94,14 +94,14 @@ function PageMain(){
   
     const getDefaultValues = React.useMemo(() => {
       return {
-        user: 'socorro',
+        user: '',
         password: '',
       };
     }, []); 
 
     const methods = useForm({
-      defaultValues: getDefaultValues,
       resolver: yupResolver(schema),
+      defaultValues: getDefaultValues,
     });
   
     const {
@@ -113,16 +113,15 @@ function PageMain(){
       control,
     } = methods;
   
-    const handleClick = () => {
-      /*const trig = await trigger()
-      if(trigger()){
-        dispatch(checkLogin(getValues()));
-        setLoggedIn(true);
-      }else{
-        alert("Fudeu")
-      }*/
+    async function handleClick () {
       setLoggedIn(true);
-     
+        const result = await trigger();
+        console.log("result ", result)
+        console.log(getValues())
+        if (result) {
+          console.log('Valid input');
+          setLoggedIn(true);
+        }
     };
   
     const testes = useWatch({
@@ -144,27 +143,25 @@ function PageMain(){
               <Grid item xs={12} sm={6} md={6} lg={8}> 
                 <img src={logo} className={classes.logo} />
                 <Box className={classes.boxMain}>
-                  <FormProvider methods={methods} onSubmit={() => {}} defaultValues={getDefaultValues}>
+                  <FormProvider methods={methods} onSubmit={() => {}} >
                     <RHFTextField 
                       name="user" 
                       label="Usuário" 
-                      className={classes.textField} 
-                       
-                      />
+                      className={classes.textField}
+                    />
                     <RHFTextField 
                       name="password" 
                       label="Senha" 
                       type="password" 
                       className={classes.textField} 
-                       
                     />
                   </FormProvider>
                   <Button 
-                    className={classes.button} 
-                    onClick={handleClick} 
-                    fullWidth>
-                    ENTRAR
-                  </Button>
+                      className={classes.button} 
+                      onClick={handleClick}
+                      fullWidth>
+                      ENTRAR
+                    </Button>
                 </Box>
               </Grid>
             </Grid>

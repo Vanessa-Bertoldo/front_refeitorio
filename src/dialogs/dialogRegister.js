@@ -6,6 +6,8 @@ import { closedDialog } from "../slices/sliceDialogRegister"
 import { useForm } from "react-hook-form"
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles({
    textField: {
@@ -58,14 +60,38 @@ function DialogRegisterForm({open}){
     }
 
     const classes = useStyles()
-    const methods = useForm()
 
+    const schema = yup.object().shape({
+        name: yup.string().required("Dados inválidos"),
+        matricula: yup.string().required("Dados inválidos"),
+    });
+    
+      const getDefaultValues = React.useMemo(() => {
+        return {
+          name: '',
+          matricula: '',
+          listClass: 0,
+          listOptions: 0,
+          class: 0,
+          options: 0
+        };
+      }, []); 
+  
+      const methods = useForm({
+        resolver:           yupResolver(schema),
+        defaultValues:      getDefaultValues,
+      });
+    
     const {
         register,
         getValues,
         setValue,
         trigger
     } = methods
+
+    async function saveData (){
+        console.log("Values", getValues())
+    }
 
     return(
         <Dialog
@@ -86,7 +112,7 @@ function DialogRegisterForm({open}){
                     </Box>
                     <Box className={classes.gridContainer}>
                         <RHFTextField
-                            name="mat"
+                            name="matricula"
                             label="Matricula"
                         />
                         <RHFTextField
@@ -113,7 +139,7 @@ function DialogRegisterForm({open}){
                 </FormProvider>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained"className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
+                <Button variant="contained" onClick={saveData} className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
                 <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
             </DialogActions>
         </Dialog>

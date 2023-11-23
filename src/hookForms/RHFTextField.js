@@ -1,15 +1,14 @@
 import { TextField } from "@material-ui/core"
 import { Controller, useForm } from "react-hook-form"
 
-function RHFTextField({ name, label, defaultValue, ...other}){
+function RHFTextField({ name, label, ...other}){
     const { control } = useForm()
     return (
         <Controller
-          name={name}
           control={control}
+          name={name}
           render={({ field: { onChange, onBlur, value, ref } }) => (
             <TextField
-              defaultValue={value}
               variant="outlined"
               onChange={onChange}
               onBlur={onBlur}
