@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form"
-import FormProvider from "../components/form"
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, makeStyles } from "@material-ui/core"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
 import { useDispatch } from "react-redux"
 import { closedDialogNutrition } from "../slices/sliceDialogNutrition"
-import RHFDatePicket from "../hookForms/RHFDatePicker"
-import RHFTextFieldDate from "../hookForms/RHFTextFieldDate"
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
 import React, { useMemo } from "react"
+import ReactFormProvider from "../components/form"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -72,7 +70,7 @@ function DialogNutrition({open}){
         >
             <DialogTitle className={classes.title}>NUTRIÇÃO</DialogTitle>
             <DialogContent>
-                <FormProvider methods={methods} onSubmit={() => {}}>
+                <ReactFormProvider methods={methods} >
                     <Box className={classes.gridContainer}>
                        <RHFTextField
                             name="dateInitial"
@@ -101,7 +99,7 @@ function DialogNutrition({open}){
                             onGetDescription={(item) => item.text}
                         />
                     </Box>
-                </FormProvider> 
+                </ReactFormProvider> 
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={handleClose} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>

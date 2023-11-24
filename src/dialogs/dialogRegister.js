@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
 import React from "react"
 import { useDispatch } from "react-redux"
-import FormProvider from "../components/form"
+import ReactFormProvider from "../components/form"
 import { closedDialog } from "../slices/sliceDialogRegister"
 import { useForm } from "react-hook-form"
 import RHFTextField from "../hookForms/RHFTextField"
@@ -102,7 +102,7 @@ function DialogRegisterForm({open}){
         >
             <DialogTitle className={classes.title}>CADASTRAR FICHA</DialogTitle>
             <DialogContent>
-                <FormProvider methods={methods} onSubmit={() => {}}>
+                <ReactFormProvider methods={methods}>
                     <Box className={classes.gridContainerCol1}>
                         <RHFTextField
                             name="name"
@@ -136,7 +136,7 @@ function DialogRegisterForm({open}){
                              />
                         </div>
                     </Box>
-                </FormProvider>
+                </ReactFormProvider>
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={saveData} className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>

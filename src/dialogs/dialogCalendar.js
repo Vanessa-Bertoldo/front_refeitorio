@@ -3,7 +3,7 @@ import React from "react"
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
 //hook forms
 import { useDispatch } from "react-redux"
-import FormProvider from "../components/form"
+import ReactFormProvider from "../components/form"
 //yup
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +12,6 @@ import { closedDialogCalendar } from "../slices/sliceDialogCalendar"
 import { useForm } from "react-hook-form";
 import RHFTextField from "../hookForms/RHFTextField";
 import RHFSelect from "../hookForms/RHFSelect";
-import RHFMultipleDatePicker from "../hookForms/RHFMultipleDatePicker";
 
 const useStyles = makeStyles({
     title: {
@@ -86,7 +85,7 @@ function DialogCalendar({open}){
         >
             <DialogTitle className={classes.title}>CALENDÁRIO</DialogTitle>
             <DialogContent>
-                <FormProvider methods={methods} onSubmit={() => {}}>
+                <ReactFormProvider methods={methods} >
                     <Box className={classes.gridContainer}>
                         <RHFTextField
                             name="matricula"
@@ -113,7 +112,7 @@ function DialogCalendar({open}){
                     </Box>
                     <Box className={classes.gridContainer}>
                     </Box>
-                </FormProvider>
+                </ReactFormProvider>
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={handleClose} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>

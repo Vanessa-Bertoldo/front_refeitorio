@@ -3,7 +3,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import Header from '../../components/header';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import RHFTextField from '../../hookForms/RHFTextField';
-import FormProvider from '../../components/form';
+import ReactFormProvider from '../../components/form';
 import DialogCalendar from '../../dialogs/dialogCalendar';
 import { useSelector } from 'react-redux';
 
@@ -60,7 +60,7 @@ function PageInitial() {
     return (
         <Container className={classes.container}>
             <Header className={classes.header} />
-            <FormProvider methods={methods} onSubmit={() => {}}>
+            <ReactFormProvider methods={methods} >
                 <Box className={classes.positionBox}>
                     <RHFTextField
                         name={"search"}
@@ -68,7 +68,7 @@ function PageInitial() {
                         className={classes.textField}
                     />
                 </Box>
-            </FormProvider>
+            </ReactFormProvider>
             <Container>
                 <DialogCalendar open={open}/>
             </Container>
