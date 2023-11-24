@@ -8,7 +8,7 @@ import PageInitial from '../pageInital';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import FormProvider from '../../components/form';
+import ReactFormProvider from '../../components/form';
 
 const useStyles = makeStyles({
     container: {
@@ -98,8 +98,8 @@ function PageMain(){
     })); 
 
     const [state, setState] = React.useState({
-        user: "teste",
-        password: "123"
+        user: "",
+        password: ""
     })
 
     const methods = useForm({
@@ -145,19 +145,19 @@ function PageMain(){
               <Grid item xs={12} sm={6} md={6} lg={8}> 
                 <img src={logo} className={classes.logo} />
                 <Box className={classes.boxMain}>
-                  <FormProvider methods={methods}>
+                  <ReactFormProvider methods={methods}>
                     <RHFTextField 
                       name="user"
                       label="Usuário" 
                       className={classes.textField}
                     />
                     <RHFTextField 
-                      name="password" 
+                      name="password"
                       label="Senha" 
                       type="password" 
                       className={classes.textField} 
                     />
-                  </FormProvider>
+                  </ReactFormProvider>
                   <Button 
                     className={classes.button} 
                     onClick={handleClick}

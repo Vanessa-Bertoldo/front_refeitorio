@@ -1,20 +1,12 @@
 // FormProvider.js
 import React from 'react';
+import { FormProvider } from 'react-hook-form';
 
-const FormContext = React.createContext();
-
-export const useFormContext = () => {
-  const context = React.useContext(FormContext);
-  if (!context) {
-    throw new Error('configure o useFormContext');
-  }
-  return context;
-};
-
-const FormProvider = ({ children, methods }) => {
-  return <FormContext.Provider value={methods}>
-            {children}
-         </FormContext.Provider>;
-};
-
-export default FormProvider;
+const ReactFormProvider = ({methods, children}) => {
+  return(
+    <FormProvider {...methods}>
+      {children}
+    </FormProvider>
+  )
+}
+export default ReactFormProvider;

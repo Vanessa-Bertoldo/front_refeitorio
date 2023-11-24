@@ -5,8 +5,6 @@ function RHFSelect({ name, label, onChange,onGetValue, onGetDescription, options
     const { control } = useForm()
 
     return(
-       
-        
         <Controller
             name={name}
             control={control}

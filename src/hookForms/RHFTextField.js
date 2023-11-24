@@ -1,8 +1,8 @@
 import { TextField } from "@material-ui/core"
-import { Controller, useForm, useFormContext } from "react-hook-form"
+import { Controller, useFormContext } from "react-hook-form"
 
 function RHFTextField({ name, label, ...other}){
-    const { control } = useForm()
+    const { control } = useFormContext()
     return (
         <Controller
           control={control}
