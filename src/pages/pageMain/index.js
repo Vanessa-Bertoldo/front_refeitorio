@@ -97,11 +97,6 @@ function PageMain(){
         password: '',
     })); 
 
-    const [state, setState] = React.useState({
-        user: "",
-        password: ""
-    })
-
     const methods = useForm({
       resolver: yupResolver(schema),
       defaultValues
