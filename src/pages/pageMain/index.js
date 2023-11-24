@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import RHFTextField from '../../hookForms/RHFTextField';
-import { FormProvider, useForm, useWatch } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core';
 import logo from "../../assets/logo.png";
 import backfood from "../../assets/backfood.jpg";
 import PageInitial from '../pageInital';
-import { checkLogin } from '../../slices/sliceDialogRegister';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import FormProvider from '../../components/form';
 
 const useStyles = makeStyles({
     container: {
@@ -92,27 +92,32 @@ function PageMain(){
       password: yup.string().required("Dados inválidos"),
     });
   
-    const getDefaultValues = React.useMemo(() => ({
+    const defaultValues = React.useMemo(() => ({
         user: '',
         password: '',
     })); 
 
+    const [state, setState] = React.useState({
+        user: "teste",
+        password: "123"
+    })
+
     const methods = useForm({
       resolver: yupResolver(schema),
-      defaultValues: getDefaultValues,
+      defaultValues
     });
   
     const {
-      register,
       getValues,
       setValue,
       trigger,
       reset,
+      handleSubmit,
       control,
     } = methods;
   
     async function handleClick () {
-      setLoggedIn(true);
+      //setLoggedIn(true);
         const result = await trigger();
         console.log("result ", result)
         console.log(getValues())
@@ -131,19 +136,18 @@ function PageMain(){
       console.log("texto ", getValues());
     }, [testes]);
 
-    return(
-      <div>
-      {
-        !isLoggedIn ? (
-          <Container className={classes.containerMain}>
+    return (
+    <div>
+      {!isLoggedIn ? (
+        <Container className={classes.containerMain}>
           <div className={classes.container}>
             <Grid container alignItems="center" justify="center" className={classes.divLogin}>
               <Grid item xs={12} sm={6} md={6} lg={8}> 
                 <img src={logo} className={classes.logo} />
                 <Box className={classes.boxMain}>
-                  <FormProvider methods={methods} onSubmit={() => {}} >
+                  <FormProvider methods={methods}>
                     <RHFTextField 
-                      name={"user" }
+                      name="user"
                       label="Usuário" 
                       className={classes.textField}
                     />
@@ -169,8 +173,7 @@ function PageMain(){
         <PageInitial/>
       )}
     </div>
-       
-    )
+  );
 }
 
 export default PageMain
