@@ -3,7 +3,7 @@ import rootReducer from "../reducers/rootReducer";
 import { initializeValues } from "./storeCom";
 
 const store = configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
 })
 
 // const store = configureStore({

@@ -6,7 +6,7 @@ import dialogCalendarReducer from '../slices/sliceDialogCalendar';
 const rootReducer = combineReducers({
   dialogRegister:             dialogRegisterReducer,
   dialogNutrition:            dialogNutritionReducer,
-  dialogCalendar:             dialogCalendarReducer
+  dialogCalendar:             dialogCalendarReducer,
 });
 
 export default rootReducer;

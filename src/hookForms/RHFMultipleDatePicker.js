@@ -2,8 +2,8 @@ import { Controller, useForm } from "react-hook-form"
 import DatePicker from "react-multi-date-picker";
 
 function RHFMultipleDatePicker({name, label, ...other}){
-    const { control } = useForm()
-    return(
+    const { control, formState: {errors} } = useForm()
+    return(<>
         <Controller
             control={control}
             name={name}
@@ -16,8 +16,10 @@ function RHFMultipleDatePicker({name, label, ...other}){
                     inputRef={ref}
                     inputProps={other}
                 />
+               
               )}
         />
+        {errors[name] && <span style={{ color: "red" }}>{errors[name].message}</span>}</>
     )
 }
 export default RHFMultipleDatePicker

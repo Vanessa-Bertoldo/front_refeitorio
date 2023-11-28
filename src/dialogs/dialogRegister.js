@@ -123,12 +123,14 @@ function DialogRegisterForm({open}){
                     <Box>
                         <div className={classes.gridContainer}>
                             <RHFSelect
+                                    label={"Classe"}
                                     name="class"
                                     options={listClass}
                                     onGetValue={(item) => item.value}
                                     onGetDescription={(item) => item.text}
                              />
                              <RHFSelect
+                                    label={"Opções"}
                                     name="options"
                                     options={listOptions}
                                     onGetValue={(item) => item.value}

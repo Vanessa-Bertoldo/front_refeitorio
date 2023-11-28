@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ReactFormProvider from '../../components/form';
+import { loginAsync } from '../../slices/sliceAuthLogin';
 
 const useStyles = makeStyles({
     container: {
@@ -45,7 +46,7 @@ const useStyles = makeStyles({
     textField: {
       backgroundColor: "white",
       borderRadius: "10px",
-      width: "100%" 
+      width: "100%"
     },
     boxMain: {
       width:"100%",
@@ -112,13 +113,15 @@ function PageMain(){
     } = methods;
   
     async function handleClick () {
-      //setLoggedIn(true);
         const result = await trigger();
-        console.log("result ", result)
-        console.log(getValues())
+        let values = getValues()
         if (result) {
-          console.log('Valid input');
-          setLoggedIn(true);
+          const response = await dispatch(loginAsync(values))
+          if(response === 200){
+            setLoggedIn(true);
+          }
+          console.log(response)
+          
         }
     };
   

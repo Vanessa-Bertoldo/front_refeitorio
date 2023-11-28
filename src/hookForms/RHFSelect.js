@@ -9,7 +9,7 @@ function RHFSelect({ name, label, onChange,onGetValue, onGetDescription, options
             name={name}
             control={control}
             render={({field: {ref, ...fieldOther}, fieldState: {error}}) => (
-                <FormControl variant="filled" ><InputLabel id={label}>{label}</InputLabel>
+                <FormControl variant="outlined" ><InputLabel id={label}>{label}</InputLabel>
                 <Select
                     labelId={label}
                     label={label}
@@ -26,7 +26,8 @@ function RHFSelect({ name, label, onChange,onGetValue, onGetDescription, options
                             <MenuItem key={value} value={value}>{description}</MenuItem>
                         )
                     })}
-                </Select> </FormControl>
+                </Select> 
+                </FormControl>
             )}
         />
        
