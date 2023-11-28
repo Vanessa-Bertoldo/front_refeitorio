@@ -1,6 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { DB_CONNECTION } from "../connection_api/dbConnection";
-import { AxiosPost } from "../connection_api/constantsConnection";
+import { DB_CONNECTION } from "../dbConnection";
+import { AxiosPost } from "../constantsConnection";
 
 export const loginAsync = (dto) => async (dispatch) => {
   try {

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ReactFormProvider from '../../components/form';
-import { loginAsync } from '../../slices/sliceAuthLogin';
+import { loginAsync } from '../../connection_api/connection/connAuthLogin';
 
 const useStyles = makeStyles({
     container: {
@@ -124,15 +124,6 @@ function PageMain(){
           
         }
     };
-  
-    const testes = useWatch({
-      control,
-      name: "user",
-    });
-  
-    React.useEffect(() => {
-      console.log("texto ", getValues());
-    }, [testes]);
 
     return (
     <div>

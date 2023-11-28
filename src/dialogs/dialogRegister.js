@@ -2,7 +2,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeSty
 import React from "react"
 import { useDispatch } from "react-redux"
 import ReactFormProvider from "../components/form"
-import { closedDialog } from "../slices/sliceDialogRegister"
+import { checkLogin, closedDialog } from "../slices/sliceDialogRegister"
 import { useForm } from "react-hook-form"
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
@@ -62,24 +62,24 @@ function DialogRegisterForm({open}){
     const classes = useStyles()
 
     const schema = yup.object().shape({
-        name: yup.string().required("Dados inválidos"),
+        nome: yup.string().required("Dados inválidos"),
         matricula: yup.string().required("Dados inválidos"),
+        
     });
     
-      const getDefaultValues = React.useMemo(() => {
+      const defaultValues = React.useMemo(() => {
         return {
-          name: '',
+          nome: '',
           matricula: '',
-          listClass: 0,
-          listOptions: 0,
-          class: 0,
-          options: 0
+          setor: '',
+          classe: 0,
+          tamanho: 0
         };
       }, []); 
   
       const methods = useForm({
         resolver:           yupResolver(schema),
-        defaultValues:      getDefaultValues,
+        defaultValues
       });
     
     const {
@@ -90,6 +90,14 @@ function DialogRegisterForm({open}){
     } = methods
 
     async function saveData (){
+        console.log("função salvar")
+        const res = await trigger()
+        console.log("res trigger ", res)
+        console.log("response ", getValues())
+        if(res){
+            const values = getValues()
+            //await dispatch(checkLogin(values))
+        }
         console.log("Values", getValues())
     }
 
@@ -105,7 +113,7 @@ function DialogRegisterForm({open}){
                 <ReactFormProvider methods={methods}>
                     <Box className={classes.gridContainerCol1}>
                         <RHFTextField
-                            name="name"
+                            name="nome"
                             label="Nome"
                             className={classes.textField}
                         />
@@ -124,14 +132,14 @@ function DialogRegisterForm({open}){
                         <div className={classes.gridContainer}>
                             <RHFSelect
                                     label={"Classe"}
-                                    name="class"
+                                    name="classe"
                                     options={listClass}
                                     onGetValue={(item) => item.value}
                                     onGetDescription={(item) => item.text}
                              />
                              <RHFSelect
-                                    label={"Opções"}
-                                    name="options"
+                                    label={"Tamanho"}
+                                    name="tamanho"
                                     options={listOptions}
                                     onGetValue={(item) => item.value}
                                     onGetDescription={(item) => item.text}
