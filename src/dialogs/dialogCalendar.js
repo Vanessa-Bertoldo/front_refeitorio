@@ -42,6 +42,12 @@ const useStyles = makeStyles({
         padding: "10px",
         columnGap: "20px"
     },
+    width50: {
+        width: "50%"
+    }, 
+    width100: {
+        width: "100%"
+    }
 })
 
 function DialogCalendar({open}){
@@ -49,15 +55,20 @@ function DialogCalendar({open}){
     const options = [{value: 0, text:"Selecione"}, {value: 1, text:"Grande"}, {value: 2, text: "Pequena"}]
     const dispatch = useDispatch()
     const classes = useStyles()
+    let date = new Date()
 
     const schema = yup.object().shape({
 
     })
 
     const defaultValues = React.useMemo(() => ({
-        name:"teste",
-        matricula: "1477",
+        name:"",
+        matricula: "",
+        class: "",
+        size:"",
+        valueMonthYear: 0.00,
         payment: 0,
+        monthYear: date.toISOString().split('T')[0]
     }),[])
 
     const methods = useForm({
@@ -86,6 +97,13 @@ function DialogCalendar({open}){
             <DialogTitle className={classes.title}>CALENDÁRIO</DialogTitle>
             <DialogContent>
                 <ReactFormProvider methods={methods} >
+                    <Box className={classes.gridContainer} fullWidth={true}>
+                        <RHFTextField
+                                name="monthYear"
+                                label="Mês / Ano"
+                                type="date"
+                        />
+                    </Box>
                     <Box className={classes.gridContainer}>
                         <RHFTextField
                             name="matricula"
@@ -98,10 +116,15 @@ function DialogCalendar({open}){
                     </Box>
                     <Box className={classes.gridContainer}>
                         <RHFTextField
-                            name="monthYear"
-                            label="Mês / Ano"
-                            type="date"
-                       />
+                            name="class"
+                            label="Classe"
+                        />
+                        <RHFTextField
+                            name="size"
+                            label="Tamanho"
+                        />
+                    </Box>
+                    <Box className={classes.gridContainer}>
                         <RHFSelect
                             label={"Pagamento"}
                             name="payment"
@@ -109,8 +132,13 @@ function DialogCalendar({open}){
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />
+                         <RHFTextField
+                            name="valueMonthYear"
+                            label="Valor"
+                       />
                     </Box>
                     <Box className={classes.gridContainer}>
+                       
                     </Box>
                 </ReactFormProvider>
             </DialogContent>

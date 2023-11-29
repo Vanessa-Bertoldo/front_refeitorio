@@ -86,7 +86,7 @@ function PageMain(){
   const dispatch = useDispatch()
   const classes = useStyles()
 
-    const [isLoggedIn, setLoggedIn] = useState(false)
+    const [isLoggedIn, setLoggedIn] = useState(true)
 
     const schema = yup.object().shape({
       user: yup.string().required("Dados inválidos"),

@@ -6,6 +6,8 @@ import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
 import React, { useMemo } from "react"
 import ReactFormProvider from "../components/form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from 'yup';
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -41,21 +43,42 @@ const useStyles = makeStyles({
 })
 
 function DialogNutrition({open}){
-    const options = [{value: 0, text: "So to testando"}, {value: 1, text: "Só to testando"}]
+    const classList = [{value: 0, text: "Selecione"}, {value: 1, text:"Empregado"}, {value: 2, text:"Diretor"}, {value: 3, text:"Voluntário"}, {value: 4, text:"Residente"}, {value: 5, text:"Visitante"}, {value: 6, text:"Professor"}, {value: 7, text:"Outros"}]
+    const models = [{value: 0, text: "Diario"}, {value: 1, text: "Listagem"}, {value: 2, text: "Resumo"}, {value: 3, text: "Fechamento"}]
+    const paymentList = [{value: 0, text: "À vista"}, {value: 1, text: "vale"}, {value: 3, text: "Isento"}]
     const classes = useStyles()
     const dispatch = useDispatch()
-    const methods = useForm() 
+    let date = new Date()
 
-    /*const defaultValues = React.useMemo({
-        "model": ""  
-    },[])*/
-   
+    const defaultValues = React.useMemo(() => ({
+        modelSelect: 0,
+        classSelect: 0,
+        paymentSelect: 0,
+        dateInitial: date.toISOString().split('T')[0],
+        dateFinal: date.toISOString().split('T')[0]
+    }),[])
+
+    const schema = yup.object().shape({
+        model: yup.number().min(1,)
+    })
+
+    const methods = useForm({
+        resolver:           yupResolver(schema),
+        defaultValues
+    })
     const {
         register,
         getValues,
         setValue,
         trigger
     } = methods
+
+    async function handleGenerate() {
+        const submit = await trigger()
+        if(submit){
+            console.log(getValues())
+        }
+    }
 
     const handleClose = () => {
         dispatch(closedDialogNutrition())
@@ -85,16 +108,23 @@ function DialogNutrition({open}){
                     </Box>
                     <Box className={classes.gridContainerCol1}>
                         <RHFSelect
-                            name="class"
-                            label="Class"
-                            options={options}
+                            name={"classSelect"}
+                            label="Classe"
+                            options={classList}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />
                         <RHFSelect
-                            name="model"
+                            name={"paymentSelect"}
+                            label="pagamento"
+                            options={paymentList}
+                            onGetValue={(item) => item.value}
+                            onGetDescription={(item) => item.text}
+                        />
+                        <RHFSelect
+                            name={"modelSelect"}
                             label="Modelo"
-                            options={options}
+                            options={models}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />
@@ -102,7 +132,7 @@ function DialogNutrition({open}){
                 </ReactFormProvider> 
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={handleClose} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
+                <Button variant="contained" onClick={handleGenerate} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
                 <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
             </DialogActions>
         </Dialog>
