@@ -1,13 +1,19 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
+//react / redux
 import React from "react"
 import { useDispatch } from "react-redux"
-import ReactFormProvider from "../components/form"
-import { checkLogin, closedDialog } from "../slices/sliceDialogRegister"
+//material ui
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
+import { closedDialog } from "../slices/sliceDialogRegister"
+//hookform
 import { useForm } from "react-hook-form"
+//controllers
+import ReactFormProvider from "../components/form"
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
+//yup
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
 
 const useStyles = makeStyles({
    textField: {

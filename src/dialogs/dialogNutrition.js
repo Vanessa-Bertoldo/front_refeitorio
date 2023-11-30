@@ -1,13 +1,21 @@
-import { useForm } from "react-hook-form"
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
+//react/redux
+import React from "react"
 import { useDispatch } from "react-redux"
-import { closedDialogNutrition } from "../slices/sliceDialogNutrition"
-import RHFTextField from "../hookForms/RHFTextField"
-import RHFSelect from "../hookForms/RHFSelect"
-import React, { useMemo } from "react"
+//hookform
+import { useForm } from "react-hook-form"
 import ReactFormProvider from "../components/form"
+//material ui
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
+//yup
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup';
+//utils
+import { classList, models, payment } from "../utils/lists";
+//controllers
+import RHFTextField from "../hookForms/RHFTextField"
+import RHFSelect from "../hookForms/RHFSelect"
+//slices
+import { closedDialogNutrition } from "../slices/sliceDialogNutrition"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -43,9 +51,6 @@ const useStyles = makeStyles({
 })
 
 function DialogNutrition({open}){
-    const classList = [{value: 0, text: "Selecione"}, {value: 1, text:"Empregado"}, {value: 2, text:"Diretor"}, {value: 3, text:"Voluntário"}, {value: 4, text:"Residente"}, {value: 5, text:"Visitante"}, {value: 6, text:"Professor"}, {value: 7, text:"Outros"}]
-    const models = [{value: 0, text: "Diario"}, {value: 1, text: "Listagem"}, {value: 2, text: "Resumo"}, {value: 3, text: "Fechamento"}]
-    const paymentList = [{value: 0, text: "À vista"}, {value: 1, text: "vale"}, {value: 3, text: "Isento"}]
     const classes = useStyles()
     const dispatch = useDispatch()
     let date = new Date()
@@ -117,7 +122,7 @@ function DialogNutrition({open}){
                         <RHFSelect
                             name={"paymentSelect"}
                             label="pagamento"
-                            options={paymentList}
+                            options={payment}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />

@@ -12,6 +12,8 @@ import { closedDialogCalendar } from "../slices/sliceDialogCalendar"
 import { useForm } from "react-hook-form";
 import RHFTextField from "../hookForms/RHFTextField";
 import RHFSelect from "../hookForms/RHFSelect";
+//lists
+import { payment } from "../utils/lists";
 
 const useStyles = makeStyles({
     title: {
@@ -52,8 +54,6 @@ const useStyles = makeStyles({
 
 function DialogCalendar(){
     const data = useSelector((state) => state.dialogCalendar.data)
-    const payment = [{value:0, text: "a vista"}, {value: 1, text: "Vale"}, {value: 2, text: "isento"}]
-    const options = [{value: 0, text:"Selecione"}, {value: 1, text:"Grande"}, {value: 2, text: "Pequena"}]
     const open = useSelector((state) => state.dialogCalendar.open)
     const dispatch = useDispatch()
     const classes = useStyles()
