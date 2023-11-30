@@ -2,7 +2,7 @@ import React from "react"
 //material ui
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
 //hook forms
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import ReactFormProvider from "../components/form"
 //yup
 import * as yup from 'yup';
@@ -50,9 +50,11 @@ const useStyles = makeStyles({
     }
 })
 
-function DialogCalendar({open}){
+function DialogCalendar(){
+    const data = useSelector((state) => state.dialogCalendar.data)
     const payment = [{value:0, text: "a vista"}, {value: 1, text: "Vale"}, {value: 2, text: "isento"}]
     const options = [{value: 0, text:"Selecione"}, {value: 1, text:"Grande"}, {value: 2, text: "Pequena"}]
+    const open = useSelector((state) => state.dialogCalendar.open)
     const dispatch = useDispatch()
     const classes = useStyles()
     let date = new Date()
@@ -62,7 +64,7 @@ function DialogCalendar({open}){
     })
 
     const defaultValues = React.useMemo(() => ({
-        name:"",
+        name: data.nome,
         matricula: "",
         class: "",
         size:"",
@@ -87,12 +89,19 @@ function DialogCalendar({open}){
     const handleClose = () => {
         dispatch(closedDialogCalendar())
     }
+
+    const handleView = () => {
+
+    }
+
+    React.useEffect(() => {
+        console.log("dados dialog", data)
+    },[data])
     return(
         <Dialog
             open={open}
             onClose={handleClose}
             maxWidth={"sm"}
-            fullWidth={true}
         >
             <DialogTitle className={classes.title}>CALENDÁRIO</DialogTitle>
             <DialogContent>
@@ -143,7 +152,7 @@ function DialogCalendar({open}){
                 </ReactFormProvider>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={handleClose} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
+                <Button variant="contained" onClick={handleView} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
                 <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
                 <Button variant="contained" className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
             </DialogActions>

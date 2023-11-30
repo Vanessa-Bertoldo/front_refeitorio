@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 function RHFSelect({ name, label, onChange,onGetValue, onGetDescription, options,  ...other}){
-    const { control } = useForm()
+    const { control } = useFormContext()
 
     return(
         <Controller

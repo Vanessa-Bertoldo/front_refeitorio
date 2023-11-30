@@ -46,9 +46,6 @@ const useStyles = makeStyles({
 
 function Header(){
     const dispatch = useDispatch()
-    const open = useSelector((state) => state.dialogRegister.open)
-    const openDialogNutri = useSelector((state) => state.dialogNutrition.open)
-
     const openDialogRegister = () => {
         dispatch(openDialog())
     }
@@ -70,10 +67,7 @@ function Header(){
                         <img src={logo} className={classes.img}/>
                     </div>
                 </div>
-                <Container>
-                    <DialogRegisterForm open={open}/>
-                    <DialogNutrition open={openDialogNutri}/>
-                </Container>
+                
             </Box>
         </header>
     )

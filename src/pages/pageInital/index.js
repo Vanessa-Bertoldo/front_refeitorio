@@ -65,10 +65,6 @@ function PageInitial() {
         name:"search"
     })
 
-    React.useEffect(() => {
-        console.log("useWatch ", teste)
-    }, [teste])
-
     return (
         <Container className={classes.container}>
             <Header className={classes.header} />
