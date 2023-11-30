@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RHFTextField from '../../hookForms/RHFTextField';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core';
 import logo from "../../assets/logo.png";
 import backfood from "../../assets/backfood.jpg";
@@ -108,7 +108,6 @@ function PageMain(){
       setValue,
       trigger,
       reset,
-      handleSubmit,
       control,
     } = methods;
   

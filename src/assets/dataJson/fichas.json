@@ -1,0 +1,122 @@
+[
+    {
+        "matricula": 11111,
+        "nome": "Ana Souza",
+        "classe": 2,
+        "setor": "recursos humanos"
+    },
+    {
+        "matricula": 22222,
+        "nome": "Carlos Silva",
+        "classe": 0,
+        "setor": "marketing"
+    },
+    {
+        "matricula": 33333,
+        "nome": "Mariana Santos",
+        "classe": 1,
+        "setor": "financeiro"
+    },
+    {
+        "matricula": 44444,
+        "nome": "Lucas Oliveira",
+        "classe": 2,
+        "setor": "produção"
+    },
+    {
+        "matricula": 55555,
+        "nome": "Julia Lima",
+        "classe": 0,
+        "setor": "tecnologia"
+    },
+    {
+        "matricula": 66666,
+        "nome": "Fernando Rocha",
+        "classe": 1,
+        "setor": "vendas"
+    },
+    {
+        "matricula": 77777,
+        "nome": "Patricia Fernandes",
+        "classe": 2,
+        "setor": "logística"
+    },
+    {
+        "matricula": 88888,
+        "nome": "Rodrigo Almeida",
+        "classe": 0,
+        "setor": "administração"
+    },
+    {
+        "matricula": 99999,
+        "nome": "Isabela Oliveira",
+        "classe": 1,
+        "setor": "qualidade"
+    },
+    {
+        "matricula": 10101,
+        "nome": "Gabriel Costa",
+        "classe": 2,
+        "setor": "manufatura"
+    },
+    {
+        "matricula": 12121,
+        "nome": "Vanessa Bertoldo",
+        "classe": 0,
+        "setor": "informática"
+    },
+    {
+        "matricula": 13131,
+        "nome": "Renato Pereira",
+        "classe": 1,
+        "setor": "engenharia"
+    },
+    {
+        "matricula": 14141,
+        "nome": "Amanda Oliveira",
+        "classe": 2,
+        "setor": "design"
+    },
+    {
+        "matricula": 15151,
+        "nome": "Marcelo Santos",
+        "classe": 0,
+        "setor": "produção"
+    },
+    {
+        "matricula": 16161,
+        "nome": "Carolina Lima",
+        "classe": 1,
+        "setor": "marketing"
+    },
+    {
+        "matricula": 17171,
+        "nome": "Alexandre Silva",
+        "classe": 2,
+        "setor": "vendas"
+    },
+    {
+        "matricula": 18181,
+        "nome": "Eduarda Costa",
+        "classe": 0,
+        "setor": "logística"
+    },
+    {
+        "matricula": 19191,
+        "nome": "Lucas Rocha",
+        "classe": 1,
+        "setor": "administração"
+    },
+    {
+        "matricula": 20202,
+        "nome": "Beatriz Almeida",
+        "classe": 2,
+        "setor": "tecnologia"
+    },
+    {
+        "matricula": 21212,
+        "nome": "Thiago Fernandes",
+        "classe": 0,
+        "setor": "qualidade"
+    }
+]

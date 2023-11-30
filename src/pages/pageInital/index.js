@@ -6,6 +6,7 @@ import RHFTextField from '../../hookForms/RHFTextField';
 import ReactFormProvider from '../../components/form';
 import DialogCalendar from '../../dialogs/dialogCalendar';
 import { useSelector } from 'react-redux';
+import ListPageMain from '../../components/listPageMain';
 
 const useStyles = makeStyles({
     container: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
        
     },
     header: {
+        zIndex: 1000,
         width: "100%",
         background: "#62905B",
         padding: "15px",
@@ -32,7 +34,17 @@ const useStyles = makeStyles({
     },
     textField: {
         width: "100vh"
-    }
+    },
+    height100: {
+        height: "100%"
+    },
+    padding10: {
+        padding: "10px"
+    },
+    alignList: {
+        textAlign: "-webkit-center"
+    },
+   
 });
 
 function PageInitial() {
@@ -62,13 +74,19 @@ function PageInitial() {
             <Header className={classes.header} />
             <ReactFormProvider methods={methods} >
                 <Box className={classes.positionBox}>
-                    <RHFTextField
-                        name={"search"}
-                        label={"Pesquisar"}
-                        className={classes.textField}
-                    />
+                    <Box className={classes.padding10}>
+                        <RHFTextField
+                            name={"search"}
+                            label={"Pesquisar"}
+                            className={classes.textField}
+                        />
+                    </Box>
+                    <Box className={`${classes.padding10} ${classes.alignList}`}>
+                        <ListPageMain/>
+                    </Box>
                 </Box>
             </ReactFormProvider>
+           
             <Container>
                 <DialogCalendar open={open}/>
             </Container>
