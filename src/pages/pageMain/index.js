@@ -10,6 +10,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ReactFormProvider from '../../components/form';
 import { loginAsync } from '../../connection_api/connection/connAuthLogin';
+import { Alert } from '../../utils/alerts';
+import { getUsers } from '../../connection_api/connection/connUsuarios';
 
 const useStyles = makeStyles({
     container: {
@@ -86,7 +88,7 @@ function PageMain(){
   const dispatch = useDispatch()
   const classes = useStyles()
 
-    const [isLoggedIn, setLoggedIn] = useState(true)
+    const [isLoggedIn, setLoggedIn] = useState(false)
 
     const schema = yup.object().shape({
       user: yup.string().required("Dados inválidos"),
@@ -118,6 +120,8 @@ function PageMain(){
           const response = await dispatch(loginAsync(values))
           if(response === 200){
             setLoggedIn(true);
+          } else {
+            Alert({title: "Erro", text: "Usuario ou senha incorretos", icon:"error"})
           }
           console.log(response)
           

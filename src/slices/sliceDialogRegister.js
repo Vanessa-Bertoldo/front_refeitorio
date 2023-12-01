@@ -1,6 +1,6 @@
 import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAsyncFicha } from "../connection_api/connection/connFicha";
+import { loginAsync } from "../connection_api/connection/connAuthLogin";
 
 const initialState = {
     open: false,
@@ -25,23 +25,9 @@ const dialogRegister = createSlice({
 export const { openDialog, closedDialog } = dialogRegister.actions;
 export default dialogRegister.reducer;
 
-/*export function openDialog(){
-    return async (dispatch) => {
-        dispatch(slice.actions.openDialog())
-    };
-}
-
-export function closedDialog(){
-    return async (dispatch) => {
-        dispatch(slice.actions.closedDialog())
-    };
-}*/
-
 export function checkLogin(dto){
     return async (dispatch) => {
-        console.log("odt receive ", dto)
-        const response = await dispatch(loginAsyncFicha(dto))
-        console.log("response", response)
+        const response = await dispatch(loginAsync(dto))
         return response
     }
 }

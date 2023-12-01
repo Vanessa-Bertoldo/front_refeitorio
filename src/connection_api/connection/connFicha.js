@@ -1,5 +1,5 @@
 import { DB_CONNECTION } from "../dbConnection";
-import { AxiosPost } from "../constantsConnection";
+import { AxiosGet, AxiosPost } from "../constantsConnection";
 
 export const loginAsyncFicha = (dto) => async (dispatch) => {
   try {
@@ -11,3 +11,14 @@ export const loginAsyncFicha = (dto) => async (dispatch) => {
     return error.status
   }
 };
+
+
+export const getDataFicha = () => async (dispatch) => {
+  console.log("entrei auq")
+  try{
+    const response = await AxiosGet(DB_CONNECTION.LINK_SERVER_FICHA)
+    return response
+  } catch(error) {
+    return error.status
+  }
+}
