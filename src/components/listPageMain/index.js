@@ -46,17 +46,17 @@ async function handleClick(data){
 }
 
 export const renderRow = (props, classes, listFicha) => {
-   
     const { index, style } = props;
+    const rowData = listFicha[index];
     return (
       <ListItem button style={style} key={index} onClick={() => handleClick(data[index])}>
         <ListItemText>
             <Container className={classes.root}>
                 <GridThreeColumns
-                    c1={data[index].matricula}
+                    c1={rowData.matricula}
                     c2={data[index].nome}
                     c3={<EventNoteIcon/>}
-            />
+              />
             </Container>
         </ListItemText>
        </ListItem>
@@ -67,7 +67,6 @@ function ListPageMain(){
     const classes = useStyles()
     const dispatch = useDispatch()
     const listFicha = useSelector((state) => state.pageMain.list);
-    console.log("lista fichas ", listFicha)
     
     return(
         <Container className={classes.customScrollbar}>
@@ -78,7 +77,7 @@ function ListPageMain(){
                 itemCount={listFicha.length} 
                 className={`${classes.position} ${classes.customScrollbar}`}
             >
-                {(props) => renderRow(props, classes, dispatch, listFicha)}
+                {(props) => renderRow(props, classes, listFicha)}
             </FixedSizeList>
         </Container>
     )

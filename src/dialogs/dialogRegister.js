@@ -105,7 +105,7 @@ function DialogRegisterForm({open}){
             const response = await dispatch(insertDataFicha(values))
             if(response === 200){
                 Alert({title: "Sucesso", text: "Dados cadastrados com sucesso", icon:"success"})
-                reset()
+                reset(defaultValues)
                 dispatch(closedDialog())
             } else {
                 Alert({title: "Erro", text: response, icon:"erro"})
