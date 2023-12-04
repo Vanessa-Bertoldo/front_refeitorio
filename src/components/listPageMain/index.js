@@ -49,12 +49,12 @@ export const renderRow = (props, classes, listFicha) => {
     const { index, style } = props;
     const rowData = listFicha[index];
     return (
-      <ListItem button style={style} key={index} onClick={() => handleClick(data[index])}>
+      <ListItem button style={style} key={index} onClick={() => handleClick(rowData)}>
         <ListItemText>
             <Container className={classes.root}>
                 <GridThreeColumns
                     c1={rowData.matricula}
-                    c2={data[index].nome}
+                    c2={rowData.nome}
                     c3={<EventNoteIcon/>}
               />
             </Container>
