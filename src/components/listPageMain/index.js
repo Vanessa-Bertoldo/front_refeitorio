@@ -3,7 +3,7 @@ import data from "../../assets/dataJson/fichas.json"
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import { FixedSizeList } from 'react-window'
 import GridThreeColumns from "../grid/grid3x1/gridThreeColumns";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openDialogCalendar, receiveDataCalendar } from "../../slices/sliceDialogCalendar";
 import { dispatch } from "../../store/storeCom";
 import { closedScreenLoader, openScreenLoader } from "../../slices/sliceScreenLoader";
@@ -45,9 +45,8 @@ async function handleClick(data){
       
 }
 
-export const renderRow = (props, classes) => {
+export const renderRow = (props, classes, listFicha) => {
    
-    
     const { index, style } = props;
     return (
       <ListItem button style={style} key={index} onClick={() => handleClick(data[index])}>
@@ -67,6 +66,8 @@ export const renderRow = (props, classes) => {
 function ListPageMain(){
     const classes = useStyles()
     const dispatch = useDispatch()
+    const listFicha = useSelector((state) => state.pageMain.list);
+    console.log("lista fichas ", listFicha)
     
     return(
         <Container className={classes.customScrollbar}>
@@ -74,10 +75,10 @@ function ListPageMain(){
                 height={600} 
                 width={800} 
                 itemSize={46} 
-                itemCount={20} 
+                itemCount={listFicha.length} 
                 className={`${classes.position} ${classes.customScrollbar}`}
             >
-                {(props) => renderRow(props, classes, dispatch)}
+                {(props) => renderRow(props, classes, dispatch, listFicha)}
             </FixedSizeList>
         </Container>
     )

@@ -4,7 +4,11 @@ import { getDataFicha } from "./connFicha";
 
 export const loginAsync = (dto) => async (dispatch) => {
   try {
-    const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_AUTH, dto);
+    const data = {
+      user: dto.user,
+      password: dto.password
+    }
+    const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_AUTH, data);
     console.log("response ", response.status)
     if(response.status === 200){
       await dispatch(getDataFicha())

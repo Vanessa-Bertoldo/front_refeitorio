@@ -121,7 +121,7 @@ function PageMain(){
           if(response === 200){
             setLoggedIn(true);
           } else {
-            Alert({title: "Erro", text: "Usuario ou senha incorretos", icon:"error"})
+            Alert({title: "Erro", text: "Usuario ou senha incorretos", icon:"erro"})
           }
           console.log(response)
           

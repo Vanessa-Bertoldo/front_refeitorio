@@ -6,10 +6,7 @@ export function AxiosPost(url, dto) {
         method: 'POST',
         url: url,
         withCredentials: true,
-        data: {
-            user: dto.user,
-            password: dto.password
-        },
+        data: dto,
         headers: {
             'Content-Type': 'application/json',
         },

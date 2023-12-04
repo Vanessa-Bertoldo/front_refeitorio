@@ -13,6 +13,8 @@ import RHFSelect from "../hookForms/RHFSelect"
 //yup
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { insertDataFicha } from "../connection_api/connection/connFicha"
+import { Alert } from "../utils/alerts"
 
 
 const useStyles = makeStyles({
@@ -92,19 +94,23 @@ function DialogRegisterForm({open}){
         register,
         getValues,
         setValue,
+        reset,
         trigger
     } = methods
 
     async function saveData (){
-        console.log("função salvar")
         const res = await trigger()
-        console.log("res trigger ", res)
-        console.log("response ", getValues())
         if(res){
             const values = getValues()
-            //await dispatch(checkLogin(values))
+            const response = await dispatch(insertDataFicha(values))
+            if(response === 200){
+                Alert({title: "Sucesso", text: "Dados cadastrados com sucesso", icon:"success"})
+                reset()
+                dispatch(closedDialog())
+            } else {
+                Alert({title: "Erro", text: response, icon:"erro"})
+            }
         }
-        console.log("Values", getValues())
     }
 
     return(

@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const pageMain = createSlice({
-    name: "dialogNutrition",
+    name: "pageMain",
     initialState,
     reducers: {
         addDataInList(state, action){
@@ -18,10 +18,12 @@ const pageMain = createSlice({
 export const { addDataInList } = pageMain.actions;
 export default pageMain.reducer;
 
-export function insertDataInListFicha(){
+export function insertDataInListFicha(data){
     return async (dispatch) => {
-        //await dispatch()
+        if(data != null && data.data != null){
+            await dispatch(pageMain.actions.addDataInList(data.data))
+            console.log("data da data ", data.data)
+        }
         
-        //console.log("data slice ", data)
     }
 }
