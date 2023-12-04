@@ -48,7 +48,6 @@ const useStyles = makeStyles({
 });
 
 function PageInitial() {
-    const open = useSelector((state) => state.dialogCalendar.open)
     const classes = useStyles();
     const methods = useForm();
 
@@ -82,10 +81,6 @@ function PageInitial() {
                     </Box>
                 </Box>
             </ReactFormProvider>
-           
-            <Container>
-                <DialogCalendar open={open}/>
-            </Container>
         </Container>
     );
 }

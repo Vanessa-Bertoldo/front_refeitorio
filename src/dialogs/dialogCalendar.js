@@ -14,6 +14,7 @@ import RHFTextField from "../hookForms/RHFTextField";
 import RHFSelect from "../hookForms/RHFSelect";
 //lists
 import { payment } from "../utils/lists";
+import { openDialogPDF } from "../slices/sliceDialogPDF";
 
 const useStyles = makeStyles({
     title: {
@@ -91,7 +92,7 @@ function DialogCalendar(){
     }
 
     const handleView = () => {
-
+        dispatch(openDialogPDF())
     }
 
     React.useEffect(() => {

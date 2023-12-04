@@ -16,6 +16,7 @@ import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
 //slices
 import { closedDialogNutrition } from "../slices/sliceDialogNutrition"
+import { openDialogPDF } from "../slices/sliceDialogPDF"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -79,14 +80,19 @@ function DialogNutrition({open}){
     } = methods
 
     async function handleGenerate() {
-        const submit = await trigger()
-        if(submit){
-            console.log(getValues())
-        }
+       
     }
 
     const handleClose = () => {
         dispatch(closedDialogNutrition())
+    }
+
+    async function handleView () {
+        dispatch(openDialogPDF())
+        const submit = await trigger()
+        if(submit){
+            console.log(getValues())
+        }
     }
 
     return(
@@ -137,7 +143,7 @@ function DialogNutrition({open}){
                 </ReactFormProvider> 
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={handleGenerate} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
+                <Button variant="contained" onClick={handleView} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
                 <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
             </DialogActions>
         </Dialog>

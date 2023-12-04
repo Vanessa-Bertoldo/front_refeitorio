@@ -4,11 +4,15 @@ import DialogRegisterForm from './dialogs/dialogRegister';
 import DialogNutrition from './dialogs/dialogNutrition';
 import { useSelector } from 'react-redux';
 import Loader from './utils/loader';
+import DialogPDF from './dialogs/dialogPdfGenerate';
+import DialogCalendar from './dialogs/dialogCalendar';
 
 export default function App() {
   const open = useSelector((state) => state.dialogRegister.open)
   const openScreenLoader = useSelector((state) => state.screenLoader.open)
   const openDialogNutri = useSelector((state) => state.dialogNutrition.open)
+  const openDialogPDF = useSelector((state) => state.dialogPDF.open)
+  const openDialogCalendar = useSelector((state) => state.dialogCalendar.open)
 
   return (
   <>
@@ -16,6 +20,8 @@ export default function App() {
     <DialogRegisterForm open={open}/>
     <DialogNutrition open={openDialogNutri}/>
     <Loader open={openScreenLoader}/>
+    <DialogPDF open={openDialogPDF}/>
+    <DialogCalendar open={openDialogCalendar}/>
   </>
   );
 }
