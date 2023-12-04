@@ -16,7 +16,8 @@ import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
 //slices
 import { closedDialogNutrition } from "../slices/sliceDialogNutrition"
-import { openDialogPDF } from "../slices/sliceDialogPDF"
+import { openDialogPDF, openDialogViewPDF } from "../slices/sliceDialogPDF"
+import { pdfGenerator } from "../utils/generatePDF"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -88,7 +89,7 @@ function DialogNutrition({open}){
     }
 
     async function handleView () {
-        dispatch(openDialogPDF())
+        dispatch(openDialogViewPDF(pdfGenerator))
         const submit = await trigger()
         if(submit){
             console.log(getValues())
