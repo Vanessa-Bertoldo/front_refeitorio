@@ -1,10 +1,9 @@
 import { Container, ListItem, ListItemText, makeStyles } from "@material-ui/core"
-import data from "../../assets/dataJson/fichas.json"
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import { FixedSizeList } from 'react-window'
 import GridThreeColumns from "../grid/grid3x1/gridThreeColumns";
 import { useDispatch, useSelector } from "react-redux";
-import { openDialogCalendar, receiveDataCalendar } from "../../slices/sliceDialogCalendar";
+import { openDialogCalendar } from "../../slices/sliceDialogCalendar";
 import { dispatch } from "../../store/storeCom";
 import { closedScreenLoader, openScreenLoader } from "../../slices/sliceScreenLoader";
 
@@ -39,7 +38,6 @@ const useStyles = makeStyles({
 
 async function handleClick(data){
     dispatch(openScreenLoader())
-    await dispatch(receiveDataCalendar(data)) 
     await dispatch(openDialogCalendar())
     dispatch(closedScreenLoader()) 
       

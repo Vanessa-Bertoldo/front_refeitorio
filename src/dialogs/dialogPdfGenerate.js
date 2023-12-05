@@ -25,11 +25,12 @@ function DialogPDF({open}){
     const [pdfDataUrl, setPdfDataUrl] = useState('');
 
     React.useEffect(() => {
-        console.log("gerad")
-        const pdfDoc = pdfMake.createPdf(pdfGenerator)
-        pdfDoc.getDataUrl((dataUrl) => {
-            setPdfDataUrl(dataUrl)
-        })
+      pdfMake.vfs = pdfFonts.pdfMake.vfs;
+        const pdfDocGenerator = pdfMake.createPdf(pdfGenerator);
+        pdfDocGenerator.getDataUrl((dataUrl) => {
+        setPdfDataUrl(dataUrl);
+        
+      });
     },[])
 
     const handleClose = () => {
@@ -43,8 +44,9 @@ function DialogPDF({open}){
                 <iframe
                     title="pdf-viewer"
                     src={pdfDataUrl}
-                    width={"100%"}
-                    height={"100%"}
+                    width="100%"
+                    height="500px"
+                    style={{ border: 'none', fontSize: '16px' }}
                 />
             </DialogContent>
             <DialogActions>

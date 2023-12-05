@@ -1,5 +1,8 @@
+class ContructorPdf{
+
+}
+module.exports = ContructorPdf
 export const pdfGenerator = {
-   
     content: [
         { text: 'Exemplo de PDF com pdfMake', style: 'header' },
         { text: 'Este é um parágrafo simples.', style: 'paragraph' },

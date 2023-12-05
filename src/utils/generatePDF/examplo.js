@@ -81,3 +81,33 @@ const PdfGenerator = () => {
 };
 
 export default PdfGenerator;
+
+
+/*// src/PdfViewer.js
+import React, { useRef } from 'react';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+const PdfViewer = ({ content }) => {
+  const pdfContainer = useRef(null);
+
+  const generatePdf = () => {
+    const docDefinition = {
+      content: content,
+    };
+
+    pdfMake.createPdf(docDefinition).open();
+  };
+
+  return (
+    <div>
+      <div ref={pdfContainer} />
+      <button onClick={generatePdf}>Gerar PDF</button>
+    </div>
+  );
+};
+
+export default PdfViewer;
+ */
