@@ -41,3 +41,7 @@ export const insertDataFicha = (dto) => async (dispatch) => {
     return error.response.data.message
   }
 }
+
+export const getDataFichaFilter = (dto) => {
+
+}

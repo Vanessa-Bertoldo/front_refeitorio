@@ -28,13 +28,13 @@ const dialogPDF = createSlice({
 export const { openDialogPDF, closedDialogPDF } = dialogPDF.actions;
 export default dialogPDF.reducer;
 
-export function openDialogViewPDF(documentDefinition){
-    console.log("entrada slice")
+export function openDialogViewPDF(filters){
+    console.log("filters ", filters)
     return async (dispatch) => {
-        const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
+        /*const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
         pdfDocGenerator.getDataUrl((dataUrl) => {
             dispatch(dialogPDF.actions.receiveUrl(dataUrl))
-        });
-        dispatch(openDialogPDF())
+        });*/
+        //dispatch(openDialogPDF())
     }
 }

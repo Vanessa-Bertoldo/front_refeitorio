@@ -77,7 +77,8 @@ function DialogNutrition({open}){
         register,
         getValues,
         setValue,
-        trigger
+        trigger,
+        reset
     } = methods
 
     async function handleGenerate() {
@@ -85,15 +86,15 @@ function DialogNutrition({open}){
     }
 
     const handleClose = () => {
+        reset(defaultValues)
         dispatch(closedDialogNutrition())
     }
 
     async function handleView () {
-        dispatch(openDialogViewPDF(pdfGenerator))
-        const submit = await trigger()
-        if(submit){
-            console.log(getValues())
-        }
+        const values = getValues()
+        dispatch(openDialogViewPDF(values))
+        //console.log("getValues ", getValues())
+       
     }
 
     return(
