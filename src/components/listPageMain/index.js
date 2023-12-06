@@ -3,7 +3,7 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import { FixedSizeList } from 'react-window'
 import GridThreeColumns from "../grid/grid3x1/gridThreeColumns";
 import { useDispatch, useSelector } from "react-redux";
-import { openDialogCalendar } from "../../slices/sliceDialogCalendar";
+import { openDialogCalendar, receiveDataAndOpenDialog } from "../../slices/sliceDialogCalendar";
 import { dispatch } from "../../store/storeCom";
 import { closedScreenLoader, openScreenLoader } from "../../slices/sliceScreenLoader";
 
@@ -37,10 +37,10 @@ const useStyles = makeStyles({
 })
 
 async function handleClick(data){
+  console.log("handle click")
     dispatch(openScreenLoader())
-    await dispatch(openDialogCalendar())
+    await dispatch(receiveDataAndOpenDialog(data))
     dispatch(closedScreenLoader()) 
-      
 }
 
 export const renderRow = (props, classes, listFicha) => {

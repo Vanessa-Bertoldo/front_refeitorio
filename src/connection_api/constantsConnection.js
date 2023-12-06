@@ -28,19 +28,5 @@ export function AxiosGet(url) {
         .catch(function (error) {
             throw error; 
         });
-   /* return axios({
-        method: 'GET',
-        url: url,
-        withCredentials: true,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-      })
-    .then(function (response) {
-        return response;
-    })
-    .catch(function (error) {
-        throw error;
-    });*/
         
 }

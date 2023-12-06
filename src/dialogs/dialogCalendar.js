@@ -56,17 +56,23 @@ const useStyles = makeStyles({
 function DialogCalendar(){
     const data = useSelector((state) => state.dialogCalendar.data)
     const open = useSelector((state) => state.dialogCalendar.open)
+    const[dataList, setDatalist] = React.useState({})
+
     const dispatch = useDispatch()
     const classes = useStyles()
     let date = new Date()
+
+    React.useEffect(() => {
+        setDatalist(data)
+    },[data])
 
     const schema = yup.object().shape({
 
     })
 
     const defaultValues = React.useMemo(() => ({
-        name: data.nome,
-        matricula: "",
+        name: dataList.nome,
+        matricula: dataList.matricula,
         class: "",
         size:"",
         valueMonthYear: 0.00,
@@ -76,7 +82,7 @@ function DialogCalendar(){
 
     const methods = useForm({
         resolver:           yupResolver(schema),
-        defaultValues:      defaultValues
+        defaultValues
     })
 
     const {
@@ -94,10 +100,6 @@ function DialogCalendar(){
     const handleView = () => {
         dispatch(openDialogPDF())
     }
-
-    React.useEffect(() => {
-        console.log("dados dialog", data)
-    },[data])
     return(
         <Dialog
             open={open}
