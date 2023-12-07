@@ -1,7 +1,7 @@
 export const payment = [
-    {value:0, text: "a vista"}, 
-    {value: 1, text: "Vale"}, 
-    {value: 2, text: "isento"}
+    {value: 0, text: "A VISTA"}, 
+    {value: 1, text: "VALE"}, 
+    {value: 2, text: "ISENTO"}
 ]
 export const optionsSize = [
     {value: 0, text:"Selecione"}, 
@@ -9,14 +9,19 @@ export const optionsSize = [
     {value: 2, text: "Pequena"}
 ]
 export const classList = [
-    {value: 0, text: "Selecione"}, 
-    {value: 1, text:"Empregado"}, 
-    {value: 2, text:"Diretor"}, 
-    {value: 3, text:"Voluntário"}, 
-    {value: 4, text:"Residente"}, 
-    {value: 5, text:"Visitante"}, 
-    {value: 6, text:"Professor"}, 
-    {value: 7, text:"Outros"}
+    {value: 0,  text: "Selecione"}, 
+    {value: 1,  text: "EMPREGADO"}, 
+    {value: 2,  text: "DIRETOR"}, 
+    {value: 3,  text: "VOLUNTÁRIO"}, 
+    {value: 4,  text: "RESIDENTE"}, 
+    {value: 5,  text: "VISITANTE"}, 
+    {value: 6,  text: "PROFESSOR"}, 
+    {value: 7,  text: "SEGURANÇA PATRIMONIAL"},
+    {value: 8,  text: "LIMPEZA"},
+    {value: 9,  text: "LAVANDERIA"},
+    {value: 10, text: "FINANCEIRO"},
+    {value: 11, text: "DEPARTAMENTO HUMANO"},
+    {value: 11, text: "OUTROS"}
 ]
 
 export const models = [

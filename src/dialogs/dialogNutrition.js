@@ -15,9 +15,10 @@ import { classList, models, payment } from "../utils/lists";
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
 //slices
-import { closedDialogNutrition } from "../slices/sliceDialogNutrition"
+import { closedDialogNutrition, receiveDataToPDF } from "../slices/sliceDialogNutrition"
 import { openDialogPDF, openDialogViewPDF } from "../slices/sliceDialogPDF"
 import { pdfGenerator } from "../utils/generatePDF"
+import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -59,10 +60,10 @@ function DialogNutrition({open}){
 
     const defaultValues = React.useMemo(() => ({
         modelSelect: 0,
-        classSelect: 0,
-        paymentSelect: 0,
-        dateInitial: date.toISOString().split('T')[0],
-        dateFinal: date.toISOString().split('T')[0]
+        classe: 0,
+        modo_pagamento: 0,
+        dataInicial: date.toISOString().split('T')[0],
+        dataFinal: date.toISOString().split('T')[0]
     }),[])
 
     const schema = yup.object().shape({
@@ -92,8 +93,10 @@ function DialogNutrition({open}){
 
     async function handleView () {
         const values = getValues()
-        dispatch(openDialogViewPDF(values))
-        //console.log("getValues ", getValues())
+        await dispatch(openScreenLoader())
+        await dispatch(receiveDataToPDF(values))
+        await dispatch(closedScreenLoader())
+        //dispatch(openDialogViewPDF(values))
        
     }
 
@@ -109,26 +112,26 @@ function DialogNutrition({open}){
                 <ReactFormProvider methods={methods} >
                     <Box className={classes.gridContainer}>
                        <RHFTextField
-                            name="dateInitial"
+                            name="dataInicial"
                             label="Data Inicial"
                             type="date"
                        />
                        <RHFTextField
-                            name="dateFinal"
+                            name="dataFinal"
                             label="Data Final"
                             type="date"
                        />
                     </Box>
                     <Box className={classes.gridContainerCol1}>
                         <RHFSelect
-                            name={"classSelect"}
+                            name={"classe"}
                             label="Classe"
                             options={classList}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />
                         <RHFSelect
-                            name={"paymentSelect"}
+                            name={"modo_pagamento"}
                             label="pagamento"
                             options={payment}
                             onGetValue={(item) => item.value}
