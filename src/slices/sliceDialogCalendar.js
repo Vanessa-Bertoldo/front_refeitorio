@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     open: false,
-    data: {},
+    data: null,
 }
 
 const dialogCalendar = createSlice({
@@ -23,10 +23,10 @@ const dialogCalendar = createSlice({
 export const { openDialogCalendar, closedDialogCalendar } = dialogCalendar.actions;
 export default dialogCalendar.reducer;
 
-export function receiveDataAndOpenDialog(data){
+export function receiveDataAndOpenDialog(dto){
     return async (dispatch) => {
-        console.log("entrada na slice")
-        await dispatch(dialogCalendar.actions.receiveData(data))
+        console.log("entrada na slice ", dto)
+        await dispatch(dialogCalendar.actions.receiveData(dto))
         await dispatch(dialogCalendar.actions.openDialogCalendar())
     }
 }

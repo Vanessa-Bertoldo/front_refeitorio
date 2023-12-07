@@ -56,29 +56,24 @@ const useStyles = makeStyles({
 function DialogCalendar(){
     const data = useSelector((state) => state.dialogCalendar.data)
     const open = useSelector((state) => state.dialogCalendar.open)
-    const[dataList, setDatalist] = React.useState({})
 
     const dispatch = useDispatch()
     const classes = useStyles()
     let date = new Date()
-
-    React.useEffect(() => {
-        setDatalist(data)
-    },[data])
 
     const schema = yup.object().shape({
 
     })
 
     const defaultValues = React.useMemo(() => ({
-        name: dataList.nome,
-        matricula: dataList.matricula,
-        class: "",
-        size:"",
-        valueMonthYear: 0.00,
-        payment: 0,
+        nome: data !== null ? data.nome : "",
+        matricula: data !== null ? data.matricula : 0, 
+        classe: data !== null ? data.classe : "",
+        size: data !== null ? data.tamanho : "",
+        valor: 0.00,
+        pagamento: 0,
         monthYear: date.toISOString().split('T')[0]
-    }),[])
+    }),[data])
 
     const methods = useForm({
         resolver:           yupResolver(schema),
@@ -86,8 +81,7 @@ function DialogCalendar(){
     })
 
     const {
-        register,
-        getvalues,
+        getValues,
         setValue,
         trigger,
         control
@@ -100,6 +94,11 @@ function DialogCalendar(){
     const handleView = () => {
         dispatch(openDialogPDF())
     }
+
+    const handleSave = () => {
+        console.log("getValues ", getValues())
+    }
+
     return(
         <Dialog
             open={open}
@@ -109,11 +108,11 @@ function DialogCalendar(){
             <DialogTitle className={classes.title}>CALENDÁRIO</DialogTitle>
             <DialogContent>
                 <ReactFormProvider methods={methods} >
-                    <Box className={classes.gridContainer} fullWidth={true}>
+                    <Box className={classes.gridContainer}>
                         <RHFTextField
-                                name="monthYear"
-                                label="Mês / Ano"
-                                type="date"
+                            name="monthYear"
+                            label="Mês / Ano"
+                            type="date"
                         />
                     </Box>
                     <Box className={classes.gridContainer}>
@@ -122,13 +121,13 @@ function DialogCalendar(){
                             label="Matricula"
                         />
                         <RHFTextField
-                            name="name"
+                            name="nome"
                             label="Nome"
                         />
                     </Box>
                     <Box className={classes.gridContainer}>
                         <RHFTextField
-                            name="class"
+                            name="classe"
                             label="Classe"
                         />
                         <RHFTextField
@@ -139,25 +138,24 @@ function DialogCalendar(){
                     <Box className={classes.gridContainer}>
                         <RHFSelect
                             label={"Pagamento"}
-                            name="payment"
+                            name="pagamento"
                             options={payment}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />
                          <RHFTextField
-                            name="valueMonthYear"
+                            name="valor"
                             label="Valor"
                        />
                     </Box>
                     <Box className={classes.gridContainer}>
-                       
                     </Box>
                 </ReactFormProvider>
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={handleView} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
                 <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
-                <Button variant="contained" className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
+                <Button variant="contained" onClick={handleSave} className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
             </DialogActions>
         </Dialog>
     )
