@@ -32,7 +32,6 @@ export function receiveDataToPDF(data){
             dataFinal: data.dataFinal, 
             modo_pagamento: payment[data.modo_pagamento].text
         }
-        console.log("entrada na slice ", newData)
         await dispatch(getDataToNutrition(newData))
     }
 }

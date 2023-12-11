@@ -17,7 +17,7 @@ import RHFSelect from "../hookForms/RHFSelect"
 //slices
 import { closedDialogNutrition, receiveDataToPDF } from "../slices/sliceDialogNutrition"
 import { openDialogPDF, openDialogViewPDF } from "../slices/sliceDialogPDF"
-import { pdfGenerator } from "../utils/generatePDF"
+import { pdfGenerator } from "../utils/generatePDF/ex2"
 import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader"
 
 const useStyles = makeStyles({
@@ -96,7 +96,7 @@ function DialogNutrition({open}){
         await dispatch(openScreenLoader())
         await dispatch(receiveDataToPDF(values))
         await dispatch(closedScreenLoader())
-        //dispatch(openDialogViewPDF(values))
+        dispatch(openDialogViewPDF(values))
        
     }
 

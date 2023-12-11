@@ -35,6 +35,26 @@ export function openDialogViewPDF(filters){
         pdfDocGenerator.getDataUrl((dataUrl) => {
             dispatch(dialogPDF.actions.receiveUrl(dataUrl))
         });*/
-        //dispatch(openDialogPDF())
+        dispatch(openDialogPDF())
+    }
+}
+
+export function dataList(data){
+    return async (dispatch) => {
+        console.log("entraste", data)
+        const newList = new Array()
+        if(data !== null){
+            for(var i=0; i<data.length; i++){
+                const list = data[i]
+                const newData = [
+                    {text:list.ficha.setor}, 
+                    {text: list.ficha.nome}, 
+                    {text: list.ficha.classe}
+                ]
+                newList.push(newData)
+            }
+            await dispatch(dialogPDF.actions.receiveData(newList))
+        }
+        console.log("newList22 ", newList)
     }
 }

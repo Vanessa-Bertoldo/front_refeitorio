@@ -3,14 +3,12 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 
-// Carregar as fontes necessárias (por exemplo, Arial)
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const PdfGenerator = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const generatePdf = () => {
-    // Definir o conteúdo do PDF
     const documentDefinition = {
       content: [
         { text: 'Exemplo de PDF com pdfMake', style: 'header' },
@@ -81,33 +79,3 @@ const PdfGenerator = () => {
 };
 
 export default PdfGenerator;
-
-
-/*// src/PdfViewer.js
-import React, { useRef } from 'react';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
-const PdfViewer = ({ content }) => {
-  const pdfContainer = useRef(null);
-
-  const generatePdf = () => {
-    const docDefinition = {
-      content: content,
-    };
-
-    pdfMake.createPdf(docDefinition).open();
-  };
-
-  return (
-    <div>
-      <div ref={pdfContainer} />
-      <button onClick={generatePdf}>Gerar PDF</button>
-    </div>
-  );
-};
-
-export default PdfViewer;
- */

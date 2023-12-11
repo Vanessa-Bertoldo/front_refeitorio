@@ -1,3 +1,5 @@
+import { dataList } from "../../slices/sliceDialogPDF"
+import { setListTicket } from "../../utils/cache/cacheConfig"
 import { AxiosPost } from "../constantsConnection"
 import { DB_CONNECTION } from "../dbConnection"
 
@@ -5,8 +7,12 @@ export const getDataToNutrition = (data) => async (dispatch) => {
     try{
       console.log("data ", data)
       const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_NUTRITION, data)
-      //dispatch(receiveDataToPDF(response))
       console.log("Data for pdf ", response)
+      if(response.data !== null){
+        await dispatch(dataList(response.data))
+        await setListTicket(response.data)
+      }
+     
       return response
     } catch(error) {
       return error.status

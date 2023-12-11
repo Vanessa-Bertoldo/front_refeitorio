@@ -1,28 +1,42 @@
-import logo from "../../assets/logo.png"
+export const spacing = [
+    {
+        border: [false, false, false, false],
+        text: ''
+    },
+    {
+        border: [false, false, false, false],
+        text: ''
+    },
+]
 
-export const pdfGenerator = {
-    footer: {
-      columns: [
-        'Left part',
-        { text: 'Right part', alignment: 'right' }
-      ]
+export const lineHorizontal = {
+  canvas: [
+    {
+      type: 'line',
+      x1: 0, y1: 5, // ponto inicial (x, y)
+      x2: 520, y2: 5, // ponto final (x, y) 
+      lineWidth: 1, // largura da linha
     },
-    header: {
-      margin: 10,
-      columns: [
-          /*{
-              image: "../../assets/logoj.jpg",
-              width: 40
-          },*/
-          {
-              margin: [10, 0, 0, 0],
-              text: 'Nutrição e Dietética - NACJ'
-          }
-      ]
-    },
+  ],
+}
+
+export const pdfListNutrition = {
     content: [
-        { text: 'txt1', style: 'header' },
-        { text: 'txt2', style: 'paragraph' },
+        {
+            layout: 'lightHorizontalLines',
+            table: {
+              headerRows: 1,
+              widths: [ '*', 'auto', 100, '*' ],
+      
+              body: [
+                [ 'PRESENÇA', 'NOME', 'SETOR', 'CLASSE' ],
+                [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
+                [ { text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4' ]
+              ]
+            }
+        },
+        { text: 'Exemplo de PDF com pdfMake', style: 'header' },
+        { text: 'Este é um parágrafo simples.', style: 'paragraph' },
         {
           ul: [
             'Item 1',
@@ -31,15 +45,15 @@ export const pdfGenerator = {
           ],
         },
       ],
-    styles: {
+      styles: {
         header: {
-        fontSize: 18,
-        bold: true,
-        margin: [0, 0, 0, 10],
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10],
         },
         paragraph: {
-        fontSize: 12,
-        margin: [0, 0, 0, 10],
+          fontSize: 12,
+          margin: [0, 0, 0, 10],
         },
-    },
+      },
 }

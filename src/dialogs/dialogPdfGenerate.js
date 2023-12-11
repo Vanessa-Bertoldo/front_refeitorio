@@ -4,8 +4,9 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
 import { useState } from "react";
 import { closedDialogPDF } from "../slices/sliceDialogPDF";
-import { useDispatch } from "react-redux";
-import { pdfGenerator } from "../utils/generatePDF";
+import { useDispatch, useSelector } from "react-redux";
+import { lineHorizontal } from "../utils/generatePDF";
+import { logo } from "../assets/logoB64";
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -22,14 +23,111 @@ const useStyles = makeStyles({
 function DialogPDF({open}){
     const dispatch = useDispatch()
     const classes = useStyles()
+    const data = useSelector((state) => state.dialogPDF.data)
+    const [list, setList] = useState([{value: 0, text: "Teste"}])
     const [pdfDataUrl, setPdfDataUrl] = useState('');
 
     React.useEffect(() => {
-      pdfMake.vfs = pdfFonts.pdfMake.vfs;
-        const pdfDocGenerator = pdfMake.createPdf(pdfGenerator);
-        pdfDocGenerator.getDataUrl((dataUrl) => {
-        setPdfDataUrl(dataUrl);
+        console.log("update")
+        setList(data)
+      
         
+    },[data])
+
+    const pdfListNutrition = {
+        content: [
+            {
+                table: {
+                    headerRows: 1,
+                    widths: [ 'auto', 350],
+                    heights: [30, 30],
+                    body: [
+                        [
+                            {
+                                border: [false, false, false, false],
+                                image: logo,
+                                width: 150
+                            },
+                            {
+                                border: [false, false, false, false],
+                                text: 'NUTRIÇÃO E DIETÉTICA - NACJ',
+                                style: 'header',
+                                alignment: 'center',
+                                alignment: 'right'
+                            },
+                            
+                        ],
+                    ]
+                }
+            },	
+            lineHorizontal,
+            {
+                table: {
+                    headerRows: 1,
+                    heights: [30, 30],
+                    widths: [ '*', '*', '*', '*' ],
+                    body: [
+                        [
+                            {
+                                border: [false, false, false, false],
+                                text: 'DATA EMISSAO: '
+                            },
+                            {
+                                border: [false, false, false, false],
+                                text: '01/05/2023'
+                            },
+                            {
+                                border: [false, false, false, false],
+                                text: 'CLASSE: '
+                            },
+                            {
+                                border: [false, false, false, false],
+                                text: 'TODOS'
+                            },
+                            
+                        ],
+                        
+                    ]
+                }
+            },	
+            {
+                table: {
+                    headerRows: 1,
+                    widths: [250],
+                    body: [list],
+                },
+            },	
+            {
+                layout: 'lightHorizontalLines',
+                table: {
+                  headerRows: 1,
+                  widths: [ 70, '*', 100, '*' ],
+                  fontSize: 55,
+                  body: [
+                    [ 'PRESENÇA', 'NOME', 'SETOR', 'CLASSE' ],
+                    
+                  ]
+                }
+            },
+          ],
+          styles: {
+            header: {
+              fontSize: 18,
+              bold: true,
+              margin: [0, 0, 0, 10],
+            },
+            paragraph: {
+              fontSize: 12,
+              margin: [0, 0, 0, 10],
+            },
+          },
+    }
+
+    React.useEffect(() => {
+      pdfMake.vfs = pdfFonts.pdfMake.vfs;
+        const pdfDocGenerator = pdfMake.createPdf(pdfListNutrition);
+        pdfDocGenerator.getDataUrl((dataUrl) => {
+        setPdfDataUrl(dataUrl);        
       });
     },[])
 
