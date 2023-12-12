@@ -34,6 +34,7 @@ export const insertDataFicha = (dto) => async (dispatch) => {
       classe: dto.classe, 
       tamanho: dto.tamanho
     }
+  
     const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_FICHA, data)
     return response.status
   } catch(error) {

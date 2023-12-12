@@ -5,4 +5,11 @@
     margin: 4px;
     border-radius: 4px;
   }
+  .picker__box{ 
+    margin: 60px;
+    width: 150px;
+  } 
+  .picker__date-display, .picker__weekday-display{
+    background-color: #408080;
+  }
   

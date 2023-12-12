@@ -12,6 +12,7 @@ import ReactFormProvider from '../../components/form';
 import { loginAsync } from '../../connection_api/connection/connAuthLogin';
 import { Alert } from '../../utils/alerts';
 import { getUsers } from '../../connection_api/connection/connUsuarios';
+import { closedScreenLoader, openScreenLoader } from '../../slices/sliceScreenLoader';
 
 const useStyles = makeStyles({
     container: {
@@ -117,14 +118,15 @@ function PageMain(){
         const result = await trigger();
         let values = getValues()
         if (result) {
+          dispatch(openScreenLoader())
           const response = await dispatch(loginAsync(values))
           if(response === 200){
             setLoggedIn(true);
+            dispatch(closedScreenLoader())
           } else {
             Alert({title: "Erro", text: "Usuario ou senha incorretos", icon:"erro"})
+            dispatch(closedScreenLoader())
           }
-          console.log(response)
-          
         }
     };
 

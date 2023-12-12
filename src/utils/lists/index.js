@@ -5,8 +5,8 @@ export const payment = [
 ]
 export const optionsSize = [
     {value: 0, text:"Selecione"}, 
-    {value: 1, text:"Grande"}, 
-    {value: 2, text: "Pequena"}
+    {value: 1, text:"G"}, 
+    {value: 2, text: "P"}
 ]
 export const classList = [
     {value: 0,  text: "Selecione"}, 
@@ -21,7 +21,7 @@ export const classList = [
     {value: 9,  text: "LAVANDERIA"},
     {value: 10, text: "FINANCEIRO"},
     {value: 11, text: "DEPARTAMENTO HUMANO"},
-    {value: 11, text: "OUTROS"}
+    {value: 12, text: "OUTROS"}
 ]
 
 export const models = [
