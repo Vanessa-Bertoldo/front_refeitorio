@@ -1,0 +1,8 @@
+.selected-date {
+    background-color: #4caf50; /* Cor de destaque verde */
+    color: #fff; /* Cor do texto branco */
+    padding: 4px;
+    margin: 4px;
+    border-radius: 4px;
+  }
+  

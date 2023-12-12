@@ -15,6 +15,7 @@ import RHFSelect from "../hookForms/RHFSelect";
 //lists
 import { payment } from "../utils/lists";
 import { openDialogPDF } from "../slices/sliceDialogPDF";
+import RHFMultiDateKeyboardPicker from "../hookForms/DatePicker";
 
 const useStyles = makeStyles({
     title: {
@@ -50,12 +51,19 @@ const useStyles = makeStyles({
     }, 
     width100: {
         width: "100%"
-    }
+    },
+    datePicker: {
+        height: '290px', // Defina a largura desejada para o campo
+        '& .react-multiple-datepicker-input': {
+          fontSize: '16px', // Defina o tamanho da fonte desejado
+        },
+      },
 })
 
 function DialogCalendar(){
     const data = useSelector((state) => state.dialogCalendar.data)
     const open = useSelector((state) => state.dialogCalendar.open)
+    const array = []
 
     const dispatch = useDispatch()
     const classes = useStyles()
@@ -99,6 +107,10 @@ function DialogCalendar(){
         console.log("getValues ", getValues())
     }
 
+    React.useWatch(() => {
+
+    })
+
     return(
         <Dialog
             open={open}
@@ -107,7 +119,15 @@ function DialogCalendar(){
         >
             <DialogTitle className={classes.title}>CALENDÁRIO</DialogTitle>
             <DialogContent>
+                
                 <ReactFormProvider methods={methods} >
+                
+                    <Box className={`${classes.gridContainer} `}>
+                    <RHFMultiDateKeyboardPicker
+                        name="dates"
+                        className={`${classes.datePicker}`}
+                    />
+                    </Box>
                     <Box className={classes.gridContainer}>
                         <RHFTextField
                             name="monthYear"
