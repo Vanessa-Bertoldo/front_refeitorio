@@ -37,7 +37,6 @@ const useStyles = makeStyles({
 })
 
 async function handleClick(data){
-  console.log("handle click")
     dispatch(openScreenLoader())
     await dispatch(receiveDataAndOpenDialog(data))
     dispatch(closedScreenLoader()) 

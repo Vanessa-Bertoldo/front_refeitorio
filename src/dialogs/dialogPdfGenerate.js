@@ -34,12 +34,21 @@ function DialogPDF({open}){
         
     },[data])
 
-    const pdfListNutrition = {
+    const listteste = [
+        ['PRESENÇA', 'NOME', 'SETOR', 'CLASSE'],
+        ['      ', 'João', 'RH', 'DIRETOR'],
+        ['      ', 'Maria', 'Financeiro', 'EMPREGADO'],
+        ['      ', 'Carlos', 'TI', 'PROFESSOR'],
+    ]
+
+    const lineHorizontal = { text: '', style: 'lineHorizontal' };
+
+    const docDefinition = {
         content: [
             {
                 table: {
                     headerRows: 1,
-                    widths: [ 'auto', 350],
+                    widths: ['auto', 350],
                     heights: [30, 30],
                     body: [
                         [
@@ -53,19 +62,18 @@ function DialogPDF({open}){
                                 text: 'NUTRIÇÃO E DIETÉTICA - NACJ',
                                 style: 'header',
                                 alignment: 'center',
-                                alignment: 'right'
                             },
-                            
+
                         ],
                     ]
                 }
-            },	
+            },
             lineHorizontal,
             {
                 table: {
                     headerRows: 1,
                     heights: [30, 30],
-                    widths: [ '*', '*', '*', '*' ],
+                    widths: ['auto', 'auto', 'auto', 'auto'],
                     body: [
                         [
                             {
@@ -84,48 +92,42 @@ function DialogPDF({open}){
                                 border: [false, false, false, false],
                                 text: 'TODOS'
                             },
-                            
+
                         ],
-                        
                     ]
                 }
-            },	
-            {
-                table: {
-                    headerRows: 1,
-                    widths: [250],
-                    body: [list],
-                },
-            },	
+            },
             {
                 layout: 'lightHorizontalLines',
                 table: {
-                  headerRows: 1,
-                  widths: [ 70, '*', 100, '*' ],
-                  fontSize: 55,
-                  body: [
-                    [ 'PRESENÇA', 'NOME', 'SETOR', 'CLASSE' ],
-                    
-                  ]
+                    headerRows: 1,
+                    widths: [70, '*', 100, '*'],
+                    fontSize: 12,
+                    body: listteste
                 }
             },
-          ],
-          styles: {
+        ],
+        styles: {
             header: {
-              fontSize: 18,
-              bold: true,
-              margin: [0, 0, 0, 10],
+                fontSize: 18,
+                bold: true,
+                margin: [0, 0, 0, 10],
             },
             paragraph: {
-              fontSize: 12,
-              margin: [0, 0, 0, 10],
+                fontSize: 12,
+                margin: [0, 0, 0, 10],
             },
-          },
-    }
+            lineHorizontal: {
+                margin: [0, 5, 0, 5],
+                fillColor: '#000',
+                height: 1,
+            },
+        },
+    };
 
     React.useEffect(() => {
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
-        const pdfDocGenerator = pdfMake.createPdf(pdfListNutrition);
+        const pdfDocGenerator = pdfMake.createPdf(docDefinition);
         pdfDocGenerator.getDataUrl((dataUrl) => {
         setPdfDataUrl(dataUrl);        
       });

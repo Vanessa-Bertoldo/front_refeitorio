@@ -1,3 +1,4 @@
+import { AlertSucess } from "../../utils/alerts/alertSucess"
 import { formatDate } from "../../utils/convertData"
 import { AxiosPost } from "../constantsConnection"
 import { DB_CONNECTION } from "../dbConnection"
@@ -25,6 +26,7 @@ export const insertTicket = async (dto, listDates) => {
                     return error
                 }
             }
+            await AlertSucess({title: "Sucesso", text: "Dados excluídos com sucesso", icon: "success"})
             return "sucess"
           } catch(error) {
             return error.response.data.message

@@ -67,7 +67,7 @@ function DialogNutrition({open}){
     }),[])
 
     const schema = yup.object().shape({
-        model: yup.number().min(1,)
+        
     })
 
     const methods = useForm({
@@ -87,7 +87,7 @@ function DialogNutrition({open}){
     }
 
     const handleClose = () => {
-        reset(defaultValues)
+        //reset(defaultValues)
         dispatch(closedDialogNutrition())
     }
 

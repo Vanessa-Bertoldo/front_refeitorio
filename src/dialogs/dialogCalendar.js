@@ -17,8 +17,8 @@ import { classList, optionsSize, payment } from "../utils/lists";
 import { openDialogPDF } from "../slices/sliceDialogPDF";
 import RHFMultiDateKeyboardPicker from "../hookForms/DatePicker";
 
-import { formatDate } from "../utils/convertData";
 import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader";
+import { AlertYesNo } from "../utils/alerts/alertYesNo";
 
 const useStyles = makeStyles({
     title: {
@@ -45,15 +45,16 @@ const useStyles = makeStyles({
     },
     gridContainer: {
         display: "grid",
-        gridTemplateColumns: "auto auto",
+        gridTemplateColumns: "50% 50%",
         padding: "10px",
         columnGap: "20px",
     },
     gridDatePicker: {
+        gridArea: "header",
         display: "grid",
         gridTemplateColumns: "auto",
         padding: "10px",
-        columnGap: "20px",
+        columnGap: "20px"
     },
     width50: {
         width: "50%"
@@ -72,28 +73,26 @@ const useStyles = makeStyles({
 function DialogCalendar(){
     const data = useSelector((state) => state.dialogCalendar.data)
     const open = useSelector((state) => state.dialogCalendar.open)
-    const [selectedDates, setSelectedDates] = useState([]);
-    const arrayDates = []
+    const [dataCalendar, setDataCalendar] = useState(null);
 
     const dispatch = useDispatch()
     const classes = useStyles()
-    let date = new Date()
 
     const schema = yup.object().shape({
-
+        size: yup.number().min(1)
     })
-
+//const foundItem = ;
     const defaultValues = React.useMemo(() => ({
         nome: data !== null ? data.nome : "",
         matricula: data !== null ? data.matricula : 0, 
-        classe: data !== null ? data.classe : 0,
-        size: data !== null ? data.tamanho : 0,
-        valor: 7.00,
+        classe: data !== null ? data.classe : "", 
+        size: 0, 
+        valor: 7,
         pagamento: 0,
         dates: [],
         valorTot: 0,
         qtdTotal: 0,
-    }),[data])
+    }),[data]) 
 
     const methods = useForm({
         resolver:           yupResolver(schema),
@@ -104,8 +103,13 @@ function DialogCalendar(){
         getValues,
         setValue,
         trigger,
+        reset, 
         control
     } = methods
+
+    React.useEffect(() => {
+        reset(data)
+    },[data])
 
     const handleClose = () => {
         dispatch(closedDialogCalendar())
@@ -119,13 +123,19 @@ function DialogCalendar(){
         const submit = await trigger()
         if(submit){
             const values = getValues()
-            //dispatch(openScreenLoader())
-            await dispatch(sendDataForAxios(values))
-            //dispatch(closedScreenLoader())
-           
-            console.log("getValues ", getValues())
+            await dispatch(closedDialogCalendar())
+            await AlertYesNo({async onClickConfirm(){
+                console.log("indo morrer")
+                await dispatch(openScreenLoader())
+                await dispatch(sendDataForAxios(values))
+                await dispatch(closedScreenLoader())
+            }, onCancel(){
+                
+            },
+            title: "Aviso",
+            text: "Deseja salvar alterações?",
+            icon: "warning"})
         }
-        
     }
 
     const valTot = useWatch({
@@ -135,9 +145,11 @@ function DialogCalendar(){
 
     //update values in field qtdValor and valor
     useEffect(() => {
-        const dateLen = getValues("dates").length
-        setValue("valorTot", Number(dateLen) * getValues("valor"))
-        setValue("qtdTotal", dateLen)
+        if(getValues("dates") && getValues("dates").length > 0){
+            const dateLen = getValues("dates").length
+            setValue("valorTot", Number(dateLen) * getValues("valor"))
+            setValue("qtdTotal", dateLen)
+        }
     },[valTot])
 
     return(
@@ -157,22 +169,22 @@ function DialogCalendar(){
                     </Box>
                     <Box className={classes.gridContainer}>
                         <RHFTextField
+                            disabled
                             type={"number"}
                             name="matricula"
                             label="Matricula" 
                         />
                         <RHFTextField
+                            disabled
                             name="nome"
                             label="Nome"
                         />
                     </Box>
                     <Box className={classes.gridContainer}>
-                        <RHFSelect
-                            name={"classe"}
+                        <RHFTextField
+                            disabled
+                            name="classe"
                             label="Classe"
-                            options={classList}
-                            onGetValue={(item) => item.value}
-                            onGetDescription={(item) => item.text}
                         />
                          <RHFSelect
                             name={"size"}
@@ -183,9 +195,9 @@ function DialogCalendar(){
                         />
                     </Box>
                     <Box className={classes.gridContainer}>
-                        <RHFSelect
-                            label={"Pagamento"}
-                            name="pagamento"
+                    <RHFSelect
+                            name={"pagamento"}
+                            label="Pagamento"
                             options={payment}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
@@ -211,13 +223,13 @@ function DialogCalendar(){
                        />
                     </Box>
                     <Box className={classes.gridContainer}>
-                    </Box>
+                </Box>
                 </ReactFormProvider>
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={handleView} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
-                <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
                 <Button variant="contained" onClick={handleSave} className={`${classes.buttonGreen} ${classes.boldWhite}`}>SALVAR</Button>
+                <Button variant="contained" onClick={handleClose} className={`${classes.buttonRed} ${classes.boldWhite}`}>FECHAR</Button>
             </DialogActions>
         </Dialog>
     )

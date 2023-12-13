@@ -1,7 +1,8 @@
 export const payment = [
     {value: 0, text: "A VISTA"}, 
     {value: 1, text: "VALE"}, 
-    {value: 2, text: "ISENTO"}
+    {value: 2, text: "ISENTO"},
+    {value: 3, text: "DINHEIRO"}
 ]
 export const optionsSize = [
     {value: 0, text:"Selecione"}, 

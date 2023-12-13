@@ -1,14 +1,14 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import { Controller, useFormContext } from "react-hook-form";
 
-function RHFSelect({ name, label, onChange,onGetValue, onGetDescription, options,  ...other}){
+function RHFSelect({ name, label, onGetValue, onGetDescription, options,  ...other}){
     const { control } = useFormContext()
 
     return(
         <Controller
             name={name}
             control={control}
-            render={({field: {ref, ...fieldOther}, fieldState: {error}}) => (
+            render={({field: {ref, onChange, ...fieldOther}, fieldState: {error}}) => (
                 <FormControl variant="outlined" ><InputLabel id={label}>{label}</InputLabel>
                 <Select
                     labelId={label}

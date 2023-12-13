@@ -27,6 +27,7 @@ export const { openDialogCalendar, closedDialogCalendar } = dialogCalendar.actio
 export default dialogCalendar.reducer;
 
 export function receiveDataAndOpenDialog(dto){
+   
     return async (dispatch) => {
         await dispatch(dialogCalendar.actions.receiveData(dto))
         await dispatch(dialogCalendar.actions.openDialogCalendar())
