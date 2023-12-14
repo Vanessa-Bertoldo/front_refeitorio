@@ -24,21 +24,16 @@ function DialogPDF({open}){
     const dispatch = useDispatch()
     const classes = useStyles()
     const data = useSelector((state) => state.dialogPDF.data)
-    const [list, setList] = useState([{value: 0, text: "Teste"}])
+    const [list, setList] = useState([])
     const [pdfDataUrl, setPdfDataUrl] = useState('');
 
     React.useEffect(() => {
-        console.log("update")
+        console.log("update ", data)
         setList(data)
-      
-        
     },[data])
 
-    const listteste = [
+    const header = [
         ['PRESENÇA', 'NOME', 'SETOR', 'CLASSE'],
-        ['      ', 'João', 'RH', 'DIRETOR'],
-        ['      ', 'Maria', 'Financeiro', 'EMPREGADO'],
-        ['      ', 'Carlos', 'TI', 'PROFESSOR'],
     ]
 
     const lineHorizontal = { text: '', style: 'lineHorizontal' };
@@ -101,9 +96,18 @@ function DialogPDF({open}){
                 layout: 'lightHorizontalLines',
                 table: {
                     headerRows: 1,
-                    widths: [70, '*', 100, '*'],
+                    widths: ["*", "*", "*", "*"],
                     fontSize: 12,
-                    body: listteste
+                    body: header
+                }
+            },
+            {
+                layout: 'lightHorizontalLines',
+                table: {
+                    headerRows: 1,
+                    widths: ["*", "*", "*"],
+                    fontSize: 12,
+                    body: data
                 }
             },
         ],

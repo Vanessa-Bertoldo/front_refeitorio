@@ -8,7 +8,7 @@ function RHFSelect({ name, label, onGetValue, onGetDescription, options,  ...oth
         <Controller
             name={name}
             control={control}
-            render={({field: {ref, onChange, ...fieldOther}, fieldState: {error}}) => (
+            render={({field: {ref, ...fieldOther}, fieldState: {error}}) => (
                 <FormControl variant="outlined" ><InputLabel id={label}>{label}</InputLabel>
                 <Select
                     labelId={label}

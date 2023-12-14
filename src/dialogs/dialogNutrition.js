@@ -67,8 +67,8 @@ function DialogNutrition({open}){
     }),[])
 
     const schema = yup.object().shape({
-        
-    })
+       
+     });
 
     const methods = useForm({
         resolver:           yupResolver(schema),
@@ -97,7 +97,6 @@ function DialogNutrition({open}){
         await dispatch(receiveDataToPDF(values))
         await dispatch(closedScreenLoader())
         dispatch(openDialogViewPDF(values))
-       
     }
 
     return(

@@ -3,7 +3,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 
 const initialState = {
     open: false,
-    data: {},
+    data: [],
     url: ""
 }
 
@@ -39,22 +39,25 @@ export function openDialogViewPDF(filters){
     }
 }
 
-export function dataList(data){
+export function dataList(data) {
     return async (dispatch) => {
-        console.log("entraste", data)
-        const newList = new Array()
-        if(data !== null){
-            for(var i=0; i<data.length; i++){
-                const list = data[i]
+        const newList = [];
+
+        if (data !== null) {
+            const headerRow = ['Setor', 'Nome', 'Classe'];
+            newList.push(headerRow);
+            for (var i = 0; i < data.length; i++) {
+                const list = data[i];
                 const newData = [
-                    {text:list.ficha.setor}, 
-                    {text: list.ficha.nome}, 
-                    {text: list.ficha.classe}
-                ]
-                newList.push(newData)
+                    list.ficha.setor,
+                    list.ficha.nome,
+                    list.ficha.classe
+                ];
+                newList.push(newData);
             }
-            await dispatch(dialogPDF.actions.receiveData(newList))
+
+            console.log("newDraw", newList);
+            await dispatch(dialogPDF.actions.receiveData(newList));
         }
-        console.log("newList22 ", newList)
-    }
+    };
 }
