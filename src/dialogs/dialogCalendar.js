@@ -19,6 +19,7 @@ import RHFMultiDateKeyboardPicker from "../hookForms/DatePicker";
 
 import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader";
 import { AlertYesNo } from "../utils/alerts/alertYesNo";
+import { openPDFCalendar } from "../slices/slicePDFDialogCalendar";
 
 const useStyles = makeStyles({
     title: {
@@ -79,20 +80,24 @@ function DialogCalendar(){
     const classes = useStyles()
 
     const schema = yup.object().shape({
-        size: yup.number().min(1)
+        data: yup.array().required("Dados inválidos"),
+        valor: yup.number().required("Dados inválidos"),
+        modo_pagamento: yup.number().required("Dados inválidos")
+       
     })
-//const foundItem = ;
+    
     const defaultValues = React.useMemo(() => ({
         nome: data !== null ? data.nome : "",
         matricula: data !== null ? data.matricula : 0, 
         classe: data !== null ? data.classe : "", 
         size: 0, 
-        valor: 7,
-        pagamento: 0,
-        dates: [],
+        valor: 7.00,
+        modo_pagamento: 0,
+        data: [],
         valorTot: 0,
         qtdTotal: 0,
-    }),[data]) 
+    }),[data]);
+    
 
     const methods = useForm({
         resolver:           yupResolver(schema),
@@ -107,6 +112,20 @@ function DialogCalendar(){
         control
     } = methods
 
+    const dates = useWatch({
+        control,
+        name: "data"
+    })
+
+    //update values in field qtdValor and valor
+    useEffect(() => {
+        if(getValues("data") && getValues("data").length > 0){
+            const dateLen = getValues("data").length
+            setValue("valorTot", Number(dateLen) * Number(getValues("valor")))
+            setValue("qtdTotal", dateLen)
+        }
+    },[dates])
+
     React.useEffect(() => {
         reset(data)
     },[data])
@@ -115,17 +134,20 @@ function DialogCalendar(){
         dispatch(closedDialogCalendar())
     }
 
-    const handleView = () => {
-        dispatch(openDialogPDF())
+    const handleView = async () => {
+        await dispatch(openPDFCalendar())
     }
 
     const handleSave = async () => {
         const submit = await trigger()
+        
+        if(submit){
+            console.log("get ", getValues())
+        }
         if(submit){
             const values = getValues()
             await dispatch(closedDialogCalendar())
             await AlertYesNo({async onClickConfirm(){
-                console.log("indo morrer")
                 await dispatch(openScreenLoader())
                 await dispatch(sendDataForAxios(values))
                 await dispatch(closedScreenLoader())
@@ -138,19 +160,7 @@ function DialogCalendar(){
         }
     }
 
-    const valTot = useWatch({
-        control,
-        name: "dates"
-    })
-
-    //update values in field qtdValor and valor
-    useEffect(() => {
-        if(getValues("dates") && getValues("dates").length > 0){
-            const dateLen = getValues("dates").length
-            setValue("valorTot", Number(dateLen) * getValues("valor"))
-            setValue("qtdTotal", dateLen)
-        }
-    },[valTot])
+    
 
     return(
         <Dialog
@@ -163,7 +173,7 @@ function DialogCalendar(){
                 <ReactFormProvider methods={methods} >
                     <Box className={classes.gridDatePicker}>
                         <RHFMultiDateKeyboardPicker 
-                            name="dates" 
+                            name="data" 
                             label="Selecione as datas das fichas" 
                         />
                     </Box>
@@ -196,12 +206,12 @@ function DialogCalendar(){
                     </Box>
                     <Box className={classes.gridContainer}>
                     <RHFSelect
-                            name={"pagamento"}
-                            label="Pagamento"
+                            name={"modo_pagamento"}
+                            label="pagamento"
                             options={payment}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
-                        />
+                    />
                          <RHFTextField
                             type={"number"}
                             name="valor"
@@ -214,8 +224,8 @@ function DialogCalendar(){
                             type={"number"}
                             name="qtdTotal"
                             label="Quantidade"
-                       />
-                         <RHFTextField
+                    />
+                    <RHFTextField
                             disabled
                             type={"number"}
                             name="valorTot"

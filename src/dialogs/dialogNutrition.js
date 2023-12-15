@@ -94,10 +94,7 @@ function DialogNutrition({open}){
     async function handleView () {
         const values = getValues()
         await dispatch(openScreenLoader())
-        await dispatch(receiveDataToPDF(values))
-        setTimeout(() => {
-            dispatch(openDialogViewPDF(values))
-        },[500])
+        await dispatch(receiveDataToPDF(values)) //send data fot axios request
         dispatch(closedScreenLoader())
        
     }

@@ -5,7 +5,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles }
 import { useState } from "react";
 import { closedDialogPDF } from "../slices/sliceDialogPDF";
 import { useDispatch, useSelector } from "react-redux";
-import { headerPDF, lineHorizontal, pdfNutrition } from "../utils/generatePDF";
+import { headerPDF, lineHorizontal, listNutrition, pdfNutrition } from "../utils/generatePDF";
 import { logo } from "../assets/logoB64";
 
 const useStyles = makeStyles({
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
    },
 })
 
-function DialogPDF({open}){
+const DialogPDF = ({open, generate}) => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const data = useSelector((state) => state.dialogPDF.data)
@@ -28,8 +28,6 @@ function DialogPDF({open}){
     const [pdfDataUrl, setPdfDataUrl] = useState('');
 
     React.useEffect(() => {
-        console.log("header ", header)
-        console.log("update ", data)
         setList(data)
     },[data])
 
@@ -37,67 +35,44 @@ function DialogPDF({open}){
         ['PRESENÇA', 'NOME', 'SETOR', 'CLASSE'],
     ]
 
-    const lineHorizontal = { text: '', style: 'lineHorizontal' };
-
     const docDefinition = {
         content: [
-            headerPDF,
-            lineHorizontal,
-            {
-                table: {
-                    headerRows: 1,
-                    heights: [30, 30],
-                    widths: ['auto', 'auto', 'auto', 'auto'],
-                    body: [
-                        [
-                            {
-                                border: [false, false, false, false],
-                                text: 'DATA EMISSAO: '
-                            },
-                            {
-                                border: [false, false, false, false],
-                                text: '01/05/2023'
-                            },
-                            {
-                                border: [false, false, false, false],
-                                text: 'CLASSE: '
-                            },
-                            {
-                                border: [false, false, false, false],
-                                text: 'TODOS'
-                            },
-
-                        ],
-                    ]
-                }
+          headerPDF,
+          lineHorizontal,
+          {
+            table: {
+              headerRows: 1,
+              heights: [30, 30],
+              widths: ['auto', 'auto', 'auto', 'auto'],
+              body: [
+                [
+                  { border: [false, false, false, false], text: 'DATA EMISSAO: ' },
+                  { border: [false, false, false, false], text: '01/05/2023' },
+                  { border: [false, false, false, false], text: 'CLASSE: ' },
+                  { border: [false, false, false, false], text: 'TODOS' },
+                ],
+              ],
             },
-            {
-                layout: 'lightHorizontalLines',
-                table: {
-                    headerRows: 1,
-                    widths: ["*", "*", "*", "*"],
-                    fontSize: 12,
-                    body: header
-                }
-            },
+          },
+          listNutrition({ data: data })
         ],
         styles: {
-            header: {
-                fontSize: 18,
-                bold: true,
-                margin: [0, 0, 0, 10],
-            },
-            paragraph: {
-                fontSize: 12,
-                margin: [0, 0, 0, 10],
-            },
-            lineHorizontal: {
-                margin: [0, 5, 0, 5],
-                fillColor: '#000',
-                height: 1,
-            },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10],
+          },
+          paragraph: {
+            fontSize: 12,
+            margin: [0, 0, 0, 10],
+          },
+          lineHorizontal: {
+            margin: [0, 5, 0, 5],
+            fillColor: '#000',
+            height: 1,
+          },
         },
-    };
+      };
 
     React.useEffect(() => {
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -105,7 +80,7 @@ function DialogPDF({open}){
         pdfDocGenerator.getDataUrl((dataUrl) => {
         setPdfDataUrl(dataUrl);        
       });
-    },[])
+    },[data])
 
     const handleClose = () => {
         dispatch(closedDialogPDF())

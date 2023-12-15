@@ -36,17 +36,20 @@ export function receiveDataAndOpenDialog(dto){
 
 export function sendDataForAxios(data){
     return async (dispatch) => {
-        const dates = data.dates
-        const newDates = dates.map((item) => formatDate(item));
-        const newData = {
+        const dates = data.data
+        const newDates = await Promise.all((dates ?? []).map(async (item) => await formatDate(item)));
+        console.log("new Dat ", data.data)
+     
+        /*const newData = {
             matricula           : data.matricula,
             modo_pagamento      : payment[data.pagamento].text,
             valor_pago          : data.valor,
             valor_total         : data.valorTot,
-            tamanho             : optionsSize[data.size].text,
+            tamanho             : optionsSize[data.tamanho].text,
             classes             : classList[data.classe].text,
 
-        }
-        await dispatch(insertTicket(newData, newDates))
+        }*/
+        console.log("newDates ", data)
+        //await dispatch(insertTicket(newData, newDates))
     } 
 }

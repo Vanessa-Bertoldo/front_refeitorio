@@ -1,6 +1,6 @@
 import { logo } from "../../assets/logoB64"
 import DialogPDF from "../../dialogs/dialogPdfGenerate"
-
+import { LogoImg } from "../../assets/logoImgB64"
 
 export const spacing = [
     {
@@ -48,131 +48,99 @@ export const headerPDF = {
   }
 }
 
-export const openDialogPDFGenerate = () => {
-  DialogPDF(true)
+export const openDialogPDFGenerate = (props) => {
+  const dataList = [
+    ['PRESENÇA', 'NOME', 'SETOR', 'CLASSE'],
+]
+  DialogPDF(true, dataList)
 }
 
-export const pdfListNutrition = {
-    content: [
-        {
-            layout: 'lightHorizontalLines',
-            table: {
-              headerRows: 1,
-              widths: [ '*', 'auto', 100, '*' ],
-      
-              body: [
-                [ 'PRESENÇA', 'NOME', 'SETOR', 'CLASSE' ],
-                [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
-                [ { text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4' ]
-              ]
-            }
-        },
-        { text: 'Exemplo de PDF com pdfMake', style: 'header' },
-        { text: 'Este é um parágrafo simples.', style: 'paragraph' },
-        {
-          ul: [
-            'Item 1',
-            'Item 2',
-            'Item 3',
-          ],
-        },
+export const listNutrition = (props) => {
+  console.log("Dados recebidos: ", props.data);
+
+  const bodyData = props.data.map((row) => ['TESTE',row[0], row[1], row[2]]);
+  console.log("Dados mapeados: ", bodyData);
+
+  return {
+    layout: 'lightHorizontalLines',
+    table: {
+      headerRows: 1,
+      widths: ["*", "*", "*", "*"],
+      fontSize: 12,
+      body: [
+        ['PRESENÇA','SETOR', 'NOME', 'CLASSE'],
+        ...bodyData.map(row => row.map(cell => ({ text: cell, color: 'black' }))),
       ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10],
-        },
-        paragraph: {
-          fontSize: 12,
-          margin: [0, 0, 0, 10],
-        },
-      },
-}
+    },
+  };
+};
 
 
-export const pdfNutrition = (header) => {
-  return(
-    {
-      content: [
-        {
-            table: {
-                headerRows: 1,
-                widths: ['auto', 350],
-                heights: [30, 30],
-                body: [
-                    [
-                        {
-                            border: [false, false, false, false],
-                            image: logo,
-                            width: 150
-                        },
-                        {
-                            border: [false, false, false, false],
-                            text: 'NUTRIÇÃO E DIETÉTICA - NACJ',
-                            style: 'header',
-                            alignment: 'center',
-                        },
 
-                    ],
-                ]
-            }
-        },
-        lineHorizontal,
-        {
-            table: {
-                headerRows: 1,
-                heights: [30, 30],
-                widths: ['auto', 'auto', 'auto', 'auto'],
-                body: [
-                    [
-                        {
-                            border: [false, false, false, false],
-                            text: 'DATA EMISSAO: '
-                        },
-                        {
-                            border: [false, false, false, false],
-                            text: '01/05/2023'
-                        },
-                        {
-                            border: [false, false, false, false],
-                            text: 'CLASSE: '
-                        },
-                        {
-                            border: [false, false, false, false],
-                            text: 'TODOS'
-                        },
-
-                    ],
-                ]
-            }
-        },
-        {
-            layout: 'lightHorizontalLines',
-            table: {
-                headerRows: 1,
-                widths: ["*", "*", "*", "*"],
-                fontSize: 12,
-                body: header
-            }
-        },
-    ],
-    styles: {
-        header: {
+export const cardsTicket = () => {
+  const card = {
+    content: [
+      {
+        columns: [
+          {
+            image: LogoImg,
+            fit: [50, 50], 
+            alignment: 'left',
+          },
+          {
+            text: 'Programação de Refeição',
             fontSize: 18,
             bold: true,
-            margin: [0, 0, 0, 10],
-        },
-        paragraph: {
-            fontSize: 12,
-            margin: [0, 0, 0, 10],
-        },
-        lineHorizontal: {
-            margin: [0, 5, 0, 5],
-            fillColor: '#000',
-            height: 1,
-        },
-    },
-    }
-  )
+            alignment: 'left',
+            margin: [10, 10], 
+          },
+        ],
+      },
+      { text: '\n', fontSize: 12 },
+      {
+        columns: [
+          { text: 'Nome: Sua Referência', width: 'auto' },
+        ],
+      },
+      {
+        columns: [
+          { text: 'Referência: DEZEMBRO/2023', width: 'auto' },
+        ],
+      },
+      {
+        text: 'Lista de Datas:',
+        fontSize: 14,
+        bold: true,
+        margin: [0, 10, 0, 5],
+      },
+      {
+        ul: [
+          'Data 1: Valor 1',
+          'Data 2: Valor 2',
+          'Data 3: Valor 3',
+        ],
+      },
+      {
+        canvas: [
+          {
+            type: 'line',
+            x1: 0,
+            y1: 5,
+            x2: 400, 
+            y2: 5,
+            lineWidth: 2,
+            lineColor: '#000', 
+          },
+        ],
+      },
+      {
+        text: 'Valor Total: R$ XXX,XX', 
+        fontSize: 16,
+        bold: true,
+        alignment: 'center',
+        margin: [0, 10], 
+      },
+    ],
+  }
+  return card
 }

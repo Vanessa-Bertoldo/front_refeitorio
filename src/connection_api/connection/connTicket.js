@@ -21,7 +21,7 @@ export const insertTicket = async (dto, listDates) => {
                     }
                     const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_TICKET, data)
                     console.log("respçonse ", response)
-                   // return response.status
+                   //return response.status
                 } catch(error) {
                     return error
                 }

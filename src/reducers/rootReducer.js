@@ -5,6 +5,7 @@ import dialogCalendarReducer from '../slices/sliceDialogCalendar';
 import screenloaderReducer from '../slices/sliceScreenLoader';
 import pageMainReducer from "../slices/slicePageMain";
 import dialogPDFReducer from "../slices/sliceDialogPDF";
+import pdfCalendarReducer from "../slices/slicePDFDialogCalendar"
 
 const rootReducer = combineReducers({
   dialogRegister:             dialogRegisterReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   dialogCalendar:             dialogCalendarReducer,
   screenLoader:               screenloaderReducer,
   pageMain:                   pageMainReducer,
-  dialogPDF:                  dialogPDFReducer
+  dialogPDF:                  dialogPDFReducer,
+  pdfCalendar:                pdfCalendarReducer   
 });
 
 export default rootReducer;

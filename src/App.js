@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Loader from './utils/loader';
 import DialogPDF from './dialogs/dialogPdfGenerate';
 import DialogCalendar from './dialogs/dialogCalendar';
+import DialogPDFCalendar from './dialogs/dialogGeneratePDFCalendar';
 
 export default function App() {
   const open = useSelector((state) => state.dialogRegister.open)
@@ -13,6 +14,7 @@ export default function App() {
   const openDialogNutri = useSelector((state) => state.dialogNutrition.open)
   const openDialogPDF = useSelector((state) => state.dialogPDF.open)
   const openDialogCalendar = useSelector((state) => state.dialogCalendar.open)
+  const openPDFCalendar = useSelector((state) => state.pdfCalendar.open)
 
   return (
   <>
@@ -22,6 +24,7 @@ export default function App() {
     <Loader open={openScreenLoader}/>
     <DialogPDF open={openDialogPDF}/>
     <DialogCalendar open={openDialogCalendar}/>
+    <DialogPDFCalendar open={openPDFCalendar}/>
   </>
   );
 }

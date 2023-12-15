@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import pdfMake from 'pdfmake/build/pdfmake';
-import { openDialogPDFGenerate } from "../utils/generatePDF";
+import { listNutrition, openDialogPDFGenerate } from "../utils/generatePDF";
+import DialogPDF from "../dialogs/dialogPdfGenerate";
 
 
 const initialState = {
@@ -37,27 +38,31 @@ export function openDialogViewPDF(filters){
         pdfDocGenerator.getDataUrl((dataUrl) => {
             dispatch(dialogPDF.actions.receiveUrl(dataUrl))
         });*/
-        dispatch(openDialogPDF())
+        //dispatch(openDialogPDF())
     }
 }
 
 export function dataList(data) {
     return async (dispatch) => {
         const newList = [];
-        openDialogPDFGenerate()
-        /*if (data !== null) {
+       
+        if (data !== null) {
             for (var i = 0; i < data.length; i++) {
                 const list = data[i];
                 const newData = [
-                    list.ficha.setor,
-                    list.ficha.nome,
-                    list.ficha.classe
+                   list.ficha.setor,
+                   list.ficha.nome,
+                   list.ficha.classe
                 ];
                 newList.push(newData);
                 
             }
             console.log("newDraw", newList);
             await dispatch(dialogPDF.actions.receiveData(newList));
-        }*/
+        }
+        setTimeout(() => {
+            dispatch(openDialogPDF())
+        },[500])
+         
     };
 }
