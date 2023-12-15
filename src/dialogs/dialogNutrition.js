@@ -95,8 +95,11 @@ function DialogNutrition({open}){
         const values = getValues()
         await dispatch(openScreenLoader())
         await dispatch(receiveDataToPDF(values))
-        await dispatch(closedScreenLoader())
-        dispatch(openDialogViewPDF(values))
+        setTimeout(() => {
+            dispatch(openDialogViewPDF(values))
+        },[500])
+        dispatch(closedScreenLoader())
+       
     }
 
     return(

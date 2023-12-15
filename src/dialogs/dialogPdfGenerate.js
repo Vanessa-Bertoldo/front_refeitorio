@@ -5,7 +5,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles }
 import { useState } from "react";
 import { closedDialogPDF } from "../slices/sliceDialogPDF";
 import { useDispatch, useSelector } from "react-redux";
-import { lineHorizontal } from "../utils/generatePDF";
+import { headerPDF, lineHorizontal, pdfNutrition } from "../utils/generatePDF";
 import { logo } from "../assets/logoB64";
 
 const useStyles = makeStyles({
@@ -28,6 +28,7 @@ function DialogPDF({open}){
     const [pdfDataUrl, setPdfDataUrl] = useState('');
 
     React.useEffect(() => {
+        console.log("header ", header)
         console.log("update ", data)
         setList(data)
     },[data])
@@ -40,29 +41,7 @@ function DialogPDF({open}){
 
     const docDefinition = {
         content: [
-            {
-                table: {
-                    headerRows: 1,
-                    widths: ['auto', 350],
-                    heights: [30, 30],
-                    body: [
-                        [
-                            {
-                                border: [false, false, false, false],
-                                image: logo,
-                                width: 150
-                            },
-                            {
-                                border: [false, false, false, false],
-                                text: 'NUTRIÇÃO E DIETÉTICA - NACJ',
-                                style: 'header',
-                                alignment: 'center',
-                            },
-
-                        ],
-                    ]
-                }
-            },
+            headerPDF,
             lineHorizontal,
             {
                 table: {
@@ -99,15 +78,6 @@ function DialogPDF({open}){
                     widths: ["*", "*", "*", "*"],
                     fontSize: 12,
                     body: header
-                }
-            },
-            {
-                layout: 'lightHorizontalLines',
-                table: {
-                    headerRows: 1,
-                    widths: ["*", "*", "*"],
-                    fontSize: 12,
-                    body: data
                 }
             },
         ],

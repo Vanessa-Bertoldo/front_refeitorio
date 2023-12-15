@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import pdfMake from 'pdfmake/build/pdfmake';
+import { openDialogPDFGenerate } from "../utils/generatePDF";
+
 
 const initialState = {
     open: false,
@@ -42,10 +44,8 @@ export function openDialogViewPDF(filters){
 export function dataList(data) {
     return async (dispatch) => {
         const newList = [];
-
-        if (data !== null) {
-            const headerRow = ['Setor', 'Nome', 'Classe'];
-            newList.push(headerRow);
+        openDialogPDFGenerate()
+        /*if (data !== null) {
             for (var i = 0; i < data.length; i++) {
                 const list = data[i];
                 const newData = [
@@ -54,10 +54,10 @@ export function dataList(data) {
                     list.ficha.classe
                 ];
                 newList.push(newData);
+                
             }
-
             console.log("newDraw", newList);
             await dispatch(dialogPDF.actions.receiveData(newList));
-        }
+        }*/
     };
 }
