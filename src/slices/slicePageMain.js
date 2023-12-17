@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { searchFichaByName } from "../connection_api/connection/connFicha";
+import { setDataFicha } from "../utils/cache/cacheConfig";
 
 const initialState = {
     list: []
@@ -22,8 +24,16 @@ export function insertDataInListFicha(data){
     return async (dispatch) => {
         if(data != null && data.data != null){
             await dispatch(pageMain.actions.addDataInList(data.data))
-            console.log("data da data ", data.data)
+            setDataFicha(data.data)
         }
         
+    }
+}
+
+export function fieldSearchByName(data){
+    return async (dispatch) => {
+        if(data !== null && data !== ""){
+            await dispatch(searchFichaByName(data))
+        }
     }
 }

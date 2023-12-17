@@ -7,6 +7,8 @@ import ReactFormProvider from '../../components/form';
 import DialogCalendar from '../../dialogs/dialogCalendar';
 import { useSelector } from 'react-redux';
 import ListPageMain from '../../components/listPageMain';
+import { dispatch } from '../../store/storeCom';
+import { fieldSearchByName } from '../../slices/slicePageMain';
 
 const useStyles = makeStyles({
     container: {
@@ -30,7 +32,6 @@ const useStyles = makeStyles({
         zIndex: 999,
         width: "100%",
         height: "100%",
-        textAlignLast: "center"
     },
     textField: {
         width: "100vh"
@@ -49,7 +50,16 @@ const useStyles = makeStyles({
 
 function PageInitial() {
     const classes = useStyles();
-    const methods = useForm();
+
+    const defaultValues = React.useMemo(() => ({
+        search: ""
+    }), []);
+
+    const methods = useForm({
+        defaultValues
+    });
+
+ 
 
     const {
         register,
@@ -59,10 +69,14 @@ function PageInitial() {
         control
     } = methods;
 
-    const teste = useWatch({
+    const searchName = useWatch({
         control,
         name:"search"
     })
+
+    React.useEffect(() => {
+        dispatch(fieldSearchByName(searchName))
+    },[searchName])
 
     return (
         <Container className={classes.container}>
@@ -72,7 +86,7 @@ function PageInitial() {
                     <Box className={classes.padding10}>
                         <RHFTextField
                             name={"search"}
-                            label={"Pesquisar"}
+                            label={"Digite o nome que deseja pesquisar"}
                             className={classes.textField}
                         />
                     </Box>

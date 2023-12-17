@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openDialogCalendar, receiveDataAndOpenDialog } from "../../slices/sliceDialogCalendar";
 import { dispatch } from "../../store/storeCom";
 import { closedScreenLoader, openScreenLoader } from "../../slices/sliceScreenLoader";
+import { getDataFicha } from "../../utils/cache/cacheConfig";
 
 const useStyles = makeStyles({
     position: {
@@ -63,7 +64,8 @@ export const renderRow = (props, classes, listFicha) => {
 function ListPageMain(){
     const classes = useStyles()
     const dispatch = useDispatch()
-    const listFicha = useSelector((state) => state.pageMain.list);
+    //const listFicha = useSelector((state) => state.pageMain.list);
+    const listFicha = getDataFicha()
     
     return(
         <Container className={classes.customScrollbar}>

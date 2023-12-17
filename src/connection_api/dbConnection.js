@@ -5,5 +5,6 @@ export const DB_CONNECTION = {
     LINK_SERVER_FICHA                    :   LINK_SERVER + "/ficha",
     LINK_SERVER_USERS                    :   LINK_SERVER + "/usuarios",
     LINK_SERVER_NUTRITION                :   LINK_SERVER + "/nutrition",
-    LINK_SERVER_TICKET                   :   LINK_SERVER + "/ticket"
+    LINK_SERVER_TICKET                   :   LINK_SERVER + "/ticket",
+    LINK_SERVER_SEARCH_FICHAS            :   LINK_SERVER + "/fichaSearch"
 }
