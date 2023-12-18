@@ -19,6 +19,7 @@ import { closedDialogNutrition, receiveDataToPDF } from "../slices/sliceDialogNu
 import { openDialogPDF, openDialogViewPDF, selectModel } from "../slices/sliceDialogPDF"
 import { pdfGenerator } from "../utils/generatePDF/ex2"
 import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader"
+import { filterDataTickets, sumPaymentTot } from "../connection_api/connection/connTicket"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -96,8 +97,15 @@ function DialogNutrition({open}){
             const values = getValues()
             await dispatch(openScreenLoader())
             await dispatch(selectModel(values.modelSelect))
-            await dispatch(receiveDataToPDF(values)) //send data fot axios request
-
+            if(values.modelSelect === 0 || values.modelSelect === 1){
+                await dispatch(receiveDataToPDF(values)) //send data fot axios request
+            } else if(values.modelSelect === 2){
+                await filterDataTickets(values)
+                await dispatch(openDialogPDF())
+            } else if(values.modelSelect === 3){
+                await sumPaymentTot(values)
+                await dispatch(openDialogPDF())
+            }
             await dispatch(closedScreenLoader())
         }
         

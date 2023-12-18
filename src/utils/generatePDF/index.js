@@ -5,6 +5,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { formatDatePTBR } from "../convertData";
 import moment from 'moment';
+import { getFilterTotais } from "../cache/cacheConfig";
 
 const currentDate = new Date()
 
@@ -54,8 +55,35 @@ export const headerPDF = {
   }
 }
 
+const formatDate = (date) => {
+  return {
+    text: moment(date).format('DD/MM/YYYY'),
+    alignment: 'center',
+    fontSize: 11
+  }
+ 
+}
+
+const formatMoney = (value) => {
+   return {
+    text: value.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }),
+    alignment: "right"
+  }
+}
+
+const textAlign = (text, alignment,fillColor) => {
+  return  {
+    text: text,
+    alignment: alignment,
+    fontSize: 11,
+    fillColor: fillColor
+  }
+}
+
 export const listNutrition = (props) => {
-  console.log("Props ", props)
   var dataNutrition = []
   if(props.model === 0 && props.data !== null && props.data !== ""){
     dataNutrition =  [
@@ -90,7 +118,7 @@ export const listNutrition = (props) => {
           },
         },
     ]
-  }else if(props.model === 1){
+  }else if(props.model === 1 && props.data !== null && props.data !== ""){
     dataNutrition = [
       {
         columns: [
@@ -127,44 +155,118 @@ export const listNutrition = (props) => {
               { text: row.matricula, alignment: 'center',fontSize: 11 },
               { text: row.ficha.nome.slice(0, 12), fontSize: 11 },
               { text: row.ficha.setor.slice(0, 6) + ".", fontSize: 11 },
-              {
-                text: moment(row.data).format('DD/MM/YYYY'),
-                alignment: 'center',
-                fontSize: 11
-              },
-              {
-                text: row.valor_pago.toLocaleString('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL'
-                }),
-                alignment: "left"
-              }
+              formatDate(row.data),
+              formatMoney(row.valor_pago),
             ]),
           ],
         },
       },
     ];
     
-  }else if(props.model === 2){
-    console.log("Payent entrada")
-    const payments = []
-    const dataPayment = props.data
-    const payment = dataPayment.modo_pagamento
-    let paymentAVista = 0
-    let paymentVale = 0
-    let paymentIsento = 0
-    let paymentOther = 0
-    for(let i = 0; i < dataPayment.length ; i ++){
-      if(payment === "DINHEIRO"){
-        paymentAVista += dataPayment.valor_pago
-      }else if(payment === "VALE"){
-        paymentVale += dataPayment.valor_pago
-      }else {
-        paymentOther += dataPayment.valor_pago
-      }
-    }
+  }else if(props.model === 2 && props.data !== null && props.data !== ""){
+    const datalistFilter = getFilterTotais()
+    console.log("TOTAIS ", datalistFilter )
+    var totG = 0;
+    var totP = 0;
+    var qtdTickets = 0;
+    var totalpayment = 0;
 
-    console.log("Payent ",  paymentAVista, paymentIsento, paymentOther, paymentVale)
+  for (var i = 0; i < datalistFilter.length; i++) {
+      totG += Number(datalistFilter[i].quantidadeG);
+      totP += Number(datalistFilter[i].quantidadeP);
+      qtdTickets += Number(datalistFilter[i].quantidadeTickets);
+      totalpayment += Number(datalistFilter[i].total);
+  }
+
+    console.log("TOTAIS ", totP , totG , totalpayment , qtdTickets  )
+    dataNutrition =  [
+      {
+        columns: [
+          {
+            text: 'DATA DE EMISSÃO: ' + formatDatePTBR(currentDate),
+            fontSize: 12,
+            bold: true,
+            alignment: 'left',
+          },
+          
+        ],
+      },
+      { text: '\n\n', fontSize: 12 },
+      {
+        layout: 'lightHorizontalLines',
+        table: {
+          headerRows: 1,
+          widths: ["*", "*", "*", "*", "*"],
+          fontSize: 12,
+          body: [
+            [
+              textAlign('DATA', "center", "#B3D4AE"), 
+              textAlign('GRAN', "center", "#B3D4AE"),
+              textAlign('PQN', "center", "#B3D4AE"),
+              textAlign('QTD. TOT', "center", "#B3D4AE"),
+              textAlign('TOTAL', "right", "#B3D4AE")],
+            ...datalistFilter.map((row) =>[
+              formatDate(row.dia),
+              textAlign(row.quantidadeG, "center"),
+              textAlign(row.quantidadeP, "center"),
+              {
+                text: row.quantidadeTickets,
+                alignment: 'center',
+                fontSize: 11
+              },
+              textAlign(formatMoney(row.total), "right")
+               ]),
+               [{ text: '', colSpan: 5, border: [false, false, false, true], margin: [0, 5, 0, 0] }]
+          ],
+          
+        },
+      },
+      { text: '\n\n\n', fontSize: 12 },
+      {
+        layout:{
+
+        },
+        layout: 'lightHorizontalLines',
+        table: {
+          headerRows: 1,
+          widths: ["*", "*", "*", "*"],
+          fontSize: 12,
+          body: [
+            [
+              textAlign('TOT. GRAN.', "center", "#B3D4AE"),
+              textAlign('TOT. PQN', "center", "#B3D4AE"),
+              textAlign('QTD. TOT', "center", "#B3D4AE"),
+              textAlign('TOTAL', "right", "#B3D4AE")
+            ],
+            [
+              textAlign(totG, "center"),
+              textAlign(totP, "center"),
+              textAlign(qtdTickets, "center"),
+              formatMoney(totalpayment)
+            ]
+            
+          ],
+          
+        },
+      }
+  ]
+  } else if(props.model === 3 && props.data !== null && props.data !== ""){
+    const payment =  getFilterTotais()
+    dataNutrition =  [
+      {
+        columns: [
+          {
+            text: 'DATA DE EMISSÃO: ' + formatDatePTBR(currentDate),
+            fontSize: 12,
+            bold: true,
+            alignment: 'left',
+          },
+          
+        ],
+      },
+      { text: '\n\n', fontSize: 12 },
+      
+    ]
   }
   
 /*

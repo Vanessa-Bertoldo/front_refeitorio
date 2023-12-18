@@ -1,7 +1,8 @@
 export const CACHE_CONFIG = {
     LIST_TICKETS                           :   "LIST_TICKETS",
     DATA_LOGIN                             :   "DATA_LOGIN",
-    DATA_FICHAS                            :   "DATA_FICHAS"
+    DATA_FICHAS                            :   "DATA_FICHAS",
+    FILTER_TOTAIS                          :   "FILTER_TOTAIS"
 
 }
 
@@ -28,4 +29,14 @@ export const getDataLogin = () => {
 export const setDataLogin = (data) => {
     const dataString = JSON.stringify(data);
     return localStorage.setItem(CACHE_CONFIG.DATA_LOGIN, dataString)
+}
+
+
+export const getFilterTotais = () => {
+    const storedData =  localStorage.getItem(CACHE_CONFIG.FILTER_TOTAIS)
+    return storedData ? JSON.parse(storedData) : null;
+}
+export const setFilterTotais = (data) => {
+    const dataString = JSON.stringify(data);
+    return localStorage.setItem(CACHE_CONFIG.FILTER_TOTAIS, dataString)
 }

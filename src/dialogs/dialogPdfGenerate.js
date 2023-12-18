@@ -21,7 +21,7 @@ const useStyles = makeStyles({
    },
 })
 
-const DialogPDF = ({open, generate}) => {
+const DialogPDF = ({open}) => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const data = useSelector((state) => state.dialogPDF.data)

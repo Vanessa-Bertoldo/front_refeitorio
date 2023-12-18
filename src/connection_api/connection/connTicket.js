@@ -1,5 +1,9 @@
+import { useDispatch } from "react-redux"
+import { openDialogPDF } from "../../slices/sliceDialogPDF"
 import { AlertSucess } from "../../utils/alerts/alertSucess"
+import { setFilterTotais } from "../../utils/cache/cacheConfig"
 import { formatDate } from "../../utils/convertData"
+import { classListNutrition, paymentNutrition } from "../../utils/lists"
 import { AxiosPost } from "../constantsConnection"
 import { DB_CONNECTION } from "../dbConnection"
 
@@ -20,7 +24,6 @@ export const insertTicket = async (dto, listDates) => {
                         tamanho:            dto.tamanho
                     }
                     const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_TICKET, data)
-                    console.log("respçonse ", response)
                    //return response.status
                 } catch(error) {
                     return error
@@ -32,4 +35,41 @@ export const insertTicket = async (dto, listDates) => {
             return error.response.data.message
           }
     
+}
+
+export const filterDataTickets = async (dto) => {
+    try{
+        const data = {
+            dataInicial:        dto.dataInicial, 
+            dataFinal:          dto.dataFinal,  
+            modo_pagamento:     paymentNutrition[dto.modo_pagamento].text, 
+            classe:             classListNutrition[dto.classe].text
+        }
+        const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_FILTER_DATE, data)
+        const listData = response.data.data
+        setFilterTotais(listData)
+      
+        return response
+    } catch(err){
+        return err.response.data.message
+    }
+    
+}
+
+export const sumPaymentTot = async (dto) => {
+    try{
+        const data = {
+            dataInicial:        dto.dataInicial, 
+            dataFinal:          dto.dataFinal,  
+            classe:             classListNutrition[dto.classe].text
+        }
+        const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_GROUP_TOT_PAYMENT, data)
+        const listData = response.data.data
+        console.log("listData ", listData)
+        setFilterTotais(listData)
+      
+        return response
+    } catch(err){
+        return err.response.data.message
+    }
 }
