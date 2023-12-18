@@ -4,6 +4,7 @@ import { AxiosPost } from "../constantsConnection"
 import { DB_CONNECTION } from "../dbConnection"
 
 export const getDataToNutrition = (data) => async (dispatch) => {
+  console.log("Dados conn ", data)
     try{
       const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_NUTRITION, data)
       console.log("Data for pdf ", response)

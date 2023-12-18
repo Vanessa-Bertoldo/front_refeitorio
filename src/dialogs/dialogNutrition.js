@@ -10,13 +10,13 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeSty
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup';
 //utils
-import { classList, models, payment } from "../utils/lists";
+import { classList, classListNutrition, models, payment, paymentNutrition } from "../utils/lists";
 //controllers
 import RHFTextField from "../hookForms/RHFTextField"
 import RHFSelect from "../hookForms/RHFSelect"
 //slices
 import { closedDialogNutrition, receiveDataToPDF } from "../slices/sliceDialogNutrition"
-import { openDialogPDF, openDialogViewPDF } from "../slices/sliceDialogPDF"
+import { openDialogPDF, openDialogViewPDF, selectModel } from "../slices/sliceDialogPDF"
 import { pdfGenerator } from "../utils/generatePDF/ex2"
 import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader"
 
@@ -67,7 +67,6 @@ function DialogNutrition({open}){
     }),[])
 
     const schema = yup.object().shape({
-       
      });
 
     const methods = useForm({
@@ -92,10 +91,16 @@ function DialogNutrition({open}){
     }
 
     async function handleView () {
-        const values = getValues()
-        await dispatch(openScreenLoader())
-        await dispatch(receiveDataToPDF(values)) //send data fot axios request
-        dispatch(closedScreenLoader())
+        const submit = await trigger()
+        if(submit){
+            const values = getValues()
+            await dispatch(openScreenLoader())
+            await dispatch(selectModel(values.modelSelect))
+            await dispatch(receiveDataToPDF(values)) //send data fot axios request
+
+            await dispatch(closedScreenLoader())
+        }
+        
        
     }
 
@@ -125,14 +130,14 @@ function DialogNutrition({open}){
                         <RHFSelect
                             name={"classe"}
                             label="Classe"
-                            options={classList}
+                            options={classListNutrition}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />
                         <RHFSelect
                             name={"modo_pagamento"}
                             label="pagamento"
-                            options={payment}
+                            options={paymentNutrition}
                             onGetValue={(item) => item.value}
                             onGetDescription={(item) => item.text}
                         />

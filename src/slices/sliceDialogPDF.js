@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import pdfMake from 'pdfmake/build/pdfmake';
-import { listNutrition, openDialogPDFGenerate } from "../utils/generatePDF";
-import DialogPDF from "../dialogs/dialogPdfGenerate";
 
 
 const initialState = {
     open: false,
     data: [],
-    url: ""
+    model: 0
 }
 
 const dialogPDF = createSlice({
@@ -23,26 +20,22 @@ const dialogPDF = createSlice({
         receiveData(state, action){
             state.data = action.payload
         }, 
-        receiveUrl(state, action){
-            state.url = action.payload
+        receiveModel(state, action){
+            state.model = action.payload
         }
     }
 })
 export const { openDialogPDF, closedDialogPDF } = dialogPDF.actions;
 export default dialogPDF.reducer;
 
-export function openDialogViewPDF(filters){
-    console.log("filters ", filters)
+export function selectModel(model){
     return async (dispatch) => {
-        /*const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-        pdfDocGenerator.getDataUrl((dataUrl) => {
-            dispatch(dialogPDF.actions.receiveUrl(dataUrl))
-        });*/
-        //dispatch(openDialogPDF())
+        dispatch(dialogPDF.actions.receiveModel(model))
     }
 }
 
 export function dataList(data) {
+    console.log("Data list ", data)
     return async (dispatch) => {
         const newList = [];
        
@@ -52,13 +45,12 @@ export function dataList(data) {
                 const newData = [
                    list.ficha.setor,
                    list.ficha.nome,
-                   list.ficha.classe
+                   list.ficha.classe,
                 ];
                 newList.push(newData);
                 
             }
-            console.log("newDraw", newList);
-            await dispatch(dialogPDF.actions.receiveData(newList));
+            await dispatch(dialogPDF.actions.receiveData(data));
         }
         setTimeout(() => {
             dispatch(openDialogPDF())

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { getDataToNutrition } from "../connection_api/connection/connNutricion";
-import { classList, payment } from "../utils/lists";
+import { classList, classListNutrition, payment, paymentNutrition } from "../utils/lists";
 
 const initialState = {
     open: false,
@@ -27,10 +27,10 @@ export function receiveDataToPDF(data){
     return async (dispatch) => {
         const newData = {
             ...data,
-            classe: classList[data.classe].text, 
+            classe: classListNutrition[data.classe].text, 
             dataInicial: data.dataInicial, 
             dataFinal: data.dataFinal, 
-            modo_pagamento: payment[data.modo_pagamento].text
+            modo_pagamento: paymentNutrition[data.modo_pagamento].text
         }
         await dispatch(getDataToNutrition(newData))
     }

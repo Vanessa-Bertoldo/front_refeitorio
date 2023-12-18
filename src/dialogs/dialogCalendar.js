@@ -82,7 +82,7 @@ function DialogCalendar(){
     const schema = yup.object().shape({
         data: yup.array().required("Dados inválidos"),
         valor: yup.number().required("Dados inválidos"),
-        modo_pagamento: yup.number().required("Dados inválidos")
+        size: yup.number().min(1, "Dados inválidos").required("Dados inválidos")
        
     })
     
@@ -117,14 +117,19 @@ function DialogCalendar(){
         name: "data"
     })
 
+    const valor = useWatch({
+        control,
+        name: "valor"
+    })
+
     //update values in field qtdValor and valor
     useEffect(() => {
-        if(getValues("data") && getValues("data").length > 0){
-            const dateLen = getValues("data").length
-            setValue("valorTot", Number(dateLen) * Number(getValues("valor")))
+        if(dates && dates.length > 0){
+            const dateLen = dates.length
+            setValue("valorTot", Number(dateLen) * Number(valor))
             setValue("qtdTotal", dateLen)
         }
-    },[dates])
+    },[dates, valor])
 
     React.useEffect(() => {
         reset(data)
@@ -140,7 +145,7 @@ function DialogCalendar(){
 
     const handleSave = async () => {
         const submit = await trigger()
-        
+        console.log("get ", getValues())
         if(submit){
             console.log("get ", getValues())
         }

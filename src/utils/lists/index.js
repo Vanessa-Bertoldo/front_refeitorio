@@ -4,6 +4,29 @@ export const payment = [
     {value: 2, text: "ISENTO"},
     {value: 3, text: "DINHEIRO"}
 ]
+
+export const paymentNutrition = [
+    {value: 0, text: "TODOS"}, 
+    {value: 1, text: "A VISTA"}, 
+    {value: 2, text: "VALE"}, 
+    {value: 3, text: "ISENTO"},
+    {value: 4, text: "DINHEIRO"}
+]
+export const classListNutrition = [
+    {value: 0,  text: "TODOS"}, 
+    {value: 1,  text: "EMPREGADO"}, 
+    {value: 2,  text: "DIRETOR"}, 
+    {value: 3,  text: "VOLUNTÁRIO"}, 
+    {value: 4,  text: "RESIDENTE"}, 
+    {value: 5,  text: "VISITANTE"}, 
+    {value: 6,  text: "PROFESSOR"}, 
+    {value: 7,  text: "SEGURANÇA PATRIMONIAL"},
+    {value: 8,  text: "LIMPEZA"},
+    {value: 9,  text: "LAVANDERIA"},
+    {value: 10, text: "FINANCEIRO"},
+    {value: 11, text: "DEPARTAMENTO HUMANO"},
+]
+
 export const optionsSize = [
     {value: 0, text:"Selecione"}, 
     {value: 1, text:"G"}, 

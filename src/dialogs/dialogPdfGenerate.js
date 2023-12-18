@@ -5,8 +5,9 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles }
 import { useState } from "react";
 import { closedDialogPDF } from "../slices/sliceDialogPDF";
 import { useDispatch, useSelector } from "react-redux";
-import { headerPDF, lineHorizontal, listNutrition, pdfNutrition } from "../utils/generatePDF";
-import { logo } from "../assets/logoB64";
+import { lineHorizontal, listNutrition, pdfNutrition } from "../utils/generatePDF";
+import { logo } from "../assets/logoB64"
+import { formatDatePTBR } from "../utils/convertData";
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -24,37 +25,41 @@ const DialogPDF = ({open, generate}) => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const data = useSelector((state) => state.dialogPDF.data)
-    const [list, setList] = useState([])
-    const [pdfDataUrl, setPdfDataUrl] = useState('');
+    const model = useSelector((state) => state.dialogPDF.model)
+    const currentDate = formatDatePTBR(new Date());
 
-    React.useEffect(() => {
-        setList(data)
-    },[data])
+    const [pdfDataUrl, setPdfDataUrl] = useState('')
 
     const header = [
         ['PRESENÇA', 'NOME', 'SETOR', 'CLASSE'],
     ]
 
+    pdfMake.vfs = {
+      ...pdfFonts.pdfMake.vfs,
+      'logoB64': logo,
+    };
+
+    
+
     const docDefinition = {
         content: [
-          headerPDF,
-          lineHorizontal,
           {
-            table: {
-              headerRows: 1,
-              heights: [30, 30],
-              widths: ['auto', 'auto', 'auto', 'auto'],
-              body: [
-                [
-                  { border: [false, false, false, false], text: 'DATA EMISSAO: ' },
-                  { border: [false, false, false, false], text: '01/05/2023' },
-                  { border: [false, false, false, false], text: 'CLASSE: ' },
-                  { border: [false, false, false, false], text: 'TODOS' },
-                ],
-              ],
-            },
+            columns: [
+              {
+                image: logo,
+                fit: [150, 150], 
+                alignment: 'left',
+              },
+              {
+                text: 'NUTRIÇÃO E DIETÉTICA - NACJ',
+                fontSize: 16,
+                bold: true,
+                alignment: 'left',
+                margin: [0, 0, 550, 0], // Adicione um valor para a margem inferior (índice 2)
+              },
+            ],
           },
-          listNutrition({ data: data })
+          listNutrition({ data: data, model: model })
         ],
         styles: {
           header: {
