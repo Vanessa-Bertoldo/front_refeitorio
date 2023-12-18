@@ -70,7 +70,7 @@ const formatMoney = (value) => {
       style: 'currency',
       currency: 'BRL'
     }),
-    alignment: "right"
+    alignment: "right",
   }
 }
 
@@ -252,6 +252,7 @@ export const listNutrition = (props) => {
   ]
   } else if(props.model === 3 && props.data !== null && props.data !== ""){
     const payment =  getFilterTotais()
+    const titles = ["MODALIDADE", "QUANTIDADE", "TOTAL"]
     dataNutrition =  [
       {
         columns: [
@@ -265,7 +266,37 @@ export const listNutrition = (props) => {
         ],
       },
       { text: '\n\n', fontSize: 12 },
-      
+      {
+        layout: {
+          hLineWidth: () => 2, // Largura da linha horizontal
+          vLineWidth: () => 2, // Largura da linha vertical
+      },
+        table: {
+          headerRows: 1,
+          widths: ["*", "*", "*", "*"],
+          fontSize: 12,
+          body: [
+            [
+                titles,
+                ...payment.map((row) => [
+                    textAlign(row.modo_pagamento, "center", "#B3D4AE"),
+                    textAlign(row.quantidadeTickets, "center", "#B3D4AE"),
+                    {
+                      text: formatMoney(row.soma_total),
+                      fillColor: "#000",
+
+                  },
+                   
+                ]),
+                // Adicionando nova coluna
+                
+            ],
+            // Adicione mais linhas conforme necessário
+        ],
+          
+        },
+      },
+      { text: '\n\n\n', fontSize: 12 },
     ]
   }
   

@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     open: false,
     data: [],
-    model: 0
+    model: 3
 }
 
 const dialogPDF = createSlice({

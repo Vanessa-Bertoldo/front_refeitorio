@@ -96,7 +96,7 @@ function DialogNutrition({open}){
         if(submit){
             const values = getValues()
             await dispatch(openScreenLoader())
-            await dispatch(selectModel(values.modelSelect))
+            await dispatch(selectModel(values.modelSelect ))
             if(values.modelSelect === 0 || values.modelSelect === 1){
                 await dispatch(receiveDataToPDF(values)) //send data fot axios request
             } else if(values.modelSelect === 2){
@@ -104,7 +104,10 @@ function DialogNutrition({open}){
                 await dispatch(openDialogPDF())
             } else if(values.modelSelect === 3){
                 await sumPaymentTot(values)
-                await dispatch(openDialogPDF())
+                setTimeout(async () => {
+                    await dispatch(openDialogPDF())
+                },[500])
+               
             }
             await dispatch(closedScreenLoader())
         }
