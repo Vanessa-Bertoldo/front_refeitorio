@@ -8,5 +8,6 @@ export const DB_CONNECTION = {
     LINK_SERVER_TICKET                   :   LINK_SERVER + "/ticket",
     LINK_SERVER_SEARCH_FICHAS            :   LINK_SERVER + "/fichaSearch",
     LINK_SERVER_FILTER_DATE              :   LINK_SERVER + "/filterDataByDate",
-    LINK_SERVER_GROUP_TOT_PAYMENT        :   LINK_SERVER + "/filterPayment"
+    LINK_SERVER_GROUP_TOT_PAYMENT        :   LINK_SERVER + "/filterPayment",
+    LINK_SERVER_GROUP_TICKET             :   LINK_SERVER + "/groupTicket"
 }

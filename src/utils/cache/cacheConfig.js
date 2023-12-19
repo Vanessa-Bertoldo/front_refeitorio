@@ -2,7 +2,8 @@ export const CACHE_CONFIG = {
     LIST_TICKETS                           :   "LIST_TICKETS",
     DATA_LOGIN                             :   "DATA_LOGIN",
     DATA_FICHAS                            :   "DATA_FICHAS",
-    FILTER_TOTAIS                          :   "FILTER_TOTAIS"
+    FILTER_TOTAIS                          :   "FILTER_TOTAIS",
+    GROUP_TICKETS                          :   "GROUP_TICKET"
 
 }
 
@@ -39,4 +40,13 @@ export const getFilterTotais = () => {
 export const setFilterTotais = (data) => {
     const dataString = JSON.stringify(data);
     return localStorage.setItem(CACHE_CONFIG.FILTER_TOTAIS, dataString)
+}
+
+export const getGroupTicket = () => {
+    const storedData =  localStorage.getItem(CACHE_CONFIG.GROUP_TICKETS)
+    return storedData ? JSON.parse(storedData) : null;
+}
+export const setGroupTicket = (data) => {
+    const dataString = JSON.stringify(data);
+    return localStorage.setItem(CACHE_CONFIG.GROUP_TICKETS, dataString)
 }

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { formatDate } from "../utils/convertData";
-import { insertTicket } from "../connection_api/connection/connTicket";
+import { groupTickets, insertTicket } from "../connection_api/connection/connTicket";
 import { classList, optionsSize, payment } from "../utils/lists";
 
 const initialState = {
@@ -38,18 +38,23 @@ export function sendDataForAxios(data){
     return async (dispatch) => {
         const dates = data.data
         const newDates = await Promise.all((dates ?? []).map(async (item) => await formatDate(item)));
-        console.log("new Dat ", data.data)
      
-        /*const newData = {
+        const newData = {
             matricula           : data.matricula,
-            modo_pagamento      : payment[data.pagamento].text,
-            valor_pago          : data.valor,
-            valor_total         : data.valorTot,
-            tamanho             : optionsSize[data.tamanho].text,
-            classes             : classList[data.classe].text,
+            modo_pagamento      : payment[data.modo_pagamento].text,
+            valor_pago          : Number(data.valor),
+            valor_total         : data.valorTotTicket,
+            tamanho             : optionsSize[data.size].text,
+            classe              : data.classe,
 
-        }*/
-        console.log("newDates ", data)
-        //await dispatch(insertTicket(newData, newDates))
+        }
+
+        await dispatch(insertTicket(newData, newDates))
     } 
+}
+
+export function sendDataTicketAxios(data){
+    return async (dispatch) => {
+        await groupTickets(data)
+    }
 }

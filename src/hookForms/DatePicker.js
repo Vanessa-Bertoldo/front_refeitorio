@@ -36,8 +36,9 @@ const RHFMultiDateKeyboardPicker = ({ name, label, ...other }) => {
             label={label}
             multiple
             value={value}
+            minDate={new Date()}
             onChange={onChange}
-            format="YYYY/MM/DD"
+            format="DD/MM/YYYY"
             plugins={[
               <DatePanel />
             ]}

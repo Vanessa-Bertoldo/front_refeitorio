@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 //material ui
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, makeStyles } from "@material-ui/core"
 //hook forms
 import { useDispatch, useSelector } from "react-redux"
 import ReactFormProvider from "../components/form"
@@ -8,7 +8,7 @@ import ReactFormProvider from "../components/form"
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 //Slices
-import { closedDialogCalendar, sendDataForAxios } from "../slices/sliceDialogCalendar"
+import { closedDialogCalendar, sendDataForAxios, sendDataTicketAxios } from "../slices/sliceDialogCalendar"
 import { useForm, useWatch } from "react-hook-form";
 import RHFTextField from "../hookForms/RHFTextField";
 import RHFSelect from "../hookForms/RHFSelect";
@@ -20,6 +20,7 @@ import RHFMultiDateKeyboardPicker from "../hookForms/DatePicker";
 import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader";
 import { AlertYesNo } from "../utils/alerts/alertYesNo";
 import { openPDFCalendar } from "../slices/slicePDFDialogCalendar";
+import { formatMoney } from "../utils/convertValues";
 
 const useStyles = makeStyles({
     title: {
@@ -52,6 +53,7 @@ const useStyles = makeStyles({
     },
     gridDatePicker: {
         gridArea: "header",
+        width: "100%",
         display: "grid",
         gridTemplateColumns: "auto",
         padding: "10px",
@@ -74,7 +76,8 @@ const useStyles = makeStyles({
 function DialogCalendar(){
     const data = useSelector((state) => state.dialogCalendar.data)
     const open = useSelector((state) => state.dialogCalendar.open)
-    const [dataCalendar, setDataCalendar] = useState(null);
+    const [valorTotTicket, setTotTicket] = useState(0.00)
+    const [qtd, setQtd] = useState(0)
 
     const dispatch = useDispatch()
     const classes = useStyles()
@@ -94,8 +97,6 @@ function DialogCalendar(){
         valor: 7.00,
         modo_pagamento: 0,
         data: [],
-        valorTot: 0,
-        qtdTotal: 0,
     }),[data]);
     
 
@@ -122,14 +123,18 @@ function DialogCalendar(){
         name: "valor"
     })
 
-    //update values in field qtdValor and valor
     useEffect(() => {
         if(dates && dates.length > 0){
             const dateLen = dates.length
-            setValue("valorTot", Number(dateLen) * Number(valor))
-            setValue("qtdTotal", dateLen)
+            setQtd(dateLen)
+            setTotTicket(dateLen * valor)
         }
     },[dates, valor])
+
+    useEffect(() => {
+        setQtd(0)
+        setTotTicket(0)
+    },[])
 
     React.useEffect(() => {
         reset(data)
@@ -140,22 +145,29 @@ function DialogCalendar(){
     }
 
     const handleView = async () => {
-        await dispatch(openPDFCalendar())
+        const values = getValues() 
+        await dispatch(sendDataTicketAxios(values))
+        //await dispatch(openPDFCalendar())
     }
 
     const handleSave = async () => {
         const submit = await trigger()
         console.log("get ", getValues())
+        
+
         if(submit){
-            console.log("get ", getValues())
-        }
-        if(submit){
-            const values = getValues()
+            const values = getValues() 
+
+            const dataForm = {
+                ...values,
+                qtd,
+                valorTotTicket
+            }
             await dispatch(closedDialogCalendar())
             await AlertYesNo({async onClickConfirm(){
-                await dispatch(openScreenLoader())
-                await dispatch(sendDataForAxios(values))
-                await dispatch(closedScreenLoader())
+                //dispatch(openScreenLoader())
+                await dispatch(sendDataForAxios(dataForm))
+                //dispatch(closedScreenLoader())
             }, onCancel(){
                 
             },
@@ -223,23 +235,22 @@ function DialogCalendar(){
                             label="Valor"
                        />
                     </Box>
-                    <Box className={classes.gridContainer}>
-                    <RHFTextField
-                            disabled
-                            type={"number"}
-                            name="qtdTotal"
-                            label="Quantidade"
-                    />
-                    <RHFTextField
-                            disabled
-                            type={"number"}
-                            name="valorTot"
-                            label="Valor Total"
-                       />
-                    </Box>
-                    <Box className={classes.gridContainer}>
-                </Box>
                 </ReactFormProvider>
+                <Box className={classes.gridContainer}>
+                    <TextField
+                        value={qtd}
+                        id="outlined-basic"
+                        label="Quantidade"
+                        onChange={(e) => setQtd(e.target.value)}
+                    />
+                    <TextField
+                        disabled
+                        value={valorTotTicket}
+                        id="outlined-basic"
+                        label="Valor"
+                        onChange={(e) => setTotTicket(e.target.value)}
+                    />
+                </Box>
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={handleView} className={`${classes.buttonGrey} ${classes.boldWhite}`}>VISUALIZAR</Button>
