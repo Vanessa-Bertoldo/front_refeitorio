@@ -215,7 +215,7 @@ export const listNutrition = (props) => {
                   alignment: 'center',
                   fontSize: 11
                 },
-                textAlign(formatMoney(row.total), "right")
+                textAlign(row.total, "right")
                  ]),
                  [{ text: '', colSpan: 5, border: [false, false, false, true], margin: [0, 5, 0, 0] }]
             ],
