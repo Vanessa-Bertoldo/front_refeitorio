@@ -55,6 +55,6 @@ export function sendDataForAxios(data){
 
 export function sendDataTicketAxios(data){
     return async (dispatch) => {
-        await groupTickets(data)
+        await dispatch(groupTickets(data))
     }
 }

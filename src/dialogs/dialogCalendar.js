@@ -147,7 +147,7 @@ function DialogCalendar(){
     const handleView = async () => {
         const values = getValues() 
         await dispatch(sendDataTicketAxios(values))
-        //await dispatch(openPDFCalendar())
+        await dispatch(openPDFCalendar())
     }
 
     const handleSave = async () => {
@@ -168,6 +168,7 @@ function DialogCalendar(){
                 //dispatch(openScreenLoader())
                 await dispatch(sendDataForAxios(dataForm))
                 //dispatch(closedScreenLoader())
+                await dispatch(openPDFCalendar())
             }, onCancel(){
                 
             },

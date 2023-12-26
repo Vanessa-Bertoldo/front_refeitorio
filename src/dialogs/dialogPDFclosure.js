@@ -5,9 +5,10 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles }
 import { useState } from "react";
 import { closedDialogPDF } from "../slices/sliceDialogPDF";
 import { useDispatch, useSelector } from "react-redux";
-import { lineHorizontal, listNutrition, pdfNutrition } from "../utils/generatePDF";
+import { lineHorizontal, listNutrition, listXResp, pdfNutrition } from "../utils/generatePDF";
 import { logo } from "../assets/logoB64"
 import { formatDatePTBR } from "../utils/convertData";
+import { closedDialogClosure } from "../slices/slicePDFclosure";
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -21,11 +22,12 @@ const useStyles = makeStyles({
    },
 })
 
-const DialogPDF = ({open}) => {
+const DialogPDFClosure = () => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const data = useSelector((state) => state.dialogPDF.data)
     const model = useSelector((state) => state.dialogPDF.model)
+    const open = useSelector((state) => state.dialogClosure.open)
 
     const [pdfDataUrl, setPdfDataUrl] = useState('')
 
@@ -58,7 +60,7 @@ const DialogPDF = ({open}) => {
               },
             ],
           },
-          listNutrition({ data: data, model: model })
+          listXResp({ data: data, model: model })
         ],
 
         styles: {
@@ -88,7 +90,7 @@ const DialogPDF = ({open}) => {
     },[data])
 
     const handleClose = () => {
-        dispatch(closedDialogPDF())
+        dispatch(closedDialogClosure())
     }
 
     return (
@@ -109,4 +111,4 @@ const DialogPDF = ({open}) => {
         </Dialog>
     )
 }
-export default DialogPDF
+export default DialogPDFClosure

@@ -56,7 +56,6 @@ export const sumPaymentTot = async (dto) => {
         }
         const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_GROUP_TOT_PAYMENT, data)
         const listData = response.data.data
-        console.log("listData ", listData)
         setFilterTotais(listData)
       
         return response

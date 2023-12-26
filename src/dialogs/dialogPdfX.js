@@ -3,11 +3,11 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
 import { useState } from "react";
-import { closedDialogPDF } from "../slices/sliceDialogPDF";
 import { useDispatch, useSelector } from "react-redux";
-import { lineHorizontal, listNutrition, pdfNutrition } from "../utils/generatePDF";
+import { lineHorizontal, listNutrition, listX, pdfNutrition } from "../utils/generatePDF";
 import { logo } from "../assets/logoB64"
 import { formatDatePTBR } from "../utils/convertData";
+import { closedDialogDataX } from "../slices/sliceDataX";
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -21,11 +21,12 @@ const useStyles = makeStyles({
    },
 })
 
-const DialogPDF = ({open}) => {
+const DialogDataX = () => {
     const dispatch = useDispatch()
     const classes = useStyles()
-    const data = useSelector((state) => state.dialogPDF.data)
     const model = useSelector((state) => state.dialogPDF.model)
+    const currentDate = formatDatePTBR(new Date());
+    const open = useSelector((state) => state.dialogDataX.openDialogX)
 
     const [pdfDataUrl, setPdfDataUrl] = useState('')
 
@@ -58,9 +59,8 @@ const DialogPDF = ({open}) => {
               },
             ],
           },
-          listNutrition({ data: data, model: model })
+          listX({ model: model })
         ],
-
         styles: {
           header: {
             fontSize: 18,
@@ -85,10 +85,10 @@ const DialogPDF = ({open}) => {
         pdfDocGenerator.getDataUrl((dataUrl) => {
         setPdfDataUrl(dataUrl);        
       });
-    },[data])
+    },[])
 
     const handleClose = () => {
-        dispatch(closedDialogPDF())
+        dispatch(closedDialogDataX())
     }
 
     return (
@@ -109,4 +109,4 @@ const DialogPDF = ({open}) => {
         </Dialog>
     )
 }
-export default DialogPDF
+export default DialogDataX

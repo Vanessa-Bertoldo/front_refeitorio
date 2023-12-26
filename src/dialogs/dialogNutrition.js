@@ -2,7 +2,7 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 //hookform
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import ReactFormProvider from "../components/form"
 //material ui
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core"
@@ -20,6 +20,8 @@ import { openDialogPDF, openDialogViewPDF, selectModel } from "../slices/sliceDi
 import { pdfGenerator } from "../utils/generatePDF/ex2"
 import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoader"
 import { filterDataTickets, sumPaymentTot } from "../connection_api/connection/connTicket"
+import { openDialogDataX, openDialogX } from "../slices/sliceDataX"
+import { openDialogClosure } from "../slices/slicePDFclosure"
 
 const useStyles = makeStyles({
     buttonRed: {
@@ -79,7 +81,8 @@ function DialogNutrition({open}){
         getValues,
         setValue,
         trigger,
-        reset
+        reset,
+        control
     } = methods
 
     async function handleGenerate() {
@@ -91,21 +94,30 @@ function DialogNutrition({open}){
         dispatch(closedDialogNutrition())
     }
 
+    const model = useWatch({
+        control,
+        name: "modelSelect"
+    })
+
     async function handleView () {
         const submit = await trigger()
         if(submit){
             const values = getValues()
+            console.log("Values ", values)
             await dispatch(openScreenLoader())
-            await dispatch(selectModel(values.modelSelect ))
+            await dispatch(selectModel(model))
             if(values.modelSelect === 0 || values.modelSelect === 1){
                 await dispatch(receiveDataToPDF(values)) //send data fot axios request
             } else if(values.modelSelect === 2){
                 await filterDataTickets(values)
-                await dispatch(openDialogPDF())
+                //await dispatch(openDialogPDF())
+                await dispatch(openDialogDataX())
+               
             } else if(values.modelSelect === 3){
                 await sumPaymentTot(values)
+                await dispatch(openDialogClosure())
                 setTimeout(async () => {
-                    await dispatch(openDialogPDF())
+                    //await dispatch(openDialogPDF())
                 },[500])
                
             }

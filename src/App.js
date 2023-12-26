@@ -7,6 +7,8 @@ import Loader from './utils/loader';
 import DialogPDF from './dialogs/dialogPdfGenerate';
 import DialogCalendar from './dialogs/dialogCalendar';
 import DialogPDFCalendar from './dialogs/dialogGeneratePDFCalendar';
+import DialogDataX from './dialogs/dialogPdfX';
+import DialogPDFClosure from './dialogs/dialogPDFclosure';
 
 export default function App() {
   const open = useSelector((state) => state.dialogRegister.open)
@@ -15,6 +17,8 @@ export default function App() {
   const openDialogPDF = useSelector((state) => state.dialogPDF.open)
   const openDialogCalendar = useSelector((state) => state.dialogCalendar.open)
   const openPDFCalendar = useSelector((state) => state.pdfCalendar.open)
+  const openDialogX = useSelector((state) => state.dialogDataX.openDialogX)
+  const openDialogClosure = useSelector((state) => state.dialogClosure.open)
 
   return (
   <>
@@ -25,6 +29,8 @@ export default function App() {
     <DialogPDF open={openDialogPDF}/>
     <DialogCalendar open={openDialogCalendar}/>
     <DialogPDFCalendar open={openPDFCalendar}/>
+    <DialogDataX open={openDialogX}/>
+    <DialogPDFClosure open={openDialogClosure}/>
   </>
   );
 }
