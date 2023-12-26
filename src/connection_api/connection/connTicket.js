@@ -24,7 +24,7 @@ export const insertTicket = async (dto, listDates) => {
         await AxiosPost(DB_CONNECTION.LINK_SERVER_TICKET, data)
        
     }
-    return  AlertSucess({title: "Sucesso", text: "Dados excluídos com sucesso", icon: "success"})
+    return  AlertSucess({title: "Sucesso", text: "Dados salvos com sucesso", icon: "success"})
     
 }
 
@@ -74,7 +74,7 @@ export const groupTickets = async (dto) => {
         const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_GROUP_TICKET, data)
         console.log("Respostaaa ", response)
         const listData = response.data.data
-        console.log("listData ", listData[0].datas)
+        console.log("listData ", listData)
         setGroupTicket(listData)
       
         return response

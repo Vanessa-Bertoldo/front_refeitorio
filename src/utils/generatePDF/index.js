@@ -6,6 +6,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { formatDatePTBR } from "../convertData";
 import moment from 'moment';
 import { getFilterTotais, getGroupTicket } from "../cache/cacheConfig";
+import { nameMonth, stringToArray } from "../convertValues";
 
 const currentDate = new Date()
 
@@ -460,13 +461,14 @@ export const listNutrition = (props) => {
 
 export const cardsTicket = () => {
   console.log("GRUPOS  ", getGroupTicket())
+  const tickets = getGroupTicket()
   const card = {
-    content: [
+    content: tickets.map((ticket, index) => ([
       {
         columns: [
           {
             image: LogoImg,
-            fit: [50, 50], 
+            fit: [50, 50],
             alignment: 'left',
           },
           {
@@ -474,19 +476,14 @@ export const cardsTicket = () => {
             fontSize: 18,
             bold: true,
             alignment: 'left',
-            margin: [10, 10], 
+            margin: [10, 10],
           },
         ],
       },
       { text: '\n', fontSize: 12 },
       {
         columns: [
-          { text: 'Nome: Sua Referência', width: 'auto' },
-        ],
-      },
-      {
-        columns: [
-          { text: 'Referência: DEZEMBRO/2023', width: 'auto' },
+          { text: 'REFERÊNCIA: ' + nameMonth(ticket.mes) + "/" + ticket.ano, width: 'auto' },
         ],
       },
       {
@@ -496,11 +493,8 @@ export const cardsTicket = () => {
         margin: [0, 10, 0, 5],
       },
       {
-        ul: [
-          'Data 1: Valor 1',
-          'Data 2: Valor 2',
-          'Data 3: Valor 3',
-        ],
+        fontSize: 12,
+        ul: stringToArray(ticket.datas),
       },
       {
         canvas: [
@@ -508,21 +502,25 @@ export const cardsTicket = () => {
             type: 'line',
             x1: 0,
             y1: 5,
-            x2: 400, 
+            x2: 500,
             y2: 5,
             lineWidth: 2,
-            lineColor: '#000', 
+            lineColor: '#000',
           },
         ],
       },
       {
-        text: 'Valor Total: R$ XXX,XX', 
+        text: `Valor Total: R$ ` + ticket.soma_total.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }),  
         fontSize: 16,
         bold: true,
         alignment: 'center',
-        margin: [0, 10], 
+        margin: [0, 10],
       },
-    ],
+      { text: '\n\n\n\n', fontSize: 12 },
+    ])),
   }
   return card
 }

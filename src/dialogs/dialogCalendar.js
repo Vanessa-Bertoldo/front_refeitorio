@@ -21,6 +21,7 @@ import { closedScreenLoader, openScreenLoader } from "../slices/sliceScreenLoade
 import { AlertYesNo } from "../utils/alerts/alertYesNo";
 import { openPDFCalendar } from "../slices/slicePDFDialogCalendar";
 import { formatMoney } from "../utils/convertValues";
+import { groupTickets } from "../connection_api/connection/connTicket";
 
 const useStyles = makeStyles({
     title: {
@@ -146,7 +147,8 @@ function DialogCalendar(){
 
     const handleView = async () => {
         const values = getValues() 
-        await dispatch(sendDataTicketAxios(values))
+        //await dispatch(sendDataTicketAxios(values))
+        await groupTickets(values)
         await dispatch(openPDFCalendar())
     }
 
