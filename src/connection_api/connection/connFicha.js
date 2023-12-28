@@ -31,10 +31,9 @@ export const insertDataFicha = (dto) => async (dispatch) => {
       matricula: dto.matricula, 
       nome: dto.nome, 
       setor: dto.setor, 
-      classe: dto.classe, 
+      classe:  dto.classe, 
       tamanho: dto.tamanho
     }
-  
     const response = await AxiosPost(DB_CONNECTION.LINK_SERVER_FICHA, data)
     return response.status
   } catch(error) {

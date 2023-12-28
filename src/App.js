@@ -9,6 +9,7 @@ import DialogCalendar from './dialogs/dialogCalendar';
 import DialogPDFCalendar from './dialogs/dialogGeneratePDFCalendar';
 import DialogDataX from './dialogs/dialogPdfX';
 import DialogPDFClosure from './dialogs/dialogPDFclosure';
+import DialogCalendarSave from './dialogs/dialogCalendarSave';
 
 export default function App() {
   const open = useSelector((state) => state.dialogRegister.open)
@@ -27,7 +28,8 @@ export default function App() {
     <DialogNutrition open={openDialogNutri}/>
     <Loader open={openScreenLoader}/>
     <DialogPDF open={openDialogPDF}/>
-    <DialogCalendar open={openDialogCalendar}/>
+    {/*<DialogCalendar open={openDialogCalendar}/>*/}
+    <DialogCalendarSave open={openDialogCalendar}/>
     <DialogPDFCalendar open={openPDFCalendar}/>
     <DialogDataX open={openDialogX}/>
     <DialogPDFClosure open={openDialogClosure}/>

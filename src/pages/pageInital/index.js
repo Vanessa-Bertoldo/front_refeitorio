@@ -32,6 +32,7 @@ const useStyles = makeStyles({
         zIndex: 999,
         width: "100%",
         height: "100%",
+        textAlign: "-webkit-center"
     },
     textField: {
         width: "100vh"
@@ -40,7 +41,8 @@ const useStyles = makeStyles({
         height: "100%"
     },
     padding10: {
-        padding: "10px"
+        padding: "10px",
+        textAlign: "-webkit-center"
     },
     alignList: {
         textAlign: "-webkit-center"

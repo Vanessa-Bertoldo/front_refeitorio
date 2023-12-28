@@ -59,7 +59,7 @@ const useStyles = makeStyles({
 
 function DialogRegisterForm({open}){
     const listClass = [{value: 0, text: "Selecione"}, {value: 1, text:"Empregado"}, {value: 2, text:"Diretor"}, {value: 3, text:"Voluntário"}, {value: 4, text:"Residente"}, {value: 5, text:"Visitante"}, {value: 6, text:"Professor"}, {value: 7, text:"Outros"}]
-    const listOptions = [{value: 0, text: "Selecione"}, {value: 1, text: "Grande"}, {value: 2, text: "Pequena"}]
+    const listOptions = [{value: 0, text: "Selecione"}, {value: 1, text: "G"}, {value: 2, text: "P"}]
 
     const dispatch = useDispatch()
 
@@ -102,7 +102,13 @@ function DialogRegisterForm({open}){
         const res = await trigger()
         if(res){
             const values = getValues()
-            const response = await dispatch(insertDataFicha(values))
+           
+            let newData = {
+                ...values,
+                classe: listClass[values.classe].text,
+                tamanho: listOptions[values.tamanho].text
+            }
+            const response = await dispatch(insertDataFicha(newData))
             if(response === 200){
                 Alert({title: "Sucesso", text: "Dados cadastrados com sucesso", icon:"success"})
                 reset(defaultValues)

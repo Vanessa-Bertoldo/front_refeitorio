@@ -37,6 +37,7 @@ const RHFMultiDateKeyboardPicker = ({ name, label, ...other }) => {
             multiple
             value={value}
             minDate={new Date()}
+            maxDate={new Date(new Date().setDate(new Date().getDate() + 30))}
             onChange={onChange}
             format="DD/MM/YYYY"
             plugins={[
