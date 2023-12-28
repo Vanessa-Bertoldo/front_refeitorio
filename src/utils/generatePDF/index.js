@@ -462,65 +462,69 @@ export const listNutrition = (props) => {
 export const cardsTicket = () => {
   console.log("GRUPOS  ", getGroupTicket())
   const tickets = getGroupTicket()
-  const card = {
-    content: tickets.map((ticket, index) => ([
-      {
-        columns: [
-          {
-            image: LogoImg,
-            fit: [50, 50],
-            alignment: 'left',
-          },
-          {
-            text: 'Programação de Refeição',
-            fontSize: 18,
-            bold: true,
-            alignment: 'left',
-            margin: [10, 10],
-          },
-        ],
-      },
-      { text: '\n', fontSize: 12 },
-      {
-        columns: [
-          { text: 'REFERÊNCIA: ' + nameMonth(ticket.mes) + "/" + ticket.ano, width: 'auto' },
-        ],
-      },
-      {
-        text: 'Lista de Datas:',
-        fontSize: 14,
-        bold: true,
-        margin: [0, 10, 0, 5],
-      },
-      {
-        fontSize: 12,
-        ul: stringToArray(ticket.datas),
-      },
-      {
-        canvas: [
-          {
-            type: 'line',
-            x1: 0,
-            y1: 5,
-            x2: 500,
-            y2: 5,
-            lineWidth: 2,
-            lineColor: '#000',
-          },
-        ],
-      },
-      {
-        text: `Valor Total: R$ ` + ticket.soma_total.toLocaleString('pt-BR', {
-          style: 'currency',
-          currency: 'BRL'
-        }),  
-        fontSize: 16,
-        bold: true,
-        alignment: 'center',
-        margin: [0, 10],
-      },
-      { text: '\n\n\n\n', fontSize: 12 },
-    ])),
+  let card = {}
+  if(tickets !== "" && tickets !== null){
+    card = {
+      content: tickets.map((ticket, index) => ([
+        {
+          columns: [
+            {
+              image: LogoImg,
+              fit: [50, 50],
+              alignment: 'left',
+            },
+            {
+              text: 'Programação de Refeição',
+              fontSize: 18,
+              bold: true,
+              alignment: 'left',
+              margin: [10, 10],
+            },
+          ],
+        },
+        { text: '\n', fontSize: 12 },
+        {
+          columns: [
+            { text: 'REFERÊNCIA: ' + nameMonth(ticket.mes) + "/" + ticket.ano, width: 'auto' },
+          ],
+        },
+        {
+          text: 'Lista de Datas:',
+          fontSize: 14,
+          bold: true,
+          margin: [0, 10, 0, 5],
+        },
+        {
+          fontSize: 12,
+          ul: stringToArray(ticket.datas),
+        },
+        {
+          canvas: [
+            {
+              type: 'line',
+              x1: 0,
+              y1: 5,
+              x2: 500,
+              y2: 5,
+              lineWidth: 2,
+              lineColor: '#000',
+            },
+          ],
+        },
+        {
+          text: `Valor Total: R$ ` + ticket.soma_total.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          }),  
+          fontSize: 16,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 10],
+        },
+        { text: '\n\n\n\n', fontSize: 12 },
+      ])),
+    }
   }
+  
   return card
 }
